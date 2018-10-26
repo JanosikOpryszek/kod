@@ -12,6 +12,7 @@ class Student
 {
 private:
     int id;
+    int *tab=new int[100];
 public:
     int get_id() {return id;};
     void set_id(int value) {id=value;};
@@ -53,8 +54,8 @@ std::list<Student>::iterator lsit;
 int main()
 {
 
-std::cout <<"Roznice w predkosci PUSH BACK na vektorze i liscie, rozne typy danych"<<endl;
-std::cout<<"VECTOR"<<endl;
+std::cout <<"Roznice w predkosci PUSH BACK na vektorze i liscie"<<endl;
+std::cout<<"VECTOR:"<<endl;
 
 auto start = std::chrono::system_clock::now();          //TIME start
 
@@ -128,7 +129,7 @@ std::cout <<"vect inty czas: "<< elapsed.count() <<" "<<(el)/(el2/100)<<"%"<<'\n
 std::cout << "vect char czas: "<<elapsed2.count() << " 100%"<<'\n';
 std::cout << "vect clas czas: "<<elapsed3.count() << " "<<(el3)/(el2/100)<<"%"<<'\n';
 
-std::cout<<"LISTA"<<endl;
+std::cout<<"LISTA:"<<endl;
 std::cout <<"list inty czas: "<< elapsed4.count() << " "<<(el4)/(el2/100)<<"%"<<'\n';
 std::cout << "list char czas: "<<elapsed5.count() << " "<<(el5)/(el2/100)<<"%"<<'\n';
 std::cout << "list clas czas: "<<elapsed6.count() << " "<<(el6)/(el2/100)<<"%"<<'\n';
@@ -136,10 +137,10 @@ cout<<endl;
 
 
 //-----------------------------------------------------------------------------------
-std::cout<<"Roznice w predkosci FIND na vektorze i liscie, rozne typy danych" <<endl;
+std::cout<<"Roznice w predkosci FIND na vektorze i liscie" <<endl;
 //vektor find
 
-std::cout<<"VECTOR"<<endl;
+std::cout<<"VECTOR:"<<endl;
 auto start7 = std::chrono::system_clock::now();          //TIME start
 
 //for (int i=0;i<1000000;i++)
@@ -173,7 +174,7 @@ std::cout << "vect clas czas: "<<elapsed9.count() << " "<<'\n';
 
 //LISTA FIND:
 
-std::cout<<"LISTA"<<endl;
+std::cout<<"LISTA:"<<endl;
 auto start10 = std::chrono::system_clock::now();          //TIME start
 
 //for (int i=0;i<1000000;i++)
@@ -209,12 +210,12 @@ std::cout << "list clas czas: "<<elapsed12.count() << " "<<'\n';
 
 
 cout<<endl;
-std::cout<<"Roznice w predkosci INSERT na vektorze i liscie, rozne typy danych" <<endl;
+std::cout<<"Roznice w predkosci INSERT na vektorze i liscie," <<endl;
 
 //vektor Insert
 
 
-std::cout<<"VECTOR"<<endl;
+std::cout<<"VECTOR:"<<endl;
 iit=vectorint.begin()+500000;    //rand()%99999;
 auto start13 = std::chrono::system_clock::now();          //TIME start
 
@@ -248,7 +249,7 @@ auto elapsed15 = end15 - start15;
 std::cout << "vect clas czas: "<<elapsed15.count() << " "<<'\n';
 
 
-std::cout<<"LISTA"<<endl;
+std::cout<<"LISTA:                     (szuka lokalizacja 500000-go iteratora)"<<endl;
 
 //LISTA INSERT:
 
@@ -290,6 +291,46 @@ auto elapsed18 = end18 - start18;
 std::cout << "list clas czas: "<<elapsed18.count() << " "<<'\n';
 
 
+
+//LISTA INSERT wyliczenie bez zmiany iteratora:
+cout<<"LISTA:                     (tylko insert bez szukania iteratora)"<<endl;
+
+//liit=listint.begin();
+
+
+auto start19 = std::chrono::system_clock::now();          //TIME start
+
+//for (int i=0;i<500000;i++)
+    liit++;
+listint.insert(liit,100);
+
+auto end19 = std::chrono::system_clock::now();          //TIME end
+auto elapsed19 = end19 - start19;
+std::cout << "list inty czas: "<<elapsed19.count() << " "<<'\n';
+
+
+//lcit=listchar.begin();
+auto start20 = std::chrono::system_clock::now();          //TIME start
+
+//for (int i=0;i<500000;i++)
+    lcit++;
+listchar.insert(lcit,'b');
+
+auto end20 = std::chrono::system_clock::now();          //TIME end
+auto elapsed20 = end20 - start20;
+std::cout << "list char czas: "<<elapsed20.count() << " "<<'\n';
+
+
+//lsit=mojlist.begin();
+auto start21 = std::chrono::system_clock::now();          //TIME start
+
+//for (int i=0;i<1000000;i++)
+    lsit++;
+mojlist.insert(lsit,111);
+
+auto end21 = std::chrono::system_clock::now();          //TIME end
+auto elapsed21 = end21 - start21;
+std::cout << "list clas czas: "<<elapsed21.count() << " "<<'\n';
 
 
 
