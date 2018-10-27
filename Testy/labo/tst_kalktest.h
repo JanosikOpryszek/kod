@@ -13,5 +13,5 @@ TEST(kalktest, suma)
     kalkulator kalk;
     //EXPECT_EQ(1, 1);
     ASSERT_EQ(kalk.suma(2,3),5);
-    ASSERT_EQ(kalk.dzielenie(8,2),3);
+    ASSERT_EQ(kalk.dzielenie(8,0),0);
 }
