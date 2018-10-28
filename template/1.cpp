@@ -1,6 +1,6 @@
 #include<iostream>
 #include<vector>
-//using namespace std;
+using namespace std;
 
 template<typename Char>
 class String {
@@ -9,7 +9,7 @@ String() {}                     //konstruktor
 
 String(const std::string &a)    //konstruktor parametrowy
 {
-std:copy( a.begin(), a.end(), back_inserter(mojvector) );
+    std::copy( a.begin(), a.end(), back_inserter(mojvector) );
 }
 
 
@@ -46,6 +46,7 @@ std::vector<char> mojvector;           //Pole
 
 int main()
 {
+
 
 String<char> a;    //tworzymy obiekt a
 a+='a';            //przeci¹zonym operatorem += dodajemy elementy
