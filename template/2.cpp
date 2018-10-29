@@ -12,6 +12,8 @@ Array()
 }    
 std::vector<D> mojav;
 std::array<D,T> mojaa;
+int it=0;
+
 
 D& operator[] (int n)
 {
@@ -26,7 +28,7 @@ void operator+=(D zm)
 if(heap)
     mojav.push_back(zm);
 else
-    mojaa[0]=zm;
+    mojaa[it++]=zm;
 }
 
 
@@ -61,7 +63,7 @@ aaa+=10;
 aaa+=20;
 aaa+=30;
 
-std::cout<<aaa.begin()<<std::endl;
+std::cout<<aaa[2]<<std::endl;
 
 
 return 0;
