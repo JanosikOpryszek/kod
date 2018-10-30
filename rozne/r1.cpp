@@ -8,8 +8,7 @@
 
 using namespace std;
 
-
-//https://pl.wikibooks.org/wiki/Kody_%C5%BAr%C3%B3d%C5%82owe/Obserwator_(wzorzec_projektowy)
+//  EXAMPLE    OBSERWER + multithread 
 
 
 class Obserwator {
