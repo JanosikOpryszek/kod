@@ -8,7 +8,7 @@
 
 using namespace std;
 
-//                         EXAMPLE   komponent - INTERFACE - dependency komponent 
+//                         EXAMPLE   komponent - INTERFACE - dependency komponent + MULTITHREAD
 //                          odwrotnie interface -> interfacedep  
 
 class Interface {
@@ -28,7 +28,7 @@ public:
     {
     id+=1;
     cout<<id<<endl;                                    
-   std::this_thread::sleep_for(std::chrono::milliseconds(100));
+//   std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
     };
 };
@@ -45,7 +45,7 @@ public:
     {
     id-=1;
     cout<<id<<endl;                                    
-   std::this_thread::sleep_for(std::chrono::milliseconds(100));
+//   std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
     };
 };
@@ -74,6 +74,54 @@ class Komponent1:public InterfaceDep                      //komponent with inter
         for (it = obserwatorzy.begin(); it != obserwatorzy.end(); it++) 
             (*it)->pracuj ();
         }
+
+void wyswietl()
+{
+
+int licz=48;
+bool flag=1;
+while(1)
+{
+
+if (flag)
+    {
+    if(licz<50)
+        {
+        licz++;
+        if(licz==49)
+            flag=0;
+        }
+    }
+else
+    {
+    if(licz>0)
+        {
+        licz--;
+        if(licz==1)
+            flag=1;
+        }
+    }
+
+
+for(int i=0;i<licz;i++)
+    cout<<"XX";
+
+cout<<endl;
+std::this_thread::sleep_for(std::chrono::milliseconds(100));
+}
+}
+
+
+
+    void pracuj()
+    {
+    while(1)
+        {
+   std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    this->inform();
+        }
+    }
+
 };
 
 
@@ -86,7 +134,8 @@ Komponent1* mojkomponent=new Komponent1();              //create ob Komponentu1 
 Interface* mojstudent=new Student();         //create ob Student in  InterfaceDep type
 Interface* mojprofesor=new Profesor();         //create ob Profesor in  InterfaceDep type
 
-
+//std::thread thd(&Interface, mojstudent);
+//std::thread thd2(*mojprofesor);
 
 mojkomponent->dodaj(mojstudent);                           //register next dependency object in komponent with interface list
 mojkomponent->dodaj(mojprofesor);                           //register next dependency object in komponent with interface list
@@ -98,13 +147,42 @@ mojkomponent->dodaj(mojprofesor);                           //register next depe
 
 
 
+std::thread th(&Komponent1::pracuj, mojkomponent);
+
+std::thread th2(&Komponent1::wyswietl, mojkomponent);
+
+int licz=0;
+bool flag=1;
 while(1)
 {
-cout<<"odliczanie:" <<endl;
 
-   std::this_thread::sleep_for(std::chrono::milliseconds(100));
-   mojkomponent->inform();
+if (flag)
+    {
+    if(licz<50)
+        {
+        licz++;
+        if(licz==49)
+            flag=0;
+        }
+    }
+else
+    {
+    if(licz>0)
+        {
+        licz--;
+        if(licz==1)
+            flag=1;
+        }
+    }
+
+
+for(int i=0;i<licz;i++)
+    cout<<"*";
+
+cout<<endl;
+std::this_thread::sleep_for(std::chrono::milliseconds(100));
 }
+
 
 
 return 0;
