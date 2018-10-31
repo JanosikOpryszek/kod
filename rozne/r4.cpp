@@ -11,13 +11,13 @@ using namespace std;
 //                         EXAMPLE   komponent - INTERFACE - dependency komponent 
 //                          odwrotnie interface -> interfacedep  
 
-class InterfaceDep {
+class Interface {
     public:
     virtual void pracuj()=0;
 };
 
 
-class Student: public InterfaceDep                       //interface dependency, student's method pracuj is runing by interface
+class Student: public Interface                       //interface dependency, student's method pracuj is runing by interface
 {
 public:
     int id=0;
@@ -34,7 +34,7 @@ public:
 };
 
 
-class Profesor: public InterfaceDep                       //second interface dependency, Profesor's method pracuj is runing by interface
+class Profesor: public Interface                       //second obj. with interface
 {
 public:
     int id=0;
@@ -52,25 +52,25 @@ public:
 
 
 
-class Interface1 {                                       //Interface (remeber list of dependent object)
+class InterfaceDep {                                       //DepInterface (remeber list of obiect with inter.)
 
 protected:
-    std::list <InterfaceDep*> obserwatorzy;
+    std::list <Interface*> obserwatorzy;
 public:
-    void dodaj(InterfaceDep *o) {
+    void dodaj(Interface *o) {
         obserwatorzy.push_back (o);
     }
-    void usun(InterfaceDep *o) {
+    void usun(Interface *o) {
         obserwatorzy.remove (o);
     }
 };
 
-class Komponent1:public Interface1                      //komponent with interface 
+class Komponent1:public InterfaceDep                      //komponent  Dependent from interface 
 {
     public:
     void inform()
         {                            
-        std::list<InterfaceDep *>::iterator it;
+        std::list<Interface *>::iterator it;
         for (it = obserwatorzy.begin(); it != obserwatorzy.end(); it++) 
             (*it)->pracuj ();
         }
@@ -83,8 +83,8 @@ int main()
 
 Komponent1* mojkomponent=new Komponent1();              //create ob Komponentu1 with interface
 
-InterfaceDep* mojstudent=new Student();         //create ob Student in  InterfaceDep type
-InterfaceDep* mojprofesor=new Profesor();         //create ob Profesor in  InterfaceDep type
+Interface* mojstudent=new Student();         //create ob Student in  InterfaceDep type
+Interface* mojprofesor=new Profesor();         //create ob Profesor in  InterfaceDep type
 
 
 
