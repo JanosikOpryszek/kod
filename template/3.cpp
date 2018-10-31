@@ -32,16 +32,17 @@ return *(iteratory[rz]+nr);
 
 
 friend ostream& operator<< (ostream& out, const Matrix& obj) {                                   //przeciazony operator <<
-string aa;
+out<<"matryca:"<<endl;
 
-for(int i=0; i<3;i++)
+for(int i=0; i<N;i++)
 {
-for( int j=0;j<3;j++)
+    for( int j=0;j<M;j++)
     {
-      aa.push_back(obj.matryca[i][j]); 
+      out<<obj.matryca[i][j]; 
+      out<<",";
     }
+out<<endl;
 }
-out<<aa;                                               // TUTAJ DO POPRAWKI !!!!!!!!!!!!!!!!!
 return out;
 }
 
@@ -70,22 +71,14 @@ aaa.matryca[2][1]=17;
 aaa.matryca[2][2]=18;
 aaa.matryca[2][3]=99;
 
-cout<<"Ilosc rzedow: "<<aaa.matryca.size()<<endl;
-cout<<"Ilosc elementow w rzedzie: "<<aaa.matryca[0].size()<<endl;
 
 
-
-cout<<"wartosc wpisana  [2]  "<<endl;
+cout<<"cout << obiekt"<<endl;
 cout<<aaa<<endl;
 
-/*
-cout<<"wartosc wpisana  [3]  "<<endl;
-aaa[3];
+cout<<"cout << aaa[4]"<<endl;
+cout<<(aaa[4])<<endl;;
 
-
-cout<<"wartosc wpisana  [4]  "<<endl;
-aaa[4];
-*/
 return 0;
 }
 
