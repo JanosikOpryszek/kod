@@ -34,7 +34,7 @@ public:
 };
 
 
-class Profesor: public Interface                       //second interface dependency, Profesor's method pracuj is runing by interface
+class Profesor: public Interface                       //second obj. with interface
 {
 public:
     int id=0;
@@ -52,7 +52,7 @@ public:
 
 
 
-class InterfaceDep {                                       //Interface (remeber list of dependent object)
+class InterfaceDep {                                       //DepInterface (remeber list of obiect with inter.)
 
 protected:
     std::list <Interface*> obserwatorzy;
@@ -65,7 +65,7 @@ public:
     }
 };
 
-class Komponent1:public InterfaceDep                      //komponent with interface 
+class Komponent1:public InterfaceDep                      //komponent  Dependent from interface 
 {
     public:
     void inform()
