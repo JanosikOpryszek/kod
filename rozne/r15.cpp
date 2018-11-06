@@ -3,7 +3,7 @@
 #include<list>
 #include<algorithm>
 #include<stdlib.h>
-//#include <thread>
+#include <thread>
 #include<pthread.h>
 #include <string>
 #include<unistd.h>  // sleep
@@ -109,8 +109,8 @@ for(int i=0;i<licz;i++)
     cout<<"XX";
 
 cout<<endl;
-//std::this_thread::sleep_for(std::chrono::milliseconds(100));
-sleep(1);
+std::this_thread::sleep_for(std::chrono::milliseconds(100));
+//sleep(1);
 }
 }
 
@@ -120,8 +120,8 @@ sleep(1);
     {
     while(1)
         {
-//   std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    sleep(1);
+   std::this_thread::sleep_for(std::chrono::milliseconds(100));
+//    sleep(1);
     inform();
         }
     }
@@ -200,8 +200,8 @@ for(int i=0;i<licz;i++)
     cout<<"*";
 
 cout<<endl;
-//std::this_thread::sleep_for(std::chrono::milliseconds(100));
-sleep(1);
+std::this_thread::sleep_for(std::chrono::milliseconds(100));
+//sleep(1);
 }
 
 
