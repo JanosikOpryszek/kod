@@ -9,7 +9,7 @@
 #include<unistd.h>  // sleep
 
 using namespace std;
-//                                    Multithread wersja POSIX  dodanie STATYCZNEJ metody
+//                                    Multithread wersja POSIX  dodanie rzutowania zamiast statycznych
 //                         EXAMPLE   komponent - INTERFACE - dependency komponent + MULTITHREAD
 //                          odwrotnie interface -> interfacedep  
 
@@ -19,7 +19,7 @@ class Interface {
 };
 
 
-class Student: public Interface                       //interface dependency, student's method pracuj is runing by interface
+class Student: public Interface        //interface obserwator, student's method pracuj is runing by interface
 {
 public:
     int id=0;
@@ -36,7 +36,7 @@ public:
 };
 
 
-class Profesor: public Interface                       //second interface dependency, Profesor's method pracuj is runing by interface
+class Profesor: public Interface       //interface obserwator, Profesor's method pracuj is runing by interface
 {
 public:
     int id=0;
@@ -54,7 +54,7 @@ public:
 
 
 
-class InterfaceDep {                                       //Interface (remeber list of dependent object)
+class InterfaceDep {                          //InterfaceDep (remeber list of obserwator object)
 
 protected:
     std::list <Interface*> obserwatorzy;
@@ -67,7 +67,7 @@ public:
     }
 };
 
-class Komponent1:public InterfaceDep                      //komponent with interface 
+class Komponent1:public InterfaceDep                      //komponent with interfaceDep
 {
     public:
     void inform()
@@ -77,7 +77,26 @@ class Komponent1:public InterfaceDep                      //komponent with inter
             (*it)->pracuj ();
         }
 
-void *wyswietl()
+void *wyswietl();
+
+
+
+    void *pracuj()
+    {
+    while(1)
+        {
+   std::this_thread::sleep_for(std::chrono::milliseconds(100));
+//    sleep(1);
+    inform();
+        }
+    return NULL;
+    }
+
+};
+
+
+
+void * Komponent1::wyswietl()
 {
 
 int licz=48;
@@ -112,37 +131,18 @@ cout<<endl;
 std::this_thread::sleep_for(std::chrono::milliseconds(100));
 //sleep(1);
 }
+return NULL;
 }
 
 
 
-    void *pracuj()
-    {
-    while(1)
-        {
-   std::this_thread::sleep_for(std::chrono::milliseconds(100));
-//    sleep(1);
-    inform();
-        }
-    }
 
+// zamiast metod statycznych tworzymy typ (rzutujemy wskaznik na funkcje na obiekt)
+// https://thispointer.com/c-how-to-pass-class-member-function-to-pthread_create/
+typedef void * (*THREADFUNCPTR)(void *);
 
-// dodanie metod statycznych (i zamiana metod pracuj i wyswietl na wskaznikowe funkcje)
-// https://stackoverflow.com/questions/1151582/pthread-function-from-a-class
+//zamiast tego typu mozna rzutowac  (void *(*)(void*)) 
 
-static void *pracujss(void *context)
-{
-return ((Komponent1 *)context)->pracuj();
-}
-
-
-static void *wyswietlss (void *context)
-{
-return ((Komponent1 *)context)->wyswietl();
-}
-
-
-};
 
 
 
@@ -155,21 +155,22 @@ Interface* mojstudent=new Student();         //create ob Student in  InterfaceDe
 Interface* mojprofesor=new Profesor();         //create ob Profesor in  InterfaceDep type
 
 
-mojkomponent->dodaj(mojstudent);                           //register next dependency object in komponent with interface list
-mojkomponent->dodaj(mojprofesor);                           //register next dependency object in komponent with interface list
+mojkomponent->dodaj(mojstudent);              //register next dependency object in komponent with interface list
+mojkomponent->dodaj(mojprofesor);            //register next dependency object in komponent with interface list
 
 
 
 
-//zamiana watkow c++11  na  POSIX    STATYCZNE metody
+//zamiana watkow c++11  na  POSIX    RZUTOWANIE
 //std::thread th(&Komponent1::pracuj, mojkomponent);
 //std::thread th2(&Komponent1::wyswietl, mojkomponent);
-pthread_t  thread_id;
-pthread_t  thread_id2;
+pthread_t thread_id;
+pthread_t thread_id2;
 
 //POSIX nie potrafi wywolac metod obiektow, wiec wywoluje statyczne
-pthread_create(&thread_id,NULL,&Komponent1::pracujss,mojkomponent);
-pthread_create(&thread_id2,NULL,&Komponent1::wyswietlss,mojkomponent);
+pthread_create(&thread_id,NULL,(void*(*)(void*))&Komponent1::pracuj,mojkomponent);
+
+pthread_create(&thread_id2,NULL,(void*(*)(void*))&Komponent1::wyswietl,mojkomponent);
 
 int licz=0;
 bool flag=1;
@@ -203,7 +204,6 @@ cout<<endl;
 std::this_thread::sleep_for(std::chrono::milliseconds(100));
 //sleep(1);
 }
-
 
 
 return 0;
