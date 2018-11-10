@@ -1,1 +1,0 @@
-/usr/bin/c++    -rdynamic CMakeFiles/przyklad.dir/main.cpp.o CMakeFiles/przyklad.dir/apl/timemaster.cpp.o CMakeFiles/przyklad.dir/driver/ethernet.cpp.o CMakeFiles/przyklad.dir/rte/communicationmanager.cpp.o CMakeFiles/przyklad.dir/service/router.cpp.o  -o przyklad 
