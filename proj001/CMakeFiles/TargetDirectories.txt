@@ -1,3 +1,0 @@
-/home/marcin/kod/proj001/CMakeFiles/rebuild_cache.dir
-/home/marcin/kod/proj001/CMakeFiles/przyklad.dir
-/home/marcin/kod/proj001/CMakeFiles/edit_cache.dir
