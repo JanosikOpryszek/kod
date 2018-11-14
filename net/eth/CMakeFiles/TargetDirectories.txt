@@ -1,3 +1,0 @@
-/home/marcin/kod/net/eth/CMakeFiles/rebuild_cache.dir
-/home/marcin/kod/net/eth/CMakeFiles/eth.dir
-/home/marcin/kod/net/eth/CMakeFiles/edit_cache.dir

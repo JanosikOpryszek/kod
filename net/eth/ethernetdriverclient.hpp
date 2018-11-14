@@ -20,6 +20,10 @@ namespace drv
 class Ethernetdriverclient:public pub::Interface
     {
     public:
+
+    //class variables
+    static pthread_mutex_t mutexeth;
+    
     //========================================
     /// @brief     <init after deinit, its not initialization!>
     /// @param     [IN]  <void>

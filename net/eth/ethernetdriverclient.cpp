@@ -8,12 +8,15 @@
 /// @ingroup     <drv>
 /// @brief       <sending msg to antoher ecu by ethernet>
 
+#include<pthread.h>
 #include<iostream>
 #include<unistd.h>  // sleep
 #include"ethernetdriverclient.hpp"
 
 namespace drv
 {
+
+pthread_mutex_t Ethernetdriverclient::mutexeth;
 
 int Ethernetdriverclient::init()
     {
@@ -32,8 +35,10 @@ void *Ethernetdriverclient::initialize()
     {
     while(1)
         {
+        pthread_mutex_lock( &mutexeth ); 
         std::cout<<" CLIENT CLIENT"<<std::endl;
         sleep(1);
+        pthread_mutex_unlock( &mutexeth ); 
         }
     
     return 0;
