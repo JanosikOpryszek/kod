@@ -5,7 +5,7 @@
 #include <sys/socket.h>
 
 #define SERWER_PORT 8888
-#define SERWER_IP "127.0.0.1"
+#define SERWER_IP "192.168.159.160"
 
 
 int main()
