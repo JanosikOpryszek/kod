@@ -4,26 +4,26 @@
 // Copyright <2018> GlobalLogic
 //
 //=============================================================================
-/// @file        <ethernetdriverserver.hpp>
+/// @file        <ethernetdriverclient.hpp>
 /// @ingroup     <drv>
-/// @brief       <receive msg from antoher ecu by ethernet>
+/// @brief       <sending msg to antoher ecu by ethernet>
 
 
-#ifndef ETHERNETDRIVERSERVER_HPP
-#define ETHERNETDRIVERSERVER_HPP
+#ifndef ETHERNETDRIVERCLIENT_HPP
+#define ETHERNETDRIVERCLIENT_HPP
 
 #include"interface.hpp"
 
 namespace drv
 {
 
-
-class Ethernetdriverserver:public pub::Interface
+class Ethernetdriverclient:public pub::Interface
     {
     public:
-    //static variable
-    static pthread_mutex_t mutexeth;
 
+    //class variables
+    static pthread_mutex_t mutexeth;
+    
     //========================================
     /// @brief     <init after deinit, its not initialization!>
     /// @param     [IN]  <void>
@@ -49,12 +49,6 @@ class Ethernetdriverserver:public pub::Interface
     void *initialize(void);
 
 
-    //========================================
-    /// @brief     <initialize pthread run method>
-    /// @param     [IN]  <>
-    /// @param     [OUT] <>
-    /// @return    <>
-    //========================================
     static void *initializess(void *);
 
 
@@ -62,7 +56,7 @@ class Ethernetdriverserver:public pub::Interface
 
 }     //namespace drv
 
-#endif //ETHERNETDRIVERSERVER_HPP
+#endif //ETHERNETDRIVERCLIENT_HPP
 
 
 
