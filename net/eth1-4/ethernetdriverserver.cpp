@@ -58,7 +58,7 @@ void *Ethernetdriverserver::initialize()
 
     //2 ACTIVATE STRUCTURE serwer JA
     server.sin_family      = AF_INET;
-    server.sin_addr.s_addr = inet_addr("192.168.0.190");
+    server.sin_addr.s_addr = inet_addr("192.168.0.193");
     server.sin_port        = htons(9734); // port
 
     socklen_t len = sizeof( server );
@@ -103,17 +103,17 @@ void Ethernetdriverserver::send(char tab[])
 
     //2 ACTIVATE STRUCTURE client1
     client1.sin_family      = AF_INET;
-    client1.sin_addr.s_addr = inet_addr("192.168.0.191");
+    client1.sin_addr.s_addr = inet_addr("192.168.0.190");
     client1.sin_port        = htons(9734); // port
 
     //2 ACTIVATE STRUCTURE client2
     client2.sin_family      = AF_INET;
-    client2.sin_addr.s_addr = inet_addr("192.168.0.192");
+    client2.sin_addr.s_addr = inet_addr("192.168.0.191");
     client2.sin_port        = htons(9734); // port
 
     //2 ACTIVATE STRUCTURE client3
     client3.sin_family      = AF_INET;
-    client3.sin_addr.s_addr = inet_addr("192.168.0.193");
+    client3.sin_addr.s_addr = inet_addr("192.168.0.192");
     client3.sin_port        = htons(9734); // port
 
 
