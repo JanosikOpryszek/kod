@@ -68,6 +68,8 @@ class Ethernetdriverserver:public pub::Interface
 private:
     static int server_sockfd;          
     static int server_sockfd2;          
+    static int server_sockfd3;          
+    static int server_sockfd4;          
     static char bufferSS[ 4096 ];      //send
     static char bufferRR[ 4096 ];      //recieve
     static struct sockaddr_in server; 

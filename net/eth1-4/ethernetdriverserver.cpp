@@ -26,6 +26,8 @@ namespace drv
 
     int Ethernetdriverserver::server_sockfd;          
     int Ethernetdriverserver::server_sockfd2;          
+    int Ethernetdriverserver::server_sockfd3;          
+    int Ethernetdriverserver::server_sockfd4;          
     char Ethernetdriverserver::bufferSS[ 4096 ];      //send
     char Ethernetdriverserver::bufferRR[ 4096 ];      //recieve
     sockaddr_in Ethernetdriverserver::server;
@@ -58,8 +60,8 @@ void *Ethernetdriverserver::initialize()
 
     //2 ACTIVATE STRUCTURE serwer JA
     server.sin_family      = AF_INET;
-    server.sin_addr.s_addr = inet_addr("192.168.0.193");
-    server.sin_port        = htons(9743); // port
+    server.sin_addr.s_addr = inet_addr("192.168.0.190");
+    server.sin_port        = htons(9740); // port
 
     socklen_t len = sizeof( server );
 
@@ -98,31 +100,36 @@ void *Ethernetdriverserver::initializess(void *context)
 void Ethernetdriverserver::send(char tab[])
     {
 
-    // (1) socket create for client
+    // (1) socket create for client2
     server_sockfd2 = socket(AF_INET,SOCK_DGRAM,0);       
 
+    // (1) socket create for client3
+    server_sockfd3 = socket(AF_INET,SOCK_DGRAM,0);       
+    // (1) socket create for client4
+    server_sockfd4 = socket(AF_INET,SOCK_DGRAM,0);       
+ 
     //2 ACTIVATE STRUCTURE client1
     client1.sin_family      = AF_INET;
-    client1.sin_addr.s_addr = inet_addr("192.168.0.190");
-    client1.sin_port        = htons(9740); // port
+    client1.sin_addr.s_addr = inet_addr("192.168.0.191");
+    client1.sin_port        = htons(9741); // port
 
     //2 ACTIVATE STRUCTURE client2
     client2.sin_family      = AF_INET;
-    client2.sin_addr.s_addr = inet_addr("192.168.0.191");
-    client2.sin_port        = htons(9741); // port
+    client2.sin_addr.s_addr = inet_addr("192.168.0.192");
+    client2.sin_port        = htons(9742); // port
 
     //2 ACTIVATE STRUCTURE client3
     client3.sin_family      = AF_INET;
-    client3.sin_addr.s_addr = inet_addr("192.168.0.192");
-    client3.sin_port        = htons(9742); // port
+    client3.sin_addr.s_addr = inet_addr("192.168.0.193");
+    client3.sin_port        = htons(9743); // port
 
 
     socklen_t len2  = sizeof(client1 );
     strcpy (bufferSS,tab);
 
     sendto( server_sockfd2, bufferSS, strlen( bufferSS ), 0,( struct sockaddr * ) & client1, len2);
-    sendto( server_sockfd2, bufferSS, strlen( bufferSS ), 0,( struct sockaddr * ) & client2, len);
-    sendto( server_sockfd2, bufferSS, strlen( bufferSS ), 0,( struct sockaddr * ) & client3, len);
+    sendto( server_sockfd3, bufferSS, strlen( bufferSS ), 0,( struct sockaddr * ) & client2, len2);
+    sendto( server_sockfd4, bufferSS, strlen( bufferSS ), 0,( struct sockaddr * ) & client3, len2);
     memset( bufferSS, 0, sizeof( bufferSS ) );
     } //Ethernetdriverserver::send
 
