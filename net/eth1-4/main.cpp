@@ -24,7 +24,7 @@ pthread_create(&thread_id,NULL,&Ethernetdriverserver::initializess,myethserver);
 
 
 
-char tekst[]="wyslane z 193";
+char tekst[]="wyslane z 190";
 while(1)
 {
 myethserver->send(tekst);

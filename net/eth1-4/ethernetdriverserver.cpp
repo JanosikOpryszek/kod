@@ -58,7 +58,7 @@ void *Ethernetdriverserver::initialize()
 
     //2 ACTIVATE STRUCTURE serwer JA
     server.sin_family      = AF_INET;
-    server.sin_addr.s_addr = inet_addr("192.168.0.193");
+    server.sin_addr.s_addr = inet_addr("192.168.0.190");
     server.sin_port        = htons(9734); // port
 
     socklen_t len = sizeof( server );
@@ -108,21 +108,21 @@ void Ethernetdriverserver::send(char tab[])
 
     //2 ACTIVATE STRUCTURE client2
     client2.sin_family      = AF_INET;
-    client2.sin_addr.s_addr = inet_addr("192.168.0.190");
-    client2.sin_port        = htons(9700); // port
+    client2.sin_addr.s_addr = inet_addr("192.168.0.192");
+    client2.sin_port        = htons(9734); // port
 
     //2 ACTIVATE STRUCTURE client3
     client3.sin_family      = AF_INET;
-    client3.sin_addr.s_addr = inet_addr("192.168.0.192");
-    client3.sin_port        = htons(9700); // port
+    client3.sin_addr.s_addr = inet_addr("192.168.0.193");
+    client3.sin_port        = htons(9734); // port
 
 
     socklen_t len2  = sizeof(client1 );
     strcpy (bufferSS,tab);
 
     sendto( server_sockfd2, bufferSS, strlen( bufferSS ), 0,( struct sockaddr * ) & client1, len2);
-    sendto( server_sockfd, bufferSS, strlen( bufferSS ), 0,( struct sockaddr * ) & client2, len);
-    sendto( server_sockfd, bufferSS, strlen( bufferSS ), 0,( struct sockaddr * ) & client3, len);
+    sendto( server_sockfd2, bufferSS, strlen( bufferSS ), 0,( struct sockaddr * ) & client2, len);
+    sendto( server_sockfd2, bufferSS, strlen( bufferSS ), 0,( struct sockaddr * ) & client3, len);
     memset( bufferSS, 0, sizeof( bufferSS ) );
     } //Ethernetdriverserver::send
 
