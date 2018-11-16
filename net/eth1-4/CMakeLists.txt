@@ -5,8 +5,11 @@ SET(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++98 -Lpthread")
 find_package (Threads)
 add_executable (pr 
     main.cpp
-    ethernetdriverserver.cpp
-    ethernetdriverserver.cpp
-    interface.hpp
+    Ethernetdriverserver.cpp
+    Ethernetdriverserver.cpp
+    eErrorCodes.h
+    IDriver.h
+    Iethernet.hpp
+    IEthernetdriverserver.hpp
     )
 target_link_libraries (pr ${CMAKE_THREAD_LIBS_INIT})

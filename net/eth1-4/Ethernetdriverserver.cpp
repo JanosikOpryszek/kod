@@ -4,26 +4,24 @@
 // Copyright <2018> GlobalLogic
 //
 //=============================================================================
-/// @file        <ethernetdriverserver.cpp>
+/// @file        <Ethernetdriverserver.cpp>
 /// @ingroup     <drv>
 /// @brief       <receive msg from antoher ecu by ethernet>
 
 #include<pthread.h>
 #include<iostream>
 #include<unistd.h>  // sleep
-
-#include <stdlib.h> // exit()             ??
 #include <string.h> // memset strlen
 #include <arpa/inet.h> // inet_pton inet_addr
 #include <sys/socket.h> // AF_UNIX
-#include <netinet/in.h> // sockaddr_in    ??
+#include"Ethernetdriverserver.hpp"
 
-#include"ethernetdriverserver.hpp"
 namespace drv
 {
 
-    pthread_mutex_t Ethernetdriverserver::mutexeth;
-
+    pthread_mutex_t Ethernetdriverserver::mutexeth;     //mutex for pause & resume
+    pthread_t Ethernetdriverserver::thread_id;          //thread for main loop
+    eErrorCodes Ethernetdriverserver::retEr;          //variable to return errorcode
     int Ethernetdriverserver::server_sockfd;          
     int Ethernetdriverserver::server_sockfd2;          
     int Ethernetdriverserver::server_sockfd3;          
@@ -37,57 +35,96 @@ namespace drv
     sockaddr_in Ethernetdriverserver::from;
     socklen_t Ethernetdriverserver::len;
     socklen_t Ethernetdriverserver::len2;
+    //add pointer to configurator
+    //add pointer to logger
+    //add pointer to msgveryfikator
 
-int Ethernetdriverserver::init()
+
+
+
+eErrorCodes Ethernetdriverserver::mStop()
     {
+    retEr=OK;
+    //stop for shutdown code...
+    return retEr;
+    }
+
+
+eErrorCodes Ethernetdriverserver::mResume()
+    {
+    retEr=OK;
     pthread_mutex_unlock( &Ethernetdriverserver::mutexeth );
-    return 0;
+    return retEr;
     }    //Ethernetdriverserver::init()
 
 
-int Ethernetdriverserver::deinit()
+eErrorCodes Ethernetdriverserver::mPause()
     {
+    retEr=OK;
     pthread_mutex_lock( &Ethernetdriverserver::mutexeth );
-    return 0;
+    return retEr;
     } //Ethernetdriverserver::deinit()
 
 
-void *Ethernetdriverserver::initialize()
+eErrorCodes Ethernetdriverserver::mRun()
     {
-    
+    retEr=OK;
+    //use configurator interface  and read config, set it code...
+    //
+    //start in thread inicialize main loop:
+    pthread_create(&Ethernetdriverserver::thread_id,NULL,&Ethernetdriverserver::initializess,this);
+    return retEr;
+    }
+
+
+eErrorCodes Ethernetdriverserver::setconfigurator()
+    {
+    retEr=OK;
+    //pass by methods argument pointer of pointer to configurator code...
+    return retEr;
+    }
+
+
+eErrorCodes Ethernetdriverserver::setlogger()
+    {
+    retEr=OK;
+    //pass by methods argument pointer of pointer to logger code...
+    return retEr;
+    }
+
+
+eErrorCodes Ethernetdriverserver::setmsgveryficator()
+    {
+    retEr=OK;
+    //pass by methods argument pointer of pointer to msgveryficator code...
+    return retEr;
+    }
+
+
+void *Ethernetdriverserver::initialize()    //void explen: - used static wrapper class to run pthreads
+    {
     // (1) socket create for serwer
     server_sockfd = socket(AF_INET,SOCK_DGRAM,0);       
 
-    //2 ACTIVATE STRUCTURE serwer JA
+    //2 ACTIVATE STRUCTURE serwer me
     server.sin_family      = AF_INET;
-    server.sin_addr.s_addr = inet_addr("192.168.0.190");
-    server.sin_port        = htons(9740); // port
+    server.sin_addr.s_addr = inet_addr("192.168.0.191");
+    server.sin_port        = htons(9741); // port
 
     socklen_t len = sizeof( server );
-
     bind( server_sockfd,( struct sockaddr * ) & server, len);
 
-    while(1)
+    while(1)                                                                   //main loop reading network
         {
-        //read();
-    memset( bufferRR, 0, sizeof( bufferRR ) );
-    sockaddr_in from={};
-    recvfrom( server_sockfd, bufferRR, sizeof( bufferRR ), 0,( struct sockaddr * ) & from, & len);
-    std::cout<<"Odczytane: "<<bufferRR<<std::endl;
-    // tu bedzie wywolywal metode msgmenagera zeby mu przekazac do kolejki
+        pthread_mutex_unlock( &Ethernetdriverserver::mutexeth );             //mutex for pause & resume
+        memset( bufferRR, 0, sizeof( bufferRR ) );
+        sockaddr_in from={};
+        recvfrom( server_sockfd, bufferRR, sizeof( bufferRR ), 0,( struct sockaddr * ) & from, & len);
+        std::cout<<"Odczytane: "<<bufferRR<<std::endl;
+        // CALL MSGVERYFICATOR INTERFACE HERE -  to pass MSG from network to ecu
+        pthread_mutex_lock( &Ethernetdriverserver::mutexeth );
         }
-    /*    
-    while(1)
-        {
-        pthread_mutex_lock( &mutexeth );
-        std::cout<<" SERVER "<<std::endl;
-        pthread_mutex_unlock( &mutexeth );
-        sleep(1);
-        }
-    */
-
     } //Ethernetdriverserver::intialize()
-
 
 
 void *Ethernetdriverserver::initializess(void *context)
@@ -96,13 +133,11 @@ void *Ethernetdriverserver::initializess(void *context)
     } //Ethernetdriverserver::initializess
 
 
-
-void Ethernetdriverserver::send(char tab[])
+eErrorCodes Ethernetdriverserver::send(char tab[])                   //public interface method to let sending msg in network
     {
-
+    retEr=OK;
     // (1) socket create for client2
     server_sockfd2 = socket(AF_INET,SOCK_DGRAM,0);       
-
     // (1) socket create for client3
     server_sockfd3 = socket(AF_INET,SOCK_DGRAM,0);       
     // (1) socket create for client4
@@ -110,19 +145,16 @@ void Ethernetdriverserver::send(char tab[])
  
     //2 ACTIVATE STRUCTURE client1
     client1.sin_family      = AF_INET;
-    client1.sin_addr.s_addr = inet_addr("192.168.0.191");
-    client1.sin_port        = htons(9741); // port
-
+    client1.sin_addr.s_addr = inet_addr("192.168.0.190");
+    client1.sin_port        = htons(9740); // port
     //2 ACTIVATE STRUCTURE client2
     client2.sin_family      = AF_INET;
     client2.sin_addr.s_addr = inet_addr("192.168.0.192");
     client2.sin_port        = htons(9742); // port
-
     //2 ACTIVATE STRUCTURE client3
     client3.sin_family      = AF_INET;
     client3.sin_addr.s_addr = inet_addr("192.168.0.193");
     client3.sin_port        = htons(9743); // port
-
 
     socklen_t len2  = sizeof(client1 );
     strcpy (bufferSS,tab);
@@ -131,17 +163,8 @@ void Ethernetdriverserver::send(char tab[])
     sendto( server_sockfd3, bufferSS, strlen( bufferSS ), 0,( struct sockaddr * ) & client2, len2);
     sendto( server_sockfd4, bufferSS, strlen( bufferSS ), 0,( struct sockaddr * ) & client3, len2);
     memset( bufferSS, 0, sizeof( bufferSS ) );
+    return retEr;
     } //Ethernetdriverserver::send
-
-
-
-void Ethernetdriverserver::read()
-    {
-//    memset( bufferRR, 0, sizeof( bufferRR ) );
-//    recvfrom( server_sockfd, bufferRR, sizeof( bufferRR ), 0,( struct sockaddr * ) & from, & len);
-//    std::cout<<"Odczytane: "<<bufferRR<<std::endl;
-    // tu bedzie wywolywal metode msgmenagera zeby mu przekazac do kolejki
-    } //Ethernetdriverserver::read
 
 
 } //namespace drv

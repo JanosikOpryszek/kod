@@ -4,7 +4,7 @@
 // Copyright <2018> GlobalLogic
 //
 //=============================================================================
-/// @file        <ethernetdriverserver.hpp>
+/// @file        <Ethernetdriverserver.hpp>
 /// @ingroup     <drv>
 /// @brief       <receive msg from antoher ecu by ethernet>
 
@@ -12,33 +12,74 @@
 #ifndef ETHERNETDRIVERSERVER_HPP
 #define ETHERNETDRIVERSERVER_HPP
 
-#include"interface.hpp"
+#include"IEthernetdriverserver.hpp"
+#include"Iethernet.hpp"
 
 namespace drv
 {
 
-
-class Ethernetdriverserver:public pub::Interface
+class Ethernetdriverserver:public pub::IEthernetdriverserver, drv::Iethernet 
     {
     public:
-    //static variable
-    static pthread_mutex_t mutexeth;
+    ~Ethernetdriverserver(){};
+    static pthread_mutex_t mutexeth;           //mutex for pause & resume
+    static pthread_t thread_id;                //thread for main loop 
 
     //========================================
     /// @brief     <init after deinit, its not initialization!>
     /// @param     [IN]  <void>
-    /// @param     [OUT] <enum-int>
+    /// @param     [OUT] <enum errorcode>
     /// @return    <errorcode>
     //========================================
-    int init();
+    eErrorCodes mResume();
 
     //========================================
     /// @brief     <deinit on reset>
     /// @param     [IN]  <void>
-    /// @param     [OUT] <enum-int>
+    /// @param     [OUT] <enum errorcoed>
     /// @return    <errorcode>
     //========================================
-    int deinit();
+    eErrorCodes mPause();
+
+    //========================================
+    /// @brief     <deinit on reset>
+    /// @param     [IN]  <void>
+    /// @param     [OUT] <enum-errorcode>
+    /// @return    <errorcode>
+    //========================================
+    eErrorCodes mStop();
+
+    //========================================
+    /// @brief     <set conf and starts iner thread>
+    /// @param     [IN]  <void>
+    /// @param     [OUT] <enum-errorcode>
+    /// @return    <errorcode>
+    //========================================
+    eErrorCodes mRun();
+
+    //========================================
+    /// @brief     <set pointer to configurator>
+    /// @param     [IN]  <configurator pointer>
+    /// @param     [OUT] <enum-errorcode>
+    /// @return    <errorcode>
+    //========================================
+    eErrorCodes setconfigurator();
+
+    //========================================
+    /// @brief     <set pointer to logger>
+    /// @param     [IN]  <logger pointer>
+    /// @param     [OUT] <enum-errorcode>
+    /// @return    <errorcode>
+    //========================================
+    eErrorCodes setlogger();
+
+    //========================================
+    /// @brief     <set pointer to msgveryfikator>
+    /// @param     [IN]  <msgveryficator pointer>
+    /// @param     [OUT] <enum-errorcode>
+    /// @return    <errorcode>
+    //========================================
+    eErrorCodes setmsgveryficator();
 
     //========================================
     /// @brief     <run from DrvMenager in pthread, its main working loop>
@@ -47,7 +88,6 @@ class Ethernetdriverserver:public pub::Interface
     /// @return    <errorcode>
     //========================================
     void *initialize(void);
-
 
     //========================================
     /// @brief     <initialize pthread run method>
@@ -60,12 +100,13 @@ class Ethernetdriverserver:public pub::Interface
     //========================================
     /// @brief     <send msg to ethernet>
     /// @param     [IN]  <char array with msg>
-    /// @param     [OUT] <void>
-    /// @return    <void>
+    /// @param     [OUT] <enumerrorcode>
+    /// @return    <errorcode>
     //========================================
-    void send(char []);
+    eErrorCodes send(char []);
 
 private:
+    static eErrorCodes retEr;
     static int server_sockfd;          
     static int server_sockfd2;          
     static int server_sockfd3;          
@@ -79,16 +120,7 @@ private:
     static struct sockaddr_in from ;
     static socklen_t len; 
     static socklen_t len2; 
-
-
-    //========================================
-    /// @brief     <reading udp from eth, runed in loop>
-    /// @param     [IN]  <void>
-    /// @param     [OUT] <void>
-    /// @return    <void>
-    //========================================
-    void read();
-
+    //add pointers declarations to config, logger, msgveryficator
 
     };    //class prototypes
 
