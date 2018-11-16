@@ -20,7 +20,7 @@ namespace pub
 class IEthernetdriverserver:public pub::IDriver
     {
     public:
-    virtual ~IEthernetdriverserver(){};
+//    virtual ~IEthernetdriverserver(){};
     virtual eErrorCodes mRun() = 0;
     virtual eErrorCodes mStop() = 0;
     virtual eErrorCodes mPause() = 0;

@@ -19,6 +19,7 @@ namespace drv
 class Iethernet
     {
     public:
+    virtual ~Iethernet(){};
     //========================================
     /// @brief     <send msg to ethernet>
     /// @param     [IN]  <string>

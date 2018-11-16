@@ -21,7 +21,7 @@ namespace drv
 class Ethernetdriverserver:public pub::IEthernetdriverserver, drv::Iethernet 
     {
     public:
-    ~Ethernetdriverserver(){};
+//    ~Ethernetdriverserver(){};
     static pthread_mutex_t mutexeth;           //mutex for pause & resume
     static pthread_t thread_id;                //thread for main loop 
 
