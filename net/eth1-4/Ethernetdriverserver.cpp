@@ -108,8 +108,8 @@ void *Ethernetdriverserver::initialize()    //void explen: - used static wrapper
 
     //2 ACTIVATE STRUCTURE serwer me
     server.sin_family      = AF_INET;
-    server.sin_addr.s_addr = inet_addr("192.168.0.191");
-    server.sin_port        = htons(9741); // port
+    server.sin_addr.s_addr = inet_addr("192.168.230.128");
+    server.sin_port        = htons(9748); // port
 
     socklen_t len = sizeof( server );
     bind( server_sockfd,( struct sockaddr * ) & server, len);
@@ -145,8 +145,8 @@ eErrorCodes Ethernetdriverserver::send(char tab[])                   //public in
  
     //2 ACTIVATE STRUCTURE client1
     client1.sin_family      = AF_INET;
-    client1.sin_addr.s_addr = inet_addr("192.168.0.190");
-    client1.sin_port        = htons(9740); // port
+    client1.sin_addr.s_addr = inet_addr("10.0.2.15");
+    client1.sin_port        = htons(9745); // port
     //2 ACTIVATE STRUCTURE client2
     client2.sin_family      = AF_INET;
     client2.sin_addr.s_addr = inet_addr("192.168.0.192");
