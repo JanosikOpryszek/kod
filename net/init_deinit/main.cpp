@@ -11,8 +11,8 @@ using namespace std;
 
 int main ()
 {
-Ethernetdriverserver* myethserver=new Ethernetdriverserver();
-Ethernetdriverclient* myethclient=new Ethernetdriverclient();
+Ethernetdriverserver* myethserver=new(std::nothrow) Ethernetdriverserver();
+Ethernetdriverclient* myethclient=new(std::nothrow) Ethernetdriverclient();
 
 
 pthread_t thread_id;
