@@ -1,3 +1,0 @@
-/home/marcin/Desktop/kod/net/init_deinit/CMakeFiles/rebuild_cache.dir
-/home/marcin/Desktop/kod/net/init_deinit/CMakeFiles/pr.dir
-/home/marcin/Desktop/kod/net/init_deinit/CMakeFiles/edit_cache.dir

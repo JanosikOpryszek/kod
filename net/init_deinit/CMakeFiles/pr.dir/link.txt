@@ -1,1 +1,0 @@
-/usr/bin/c++  -std=c++98 -Lpthread  -rdynamic CMakeFiles/pr.dir/main.cpp.o CMakeFiles/pr.dir/ethernetdriverclient.cpp.o CMakeFiles/pr.dir/ethernetdriverserver.cpp.o  -o pr -lpthread 
