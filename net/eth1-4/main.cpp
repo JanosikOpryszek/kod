@@ -9,9 +9,10 @@
 #include <sys/socket.h> // AF_UNIX
 #include <netinet/in.h> // sockaddr_in    ??
 #include"Ethernetdriverserver.hpp"
+//#include"eErrorCodes.h"
 
 using namespace drv;
-using namespace std;
+
 
 
 int main ()
@@ -22,10 +23,13 @@ Ethernetdriverserver* myethserver=new Ethernetdriverserver();
 //pthread_t thread_id;
 //pthread_create(&thread_id,NULL,&Ethernetdriverserver::initializess,myethserver);
 
+
+
 myethserver->mRun();
 
 
-char tekst[]="wyslane z 191";
+char tekst[]="wyslane z moj ";
+
 
 
 myethserver->send(tekst);
@@ -38,7 +42,7 @@ myethserver->send(tekst);
 sleep(1);
 
 
-cout<<"                                 ,,,,,,,,,,,,,,,,,,blokuje odczyt ale wysylam"<<endl;
+std::cout<<"                                 ,,,,,,,,,,,,,,,,,,blokuje odczyt ale wysylam"<<std::endl;
 myethserver->mPause();
 
 sleep(2);
@@ -52,7 +56,7 @@ myethserver->send(tekst);
 sleep(2);
 myethserver->send(tekst);
 
-cout<<"                                ******************odblokowuje odczyt"<<endl;
+std::cout<<"                                ******************odblokowuje odczyt"<<std::endl;
 myethserver->mResume();
 
 
@@ -65,7 +69,7 @@ while(1)
 myethserver->send(tekst);
 sleep(1);
 }
-cout<<"koniec"<<endl;
+std::cout<<"koniec"<<std::endl;
 //pthread_join(thread_id, NULL);
 
 pthread_mutex_destroy(&Ethernetdriverserver::mutexeth);

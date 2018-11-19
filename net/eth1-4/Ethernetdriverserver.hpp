@@ -18,6 +18,7 @@
 namespace drv
 {
 
+
 class Ethernetdriverserver:public pub::IEthernetdriverserver, drv::Iethernet 
     {
     public:
@@ -120,7 +121,16 @@ private:
     static struct sockaddr_in from ;
     static socklen_t len; 
     static socklen_t len2; 
+    static char IpAdd1[];
+    static char IpAdd2[];
+    static char IpAdd3[];
+    static char IpAdd4[];
+    static int IpPort1;
+    static int IpPort2;
+    static int IpPort3;
+    static int IpPort4;
     //add pointers declarations to config, logger, msgveryficator
+
 
     };    //class prototypes
 
