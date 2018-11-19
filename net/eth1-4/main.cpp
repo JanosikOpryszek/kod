@@ -9,7 +9,7 @@
 #include <sys/socket.h> // AF_UNIX
 #include <netinet/in.h> // sockaddr_in    ??
 #include"Ethernetdriverserver.hpp"
-//#include"eErrorCodes.h"
+#include"MSGveryficator.hpp"
 
 using namespace drv;
 
@@ -18,12 +18,12 @@ using namespace drv;
 int main ()
 {
 Ethernetdriverserver* myethserver=new Ethernetdriverserver();
-
+MSGveryficator *fakemsgveryficator=new MSGveryficator();
 
 //pthread_t thread_id;
 //pthread_create(&thread_id,NULL,&Ethernetdriverserver::initializess,myethserver);
 
-
+myethserver->setmsgveryficator(fakemsgveryficator);
 
 myethserver->mRun();
 

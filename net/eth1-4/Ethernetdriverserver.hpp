@@ -14,6 +14,8 @@
 
 #include"IEthernetdriverserver.hpp"
 #include"Iethernet.hpp"
+#include"MSGveryficator.hpp"
+
 
 namespace drv
 {
@@ -80,7 +82,7 @@ class Ethernetdriverserver:public pub::IEthernetdriverserver, drv::Iethernet
     /// @param     [OUT] <enum-errorcode>
     /// @return    <errorcode>
     //========================================
-    eErrorCodes setmsgveryficator();
+    eErrorCodes setmsgveryficator(MSGveryficator*);
 
     //========================================
     /// @brief     <run from DrvMenager in pthread, its main working loop>
@@ -130,6 +132,7 @@ private:
     static int IpPort3;
     static int IpPort4;
     //add pointers declarations to config, logger, msgveryficator
+    static MSGveryficator *msgverpointer;
 
 
     };    //class prototypes

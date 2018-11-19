@@ -47,7 +47,7 @@ namespace drv
     int Ethernetdriverserver::IpPort2;
     int Ethernetdriverserver::IpPort3;
     int Ethernetdriverserver::IpPort4;
-    //add pointer to configurator
+    MSGveryficator *Ethernetdriverserver::msgverpointer;            // pointer to configurator
     //add pointer to logger
     //add pointer to msgveryfikator
 
@@ -161,9 +161,10 @@ eErrorCodes Ethernetdriverserver::setlogger()
     }
 
 
-eErrorCodes Ethernetdriverserver::setmsgveryficator()
+eErrorCodes Ethernetdriverserver::setmsgveryficator(MSGveryficator * obj)
     {
     retEr=OK;
+    msgverpointer=obj;
     //pass by methods argument pointer of pointer to msgveryficator code...
     return retEr;
     }
@@ -188,9 +189,9 @@ void *Ethernetdriverserver::initialize()    //void explen: - used static wrapper
         memset( bufferRR, 0, sizeof( bufferRR ) );
         sockaddr_in from={};
         recvfrom( server_sockfd, bufferRR, sizeof( bufferRR ), 0,( struct sockaddr * ) & from, & len);
-        std::cout<<bufferRR<<std::endl;
-        // CALL MSGVERYFICATOR INTERFACE HERE -  to pass MSG from network to ecu
-
+        //std::cout<<bufferRR<<std::endl;
+        msgverpointer->mPutMessage(bufferRR);  // CALL MSGVERYFICATOR INTERFACE HERE 
+                                               //-  to pass MSG from network 
         pthread_mutex_lock( &Ethernetdriverserver::mutexeth );
         }
     } //Ethernetdriverserver::intialize()
