@@ -20,7 +20,7 @@ namespace pub
 {
 
 
-class ISheduler :public IObserver
+class ISheduler :public pub::IObserver
 {
 public:
     virtual eErrorCodes mOnStateChange(eStates a_sNewState)=0;
