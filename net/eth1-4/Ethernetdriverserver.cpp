@@ -88,12 +88,12 @@ eErrorCodes Ethernetdriverserver::mRun()
     {
     case 1:
     {
-    strcpy(Ethernetdriverserver::IpAdd1,"192.168.0.111");
-    strcpy(Ethernetdriverserver::IpAdd2,"192.168.0.112");
+    strcpy(Ethernetdriverserver::IpAdd1,"192.168.0.112");
+    strcpy(Ethernetdriverserver::IpAdd2,"192.168.0.111");
     strcpy(Ethernetdriverserver::IpAdd3,"192.168.0.113");
     strcpy(Ethernetdriverserver::IpAdd4,"192.168.0.114");
-    Ethernetdriverserver::IpPort1=9741;
-    Ethernetdriverserver::IpPort2=9742;
+    Ethernetdriverserver::IpPort1=9742;
+    Ethernetdriverserver::IpPort2=9741;
     Ethernetdriverserver::IpPort3=9743;
     Ethernetdriverserver::IpPort4=9744;
     break;
