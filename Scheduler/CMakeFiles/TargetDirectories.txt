@@ -1,3 +1,0 @@
-/home/marcin/Desktop/kod/Scheduler/CMakeFiles/rebuild_cache.dir
-/home/marcin/Desktop/kod/Scheduler/CMakeFiles/pr.dir
-/home/marcin/Desktop/kod/Scheduler/CMakeFiles/edit_cache.dir
