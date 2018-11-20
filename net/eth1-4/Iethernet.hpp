@@ -11,7 +11,9 @@
 
 #ifndef IETHERNET_HPP
 #define IETHERNET_HPP
-
+#include<string>
+//#include"pub/eErrorCodes.h"
+#include"eErrorCodes.h"
 
 namespace drv
 {
@@ -19,14 +21,15 @@ namespace drv
 class Iethernet
     {
     public:
-    virtual ~Iethernet(){};
+    virtual ~Iethernet(){}                  //?? one or atnother
+
     //========================================
     /// @brief     <send msg to ethernet>
     /// @param     [IN]  <string>
     /// @param     [OUT] <output error cod>
     /// @return    <enum error code >
     //========================================
-    virtual eErrorCodes send(char [])=0;
+    virtual eErrorCodes send(std::string)=0;
 
     };    //class prototypes
 

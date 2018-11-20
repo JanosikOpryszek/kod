@@ -21,8 +21,6 @@ namespace drv
 {
 
 
-
-
     pthread_mutex_t Ethernetdriverserver::mutexeth;     //mutex for pause & resume
     pthread_t Ethernetdriverserver::thread_id;          //thread for main loop
     eErrorCodes Ethernetdriverserver::retEr;          //variable to return errorcode
@@ -140,7 +138,7 @@ eErrorCodes Ethernetdriverserver::mRun()
     }
  }
     //start in thread inicialize main loop:
-    pthread_create(&Ethernetdriverserver::thread_id,NULL,&Ethernetdriverserver::initializess,this);
+    pthread_create(&Ethernetdriverserver::thread_id,0,&Ethernetdriverserver::initializess,this);
     return retEr;
     }
     
@@ -203,9 +201,10 @@ void *Ethernetdriverserver::initializess(void *context)
     } //Ethernetdriverserver::initializess
 
 
-eErrorCodes Ethernetdriverserver::send(char tab[])                   //public interface method to let sending msg in network
+eErrorCodes Ethernetdriverserver::send(std::string tab)                   //public interface method to let sending msg in network
     {
     retEr=OK;
+
     // (1) socket create for client2
     server_sockfd2 = socket(AF_INET,SOCK_DGRAM,0);       
     // (1) socket create for client3
@@ -227,7 +226,7 @@ eErrorCodes Ethernetdriverserver::send(char tab[])                   //public in
     client3.sin_port        = htons(IpPort4); // port
 
     socklen_t len2  = sizeof(client1 );
-    strcpy (bufferSS,tab);
+    strcpy (bufferSS,tab.c_str()  );
 
     sendto( server_sockfd2, bufferSS, strlen( bufferSS ), 0,( struct sockaddr * ) & client1, len2);
     sendto( server_sockfd3, bufferSS, strlen( bufferSS ), 0,( struct sockaddr * ) & client2, len2);

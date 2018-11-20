@@ -12,10 +12,13 @@
 #ifndef ETHERNETDRIVERSERVER_HPP
 #define ETHERNETDRIVERSERVER_HPP
 
+#include<pthread.h>
+#include <arpa/inet.h> // inet_pton inet_addr
+#include <sys/socket.h> // AF_UNIX
 #include"IEthernetdriverserver.hpp"
 #include"Iethernet.hpp"
+//#include"../MSGVerificator/MSGveryficator.hpp"
 #include"MSGveryficator.hpp"
-
 
 namespace drv
 {
@@ -106,7 +109,7 @@ class Ethernetdriverserver:public pub::IEthernetdriverserver, drv::Iethernet
     /// @param     [OUT] <enumerrorcode>
     /// @return    <errorcode>
     //========================================
-    eErrorCodes send(char []);
+    eErrorCodes send(std::string);
 
 private:
     static eErrorCodes retEr;

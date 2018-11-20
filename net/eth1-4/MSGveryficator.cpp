@@ -24,18 +24,29 @@ namespace drv
     eErrorCodes MSGveryficator::mPutMessage(std::string comingMessage)
     {
     retEr=OK;
-    
     std::cout<<comingMessage<<std::endl;
-
-
     return retEr;
     }
-
-
-
-
-
-
+    eErrorCodes MSGveryficator::mRun()
+    {
+    retEr=OK;
+    return retEr;
+    }
+    eErrorCodes MSGveryficator::mStop()
+    {
+        retEr=OK;
+        return retEr;
+    }
+    eErrorCodes MSGveryficator::mPause()
+    {
+        retEr=OK;
+        return retEr;
+    }
+    eErrorCodes MSGveryficator::mResume()
+    {
+        retEr=OK;
+        return retEr;
+    }
 
 
 

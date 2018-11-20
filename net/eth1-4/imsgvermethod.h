@@ -20,8 +20,7 @@ namespace drv
 class Imsgvermethod
     {
     public:
-    //virtual ~Imsgvermethod();
-    //virtual ~Imsgvermethod(){};                  //?? one or atnother
+    virtual ~Imsgvermethod(){}
 
     //========================================
     /// @brief     <recieve msg from ethernet>
