@@ -11,5 +11,8 @@ add_executable (pr
     IDriver.h
     Iethernet.hpp
     IEthernetdriverserver.hpp
+    MSGveryficator.cpp
+    MSGveryficator.hpp
+    imsgvermethod.h
     )
 target_link_libraries (pr ${CMAKE_THREAD_LIBS_INIT})

@@ -161,10 +161,10 @@ eErrorCodes Ethernetdriverserver::setlogger()
     }
 
 
-eErrorCodes Ethernetdriverserver::setmsgveryficator(MSGveryficator * obj)
+eErrorCodes Ethernetdriverserver::setmsgveryficator(MSGveryficator *obj)
     {
     retEr=OK;
-    msgverpointer=obj;
+    Ethernetdriverserver::msgverpointer=obj;
     //pass by methods argument pointer of pointer to msgveryficator code...
     return retEr;
     }
