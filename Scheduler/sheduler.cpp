@@ -54,6 +54,7 @@ eErrorCodes Sheduler::mRun()
     {
     case 1:
     {
+        std::cout<<"run case 1"<<std::endl;
       //object creation
     break;
     }
@@ -78,7 +79,8 @@ eErrorCodes Sheduler::mRun()
     //Logging-  argument error configure Sheduler
     }
     }
-    //start in thread inicialize main loop:
+    //start in thread inicialize main loop
+    std::cout<<"runing pthread"<<std::endl;
     pthread_create(&Sheduler::thread_id,0,&Sheduler::initializess,this);
 
     return retEr;

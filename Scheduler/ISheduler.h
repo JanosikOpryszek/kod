@@ -11,8 +11,10 @@
 #ifndef ISHEDULER_H
 #define ISHEDULER_H
 
-#include "pub/IObserver.h"
-#include"pub/eErrorCodes.h"
+//#include "pub/IObserver.h"
+#include "IObserver.h"
+//#include"pub/eErrorCodes.h"
+#include"eErrorCodes.h"
 
 namespace pub
 {
