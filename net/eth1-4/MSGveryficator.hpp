@@ -9,7 +9,7 @@
 /// @ingroup     <drv>
 /// @brief       <fake  MSGveryficator class>
 
-#ifndef MSGVEFYFICATOR_H       //fale clas file, oryginale bedzie w katalogu MSGver
+#ifndef MSGVERYFICATOR_H       //fale clas file, oryginale bedzie w katalogu MSGver
 #define MSGVERYFICATOR_H
 
 #include"imsgvermethod.h"
@@ -22,7 +22,7 @@ class MSGveryficator:public Imsgvermethod
 
     static eErrorCodes retEr;
     public:
-    eErrorCodes mPutMessage(std::string comingMessage)=0;
+    eErrorCodes mPutMessage(std::string comingMessage);
     };    //class prototypes
 
 }     //namespace drv
