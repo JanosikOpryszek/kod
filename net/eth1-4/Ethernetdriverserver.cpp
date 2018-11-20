@@ -82,7 +82,7 @@ eErrorCodes Ethernetdriverserver::mRun()
     {
     retEr=OK;
     //use configurator interface  and read config, 
-    int EcuNr=2; //run configurathot methos to set Ecu number
+    int EcuNr=1; //run configurathot methos to set Ecu number
 
     switch (EcuNr)
     {
