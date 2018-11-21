@@ -18,8 +18,10 @@
 #include <sys/socket.h> // AF_UNIX
 #include"IEthernetdriverserver.hpp"
 #include"Iethernet.hpp"
-#include"pub/eEcuNum.h"
-#include"../MSGVerificator/MSGveryficator.hpp"
+//#include"pub/eEcuNum.h"
+#include"eEcuNum.h"
+//#include"../MSGVerificator/MSGveryficator.hpp"
+#include"MSGveryficator.hpp"
 
 
 namespace drv

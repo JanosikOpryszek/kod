@@ -12,8 +12,10 @@
 #ifndef IETHERNETDRIVERSERVER_HPP
 #define IETHERNETDRIVERSERVER_HPP
 
-#include "pub/IDriver.h"
-#include "../MSGVerificator/MSGveryficator.hpp"
+//#include "pub/IDriver.h"
+//#include "../MSGVerificator/MSGveryficator.hpp"
+#include "IDriver.h"
+#include "MSGveryficator.hpp"
 
 namespace pub
 {

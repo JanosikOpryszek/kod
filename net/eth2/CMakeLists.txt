@@ -14,5 +14,6 @@ add_executable (pr
     MSGveryficator.cpp
     MSGveryficator.hpp
     imsgvermethod.h
+    eEcuNum.h
     )
 target_link_libraries (pr ${CMAKE_THREAD_LIBS_INIT})

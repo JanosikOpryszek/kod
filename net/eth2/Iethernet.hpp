@@ -12,7 +12,8 @@
 #ifndef IETHERNET_HPP
 #define IETHERNET_HPP
 #include<string>
-#include"pub/eErrorCodes.h"
+//#include"pub/eErrorCodes.h"
+#include"eErrorCodes.h"
 
 namespace drv
 {

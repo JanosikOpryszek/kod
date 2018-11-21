@@ -12,7 +12,8 @@
 #define IMSGVERMETHOD_H
 
 #include<string>
-#include"pub/eErrorCodes.h"      //oryginalnie z folderu pub
+//#include"pub/eErrorCodes.h"      //oryginalnie z folderu pub
+#include"eErrorCodes.h"      //oryginalnie z folderu pub
 
 namespace drv
 {

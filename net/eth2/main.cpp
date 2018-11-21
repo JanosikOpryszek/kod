@@ -23,7 +23,7 @@ MSGveryficator *fakemsgveryficator=new MSGveryficator();
 //pthread_t thread_id;
 //pthread_create(&thread_id,NULL,&Ethernetdriverserver::initializess,myethserver);
 
-myethserver->setmsgveryficator(fakemsgveryficator);
+myethserver->setMsgVeryficator(fakemsgveryficator);
 
 myethserver->mRun();
 
