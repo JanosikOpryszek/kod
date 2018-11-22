@@ -18,9 +18,7 @@
 #include <sys/socket.h> // AF_UNIX
 #include"IEthernetdriverserver.hpp"
 #include"Iethernet.hpp"
-//#include"pub/eEcuNum.h"
 #include"eEcuNum.h"
-//#include"../MSGVerificator/MSGveryficator.hpp"
 #include"MSGveryficator.hpp"
 
 
@@ -29,11 +27,13 @@ namespace drv
 
 
 class Ethernetdriverserver:public pub::IEthernetdriverserver, public drv::Iethernet
-    {
+{
     public:
-    ~Ethernetdriverserver(){}
-    static pthread_mutex_t mutexeth;           //mutex for pause & resume
-    static pthread_t thread_id;                //thread for main loop 
+    /// @brief destructor
+    ~Ethernetdriverserver();
+    /// @brief mutex and thread variables
+    static pthread_mutex_t m_Mutexeth;           //mutex for pause & resume
+    static pthread_t m_Thread_id;                //thread for main loop
 
     //========================================
     /// @brief     <init after deinit, its not initialization!>
@@ -116,33 +116,32 @@ class Ethernetdriverserver:public pub::IEthernetdriverserver, public drv::Iether
     eErrorCodes send(std::string);
 
 private:
-    static eErrorCodes retEr;
-    static int32_t server_sockfd;
-    static int32_t server_sockfd2;
-    static int32_t server_sockfd3;
-    static int32_t server_sockfd4;
-    static char bufferSS[ 4096 ];      //send
-    static char bufferRR[ 4096 ];      //recieve
-    static struct sockaddr_in server; 
-    static struct sockaddr_in client1;
-    static struct sockaddr_in client2;
-    static struct sockaddr_in client3;
-    static struct sockaddr_in from ;
-    static socklen_t len; 
-    static socklen_t len2; 
-    static char IpAdd1[];
-    static char IpAdd2[];
-    static char IpAdd3[];
-    static char IpAdd4[];
-    static uint16_t IpPort1;
-    static uint16_t IpPort2;
-    static uint16_t IpPort3;
-    static uint16_t IpPort4;
-    //add pointers declarations to config, logger, msgveryficator
-    static MSGveryficator *msgverpointer;
+    /// @brief     error code variable
+    static eErrorCodes eRetEr;
+    /// @brief     variables to sockets
+    static int32_t m_i32ServerSockfd;
+    static int32_t m_i32ServerSockfd2;
+
+    static char m_cBufferSS[ 4096 ];      //send
+    static char m_cBufferRR[ 4096 ];      //recieve
+    static struct sockaddr_in m_soServer;
+    static struct sockaddr_in m_soClient1;
+
+    static struct sockaddr_in m_soFrom ;
+    static socklen_t m_Len;
+    static socklen_t m_Len2;
+    static char m_cIpAdd[];
+
+    static uint16_t m_u16IpPort;
+
+    /// @brief     for main loop, if false- stop
+    static bool m_bIsWorking;
+    /// @brief     pointers to antoher objects
+    static MSGveryficator *m_pMsgverpointer;
+//add pointers declarations to config, logger !!!
 
 
-    };    //class prototypes
+};    //class prototypes
 
 }     //namespace drv
 
