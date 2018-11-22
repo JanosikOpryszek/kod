@@ -72,7 +72,7 @@ sleep(1);
 std::cout<<"koniec"<<std::endl;
 //pthread_join(thread_id, NULL);
 
-pthread_mutex_destroy(&Ethernetdriverserver::mutexeth);
+//pthread_mutex_destroy(&Ethernetdriverserver::mutexeth);
 
 //delete myethserver;
 

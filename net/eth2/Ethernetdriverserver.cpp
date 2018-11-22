@@ -166,6 +166,11 @@ eErrorCodes Ethernetdriverserver::send(std::string a_strTab)                   /
     {
          //logger Socket 2 create error                L O G I N G E R R O R
     }
+int broadcastEnable=1;
+if((setsockopt(m_i32ServerSockfd2, SOL_SOCKET, SO_BROADCAST, &broadcastEnable, sizeof(broadcastEnable)))<0)
+    {   
+        //logger Socket 2 set option error
+    }
 
     //2 ACTIVATE STRUCTURE client1
     m_soClient1.sin_family      = AF_INET;
