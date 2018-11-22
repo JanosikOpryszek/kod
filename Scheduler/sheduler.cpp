@@ -16,38 +16,38 @@ namespace rte
 
     pthread_mutex_t Sheduler::mutexeth;     //mutex for pause & resume
     pthread_t Sheduler::thread_id;          //thread for main loop
-    eErrorCodes Sheduler::retEr;          //variable to return errorcode
+    eErrorCodes Sheduler::eRetEr;          //variable to return errorcode
     //add pointer to logger
     //add pointer to configurator
 
 
 eErrorCodes Sheduler::mOnStateChange(eStates a_sNewState)
     {
-    retEr=OK;
+    eRetEr=OK;
     //Init Deinit switching
-    return retEr;
+    return eRetEr;
     }
 
 
 eErrorCodes Sheduler::setconfigurator()
 {
-    retEr=OK;
+    eRetEr=OK;
 
-    return retEr;
+    return eRetEr;
 }
 
 
 eErrorCodes Sheduler::setlogger()
 {
-    retEr=OK;
+    eRetEr=OK;
 
-    return retEr;
+    return eRetEr;
 }
 
 
 eErrorCodes Sheduler::mRun()
     {
-    retEr=OK;
+    eRetEr=OK;
     //use configurator interface  and read config,
     int EcuNr=1; //run configurathot methos to set Ecu number
     switch (EcuNr)
@@ -83,7 +83,7 @@ eErrorCodes Sheduler::mRun()
     std::cout<<"runing pthread"<<std::endl;
     pthread_create(&Sheduler::thread_id,0,&Sheduler::initializess,this);
 
-    return retEr;
+    return eRetEr;
     }
 
 void *Sheduler::initialize()

@@ -79,7 +79,7 @@ class Sheduler:public pub::ISheduler
     static void *initializess(void *);
 
     private:
-    static eErrorCodes retEr;
+    static eErrorCodes eRetEr;
     //add pointers declarations to: config  logger
 
 
