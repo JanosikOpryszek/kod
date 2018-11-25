@@ -13,23 +13,27 @@
 #define ETHERNETDRIVERSERVER_HPP
 
 #include<pthread.h>
+#include<stdint.h>
 #include <arpa/inet.h> // inet_pton inet_addr
 #include <sys/socket.h> // AF_UNIX
 #include"IEthernetdriverserver.hpp"
 #include"Iethernet.hpp"
-//#include"../MSGVerificator/MSGveryficator.hpp"
+#include"eEcuNum.h"
 #include"MSGveryficator.hpp"
+
 
 namespace drv
 {
 
 
-class Ethernetdriverserver:public pub::IEthernetdriverserver, drv::Iethernet 
-    {
+class Ethernetdriverserver:public pub::IEthernetdriverserver, public drv::Iethernet
+{
     public:
-//    ~Ethernetdriverserver(){};
-    static pthread_mutex_t mutexeth;           //mutex for pause & resume
-    static pthread_t thread_id;                //thread for main loop 
+    /// @brief destructor
+    ~Ethernetdriverserver();
+    /// @brief mutex and thread variables
+    static pthread_mutex_t m_Mutexeth;           //mutex for pause & resume
+    static pthread_t m_Thread_id;                //thread for main loop
 
     //========================================
     /// @brief     <init after deinit, its not initialization!>
@@ -69,7 +73,7 @@ class Ethernetdriverserver:public pub::IEthernetdriverserver, drv::Iethernet
     /// @param     [OUT] <enum-errorcode>
     /// @return    <errorcode>
     //========================================
-    eErrorCodes setconfigurator();
+    eErrorCodes setConfigurator();
 
     //========================================
     /// @brief     <set pointer to logger>
@@ -77,7 +81,7 @@ class Ethernetdriverserver:public pub::IEthernetdriverserver, drv::Iethernet
     /// @param     [OUT] <enum-errorcode>
     /// @return    <errorcode>
     //========================================
-    eErrorCodes setlogger();
+    eErrorCodes setLogger();
 
     //========================================
     /// @brief     <set pointer to msgveryfikator>
@@ -85,7 +89,7 @@ class Ethernetdriverserver:public pub::IEthernetdriverserver, drv::Iethernet
     /// @param     [OUT] <enum-errorcode>
     /// @return    <errorcode>
     //========================================
-    eErrorCodes setmsgveryficator(MSGveryficator*);
+    eErrorCodes setMsgVeryficator(drv::MSGveryficator*);
 
     //========================================
     /// @brief     <run from DrvMenager in pthread, its main working loop>
@@ -112,33 +116,32 @@ class Ethernetdriverserver:public pub::IEthernetdriverserver, drv::Iethernet
     eErrorCodes send(std::string);
 
 private:
-    static eErrorCodes retEr;
-    static int server_sockfd;          
-    static int server_sockfd2;          
-    static int server_sockfd3;          
-    static int server_sockfd4;          
-    static char bufferSS[ 4096 ];      //send
-    static char bufferRR[ 4096 ];      //recieve
-    static struct sockaddr_in server; 
-    static struct sockaddr_in client1;
-    static struct sockaddr_in client2;
-    static struct sockaddr_in client3;
-    static struct sockaddr_in from ;
-    static socklen_t len; 
-    static socklen_t len2; 
-    static char IpAdd1[];
-    static char IpAdd2[];
-    static char IpAdd3[];
-    static char IpAdd4[];
-    static int IpPort1;
-    static int IpPort2;
-    static int IpPort3;
-    static int IpPort4;
-    //add pointers declarations to config, logger, msgveryficator
-    static MSGveryficator *msgverpointer;
+    /// @brief     error code variable
+    static eErrorCodes eRetEr;
+    /// @brief     variables to sockets
+    static int32_t m_i32ServerSockfd;
+    static int32_t m_i32ServerSockfd2;
+
+    static char m_cBufferSS[ 4096 ];      //send
+    static char m_cBufferRR[ 4096 ];      //recieve
+    static struct sockaddr_in m_soServer;
+    static struct sockaddr_in m_soClient1;
+
+    static struct sockaddr_in m_soFrom ;
+    static socklen_t m_Len;
+    static socklen_t m_Len2;
+    static char m_cIpAdd[];
+
+    static uint16_t m_u16IpPort;
+
+    /// @brief     for main loop, if false- stop
+    static bool m_bIsWorking;
+    /// @brief     pointers to antoher objects
+    static MSGveryficator *m_pMsgverpointer;
+//add pointers declarations to config, logger !!!
 
 
-    };    //class prototypes
+};    //class prototypes
 
 }     //namespace drv
 

@@ -4,35 +4,45 @@
 // Copyright <2018> GlobalLogic
 //
 //=============================================================================
-/// @file        <Iethernet.hpp>
+/// @file        <Imsgvermethod.h>
 /// @ingroup     <drv>
-/// @brief       <interface for MSGveryficator>
+/// @brief       <interface with method- putmessage for  MSGveryficator>
 
+#ifndef IMSGVERMETHOD_H     //PLIK Z KATALOGU MSGver
+#define IMSGVERMETHOD_H
 
-#ifndef IETHERNET_HPP
-#define IETHERNET_HPP
 #include<string>
-//#include"pub/eErrorCodes.h"
-#include"eErrorCodes.h"
+#include"eErrorCodes.h"      //oryginalnie z folderu pub
 
 namespace drv
 {
 
-class Iethernet
+class Imsgvermethod
     {
     public:
-    virtual ~Iethernet(){}                  //?? one or atnother
+    virtual ~Imsgvermethod(){}
 
     //========================================
-    /// @brief     <send msg to ethernet>
+    /// @brief     <recieve msg from ethernet>
     /// @param     [IN]  <string>
     /// @param     [OUT] <output error cod>
     /// @return    <enum error code >
     //========================================
-    virtual eErrorCodes send(std::string)=0;
-
+   virtual eErrorCodes mPutMessage(std::string comingMessage)=0;
     };    //class prototypes
 
 }     //namespace drv
 
-#endif //IETHERNET_HPP
+
+#endif // IMSGVERMETHOD_H
+
+
+
+
+
+
+
+
+
+
+

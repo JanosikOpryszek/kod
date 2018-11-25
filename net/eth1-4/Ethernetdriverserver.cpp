@@ -9,6 +9,7 @@
 /// @brief       <receive msg from antoher ecu by ethernet>
 
 #include<pthread.h>
+#include<string>
 #include<iostream>
 #include<unistd.h>  // sleep
 #include <string.h> // memset strlen
@@ -18,6 +19,7 @@
 
 namespace drv
 {
+
 
     pthread_mutex_t Ethernetdriverserver::mutexeth;     //mutex for pause & resume
     pthread_t Ethernetdriverserver::thread_id;          //thread for main loop
@@ -35,7 +37,15 @@ namespace drv
     sockaddr_in Ethernetdriverserver::from;
     socklen_t Ethernetdriverserver::len;
     socklen_t Ethernetdriverserver::len2;
-    //add pointer to configurator
+    char Ethernetdriverserver::IpAdd1[14];
+    char Ethernetdriverserver::IpAdd2[14];
+    char Ethernetdriverserver::IpAdd3[14];
+    char Ethernetdriverserver::IpAdd4[14];
+    int Ethernetdriverserver::IpPort1;
+    int Ethernetdriverserver::IpPort2;
+    int Ethernetdriverserver::IpPort3;
+    int Ethernetdriverserver::IpPort4;
+    MSGveryficator *Ethernetdriverserver::msgverpointer;            // pointer to configurator
     //add pointer to logger
     //add pointer to msgveryfikator
 
@@ -69,13 +79,69 @@ eErrorCodes Ethernetdriverserver::mPause()
 eErrorCodes Ethernetdriverserver::mRun()
     {
     retEr=OK;
-    //use configurator interface  and read config, set it code...
-    //
+    //use configurator interface  and read config, 
+    int EcuNr=1; //run configurathot methos to set Ecu number
+
+    switch (EcuNr)
+    {
+    case 1:
+    {
+    strcpy(Ethernetdriverserver::IpAdd1,"192.168.0.111");
+    strcpy(Ethernetdriverserver::IpAdd2,"192.168.0.112");
+    strcpy(Ethernetdriverserver::IpAdd3,"192.168.0.113");
+    strcpy(Ethernetdriverserver::IpAdd4,"192.168.0.114");
+    Ethernetdriverserver::IpPort1=9741;
+    Ethernetdriverserver::IpPort2=9742;
+    Ethernetdriverserver::IpPort3=9743;
+    Ethernetdriverserver::IpPort4=9744;
+    break;
+    }
+    case 2:
+    {
+    strcpy(Ethernetdriverserver::IpAdd1,"192.168.0.112");
+    strcpy(Ethernetdriverserver::IpAdd2,"192.168.0.113");
+    strcpy(Ethernetdriverserver::IpAdd3,"192.168.0.114");
+    strcpy(Ethernetdriverserver::IpAdd4,"192.168.0.111");
+    Ethernetdriverserver::IpPort1=9742;
+    Ethernetdriverserver::IpPort2=9743;
+    Ethernetdriverserver::IpPort3=9744;
+    Ethernetdriverserver::IpPort4=9741;
+    break;
+    }
+    case 3:
+    {
+    strcpy(Ethernetdriverserver::IpAdd1,"192.168.0.113");
+    strcpy(Ethernetdriverserver::IpAdd2,"192.168.0.114");
+    strcpy(Ethernetdriverserver::IpAdd3,"192.168.0.111");
+    strcpy(Ethernetdriverserver::IpAdd4,"192.168.0.112");
+    Ethernetdriverserver::IpPort1=9743;
+    Ethernetdriverserver::IpPort2=9744;
+    Ethernetdriverserver::IpPort3=9741;
+    Ethernetdriverserver::IpPort4=9742;
+    break;
+    }
+    case 4:
+    {
+    strcpy(Ethernetdriverserver::IpAdd1,"192.168.0.114");
+    strcpy(Ethernetdriverserver::IpAdd2,"192.168.0.111");
+    strcpy(Ethernetdriverserver::IpAdd3,"192.168.0.112");
+    strcpy(Ethernetdriverserver::IpAdd4,"192.168.0.113");
+    Ethernetdriverserver::IpPort1=9744;
+    Ethernetdriverserver::IpPort2=9741;
+    Ethernetdriverserver::IpPort3=9742;
+    Ethernetdriverserver::IpPort4=9743;
+    break;
+    }
+    default:
+    {
+    //Logging-  argument error configure ETHdriver
+    }
+ }
     //start in thread inicialize main loop:
-    pthread_create(&Ethernetdriverserver::thread_id,NULL,&Ethernetdriverserver::initializess,this);
+    pthread_create(&Ethernetdriverserver::thread_id,0,&Ethernetdriverserver::initializess,this);
     return retEr;
     }
-
+    
 
 eErrorCodes Ethernetdriverserver::setconfigurator()
     {
@@ -93,9 +159,10 @@ eErrorCodes Ethernetdriverserver::setlogger()
     }
 
 
-eErrorCodes Ethernetdriverserver::setmsgveryficator()
+eErrorCodes Ethernetdriverserver::setmsgveryficator(MSGveryficator *obj)
     {
     retEr=OK;
+    Ethernetdriverserver::msgverpointer=obj;
     //pass by methods argument pointer of pointer to msgveryficator code...
     return retEr;
     }
@@ -108,8 +175,8 @@ void *Ethernetdriverserver::initialize()    //void explen: - used static wrapper
 
     //2 ACTIVATE STRUCTURE serwer me
     server.sin_family      = AF_INET;
-    server.sin_addr.s_addr = inet_addr("192.168.0.191");
-    server.sin_port        = htons(9741); // port
+    server.sin_addr.s_addr = inet_addr(IpAdd1);
+    server.sin_port        = htons(IpPort1); // port
 
     socklen_t len = sizeof( server );
     bind( server_sockfd,( struct sockaddr * ) & server, len);
@@ -120,8 +187,9 @@ void *Ethernetdriverserver::initialize()    //void explen: - used static wrapper
         memset( bufferRR, 0, sizeof( bufferRR ) );
         sockaddr_in from={};
         recvfrom( server_sockfd, bufferRR, sizeof( bufferRR ), 0,( struct sockaddr * ) & from, & len);
-        std::cout<<"Odczytane: "<<bufferRR<<std::endl;
-        // CALL MSGVERYFICATOR INTERFACE HERE -  to pass MSG from network to ecu
+        //std::cout<<bufferRR<<std::endl;
+        msgverpointer->mPutMessage(bufferRR);  // CALL MSGVERYFICATOR INTERFACE HERE 
+                                               //-  to pass MSG from network 
         pthread_mutex_lock( &Ethernetdriverserver::mutexeth );
         }
     } //Ethernetdriverserver::intialize()
@@ -133,9 +201,10 @@ void *Ethernetdriverserver::initializess(void *context)
     } //Ethernetdriverserver::initializess
 
 
-eErrorCodes Ethernetdriverserver::send(char tab[])                   //public interface method to let sending msg in network
+eErrorCodes Ethernetdriverserver::send(std::string tab)                   //public interface method to let sending msg in network
     {
     retEr=OK;
+
     // (1) socket create for client2
     server_sockfd2 = socket(AF_INET,SOCK_DGRAM,0);       
     // (1) socket create for client3
@@ -145,19 +214,19 @@ eErrorCodes Ethernetdriverserver::send(char tab[])                   //public in
  
     //2 ACTIVATE STRUCTURE client1
     client1.sin_family      = AF_INET;
-    client1.sin_addr.s_addr = inet_addr("192.168.0.190");
-    client1.sin_port        = htons(9740); // port
+    client1.sin_addr.s_addr = inet_addr(IpAdd2);
+    client1.sin_port        = htons(IpPort2); // port
     //2 ACTIVATE STRUCTURE client2
     client2.sin_family      = AF_INET;
-    client2.sin_addr.s_addr = inet_addr("192.168.0.192");
-    client2.sin_port        = htons(9742); // port
+    client2.sin_addr.s_addr = inet_addr(IpAdd3);
+    client2.sin_port        = htons(IpPort3); // port
     //2 ACTIVATE STRUCTURE client3
     client3.sin_family      = AF_INET;
-    client3.sin_addr.s_addr = inet_addr("192.168.0.193");
-    client3.sin_port        = htons(9743); // port
+    client3.sin_addr.s_addr = inet_addr(IpAdd4);
+    client3.sin_port        = htons(IpPort4); // port
 
     socklen_t len2  = sizeof(client1 );
-    strcpy (bufferSS,tab);
+    strcpy (bufferSS,tab.c_str()  );
 
     sendto( server_sockfd2, bufferSS, strlen( bufferSS ), 0,( struct sockaddr * ) & client1, len2);
     sendto( server_sockfd3, bufferSS, strlen( bufferSS ), 0,( struct sockaddr * ) & client2, len2);

@@ -23,7 +23,7 @@ MSGveryficator *fakemsgveryficator=new MSGveryficator();
 //pthread_t thread_id;
 //pthread_create(&thread_id,NULL,&Ethernetdriverserver::initializess,myethserver);
 
-myethserver->setmsgveryficator(fakemsgveryficator);
+myethserver->setMsgVeryficator(fakemsgveryficator);
 
 myethserver->mRun();
 
@@ -72,7 +72,7 @@ sleep(1);
 std::cout<<"koniec"<<std::endl;
 //pthread_join(thread_id, NULL);
 
-pthread_mutex_destroy(&Ethernetdriverserver::mutexeth);
+//pthread_mutex_destroy(&Ethernetdriverserver::mutexeth);
 
 //delete myethserver;
 
