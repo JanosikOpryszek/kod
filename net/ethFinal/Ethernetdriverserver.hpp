@@ -22,6 +22,7 @@
 //#include"../MSGVerificator/MSGveryficator.hpp"
 #include"eEcuNum.h"
 #include"MSGveryficator.hpp"
+#include"ILogger.h"
 
 namespace drv
 {
@@ -74,7 +75,7 @@ namespace drv
         /// @param     [OUT] <enum-errorcode>
         /// @return    <errorcode>
         //========================================
-        eErrorCodes setLogger(srv::ILogger* a_pLogger);
+        eErrorCodes setLogger(srv::ILogger *a_pLogger);
 
         //========================================
         /// @brief     <set pointer to msgveryfikator>

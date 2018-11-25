@@ -14,7 +14,7 @@
 
 #include<string>
 //#include"pub/eErrorCodes.h"
-#include"pub/eErrorCodes.h"
+#include"eErrorCodes.h"
 
 namespace drv
 {
@@ -22,7 +22,7 @@ namespace drv
     {
         public:
          /// @brief     <destructor>
-        virtual ~Iethernet();
+        virtual ~Iethernet(){}
         //========================================
         /// @brief     <send msg to ethernet>
         /// @param     [IN]  <string>
@@ -33,10 +33,6 @@ namespace drv
 
     };    //class prototypes
 
-    Iethernet::~Iethernet()
-    {
-
-    }
 
 }     //namespace drv
 
