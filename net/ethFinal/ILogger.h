@@ -1,8 +1,11 @@
 #ifndef ILOGGER_H
 #define ILOGGER_H
 #include <string>
-#include <pub/eErrorCodes.h>
-#include <pub/eStates.h>
+//#include <pub/eErrorCodes.h>
+//#include <pub/eStates.h>
+
+#include <eErrorCodes.h>
+#include <eStates.h>
 namespace srv
 {
 class ILogger
