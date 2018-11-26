@@ -94,21 +94,21 @@ namespace drv
 
         private:
         /// @brief     error code variable
-        static eErrorCodes m_eRetEr;
+        eErrorCodes m_eRetEr;
         /// @brief     variables to sockets
-        static int32_t m_i32ServerSockfd;
-        static int32_t m_i32ServerSockfd2;
+        int32_t m_i32ServerSockfd;
+        int32_t m_i32ServerSockfd2;
         static char m_cBufferSS[ ];      //send
         static char m_cBufferRR[ ];      //recieve
-        static struct sockaddr_in m_soServer;
-        static struct sockaddr_in m_soClient1;
-        static struct sockaddr_in m_soFrom ;
-        static socklen_t m_Len;
-        static socklen_t m_Len2;
+        struct sockaddr_in m_soServer;
+        struct sockaddr_in m_soClient1;
+        struct sockaddr_in m_soFrom ;
+        socklen_t m_Len;
+        socklen_t m_Len2;
         static char m_cIpAdd[];
-        static uint16_t m_u16IpPort;
+        uint16_t m_u16IpPort;
         /// @brief     for main loop, if false- stop
-        static bool m_bIsWorking;
+        bool m_bIsWorking;
         /// @brief     pointers to antoher objects
         srv::ILogger &m_LoggerRef;
         drv::MSGveryficator &m_MsgverRef;

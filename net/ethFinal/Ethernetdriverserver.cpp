@@ -18,31 +18,18 @@
 #include"Ethernetdriverserver.hpp"
 
 
-pthread_mutex_t drv::Ethernetdriverserver::m_Mutexeth;     //mutex for pause & resume
-pthread_t drv::Ethernetdriverserver::m_Thread_id;          //thread for main loop
-eErrorCodes drv::Ethernetdriverserver::m_eRetEr;          //variable to return errorcode
-int32_t drv::Ethernetdriverserver::m_i32ServerSockfd;
-int32_t drv::Ethernetdriverserver::m_i32ServerSockfd2;
+pthread_mutex_t drv::Ethernetdriverserver::m_Mutexeth;           //mutex for pause & resume
+pthread_t drv::Ethernetdriverserver::m_Thread_id;                //thread for main loop
+char drv::Ethernetdriverserver::m_cIpAdd[]="192.168.255";
 char drv::Ethernetdriverserver::m_cBufferSS[ 4096 ];      //send
 char drv::Ethernetdriverserver::m_cBufferRR[ 4096 ];      //recieve
-sockaddr_in drv::Ethernetdriverserver::m_soServer;
-sockaddr_in drv::Ethernetdriverserver::m_soClient1;
-sockaddr_in drv::Ethernetdriverserver::m_soFrom;
-socklen_t drv::Ethernetdriverserver::m_Len;
-socklen_t drv::Ethernetdriverserver::m_Len2;
-char drv::Ethernetdriverserver::m_cIpAdd[]="192.168.0.255";
-uint16_t drv::Ethernetdriverserver::m_u16IpPort;
-bool drv::Ethernetdriverserver::m_bIsWorking;
-//drv::MSGveryficator *drv::Ethernetdriverserver::m_pMsgverpointer;            // pointer to configurator
-//srv::ILogger *drv::Ethernetdriverserver::m_pLoggerPointer;              //pointer to logger
 
 
 drv::Ethernetdriverserver::Ethernetdriverserver(srv::ILogger &a_oLogger,drv::MSGveryficator &a_oMSGver ): m_LoggerRef(a_oLogger), m_MsgverRef(a_oMSGver)
 {
     drv::Ethernetdriverserver::m_u16IpPort=9742;
     drv::Ethernetdriverserver::m_bIsWorking=true;
-    //drv::Ethernetdriverserver::m_pLoggerPointer=&a_oLogger;
-    //drv::Ethernetdriverserver::m_pMsgverpointer=&a_oMSGver;
+    
 }
 
 drv::Ethernetdriverserver::~Ethernetdriverserver()
