@@ -95,21 +95,16 @@ class Loger:public srv::ILogger
 
 int main ()
 {
-Ethernetdriverserver* myeth=new Ethernetdriverserver();
+MSGveryficator* fakemsgveryficator=new MSGveryficator();
+srv::ILogger* fakeloger=new Loger();
+Ethernetdriverserver* myeth=new Ethernetdriverserver(*fakeloger,*fakemsgveryficator);
 
 Iethernet* myethserver1=myeth;
 pub::IEthernetdriverserver* myethserver2=myeth;
-MSGveryficator* fakemsgveryficator=new MSGveryficator();
-srv::ILogger* fakeloger=new Loger();
 
 //pthread_t thread_id;
 //pthread_create(&thread_id,NULL,&Ethernetdriverserver::initializess,myethserver);
 
-myethserver2->setLogger(fakeloger);
-
-std::cout<<"Logger pointer set"<<std::endl;
-myethserver2->setMsgVeryficator(fakemsgveryficator);
-std::cout<<"msgver pointer set"<<std::endl;
 myethserver2->mRun();
 
 std::cout<<"mRun started"<<std::endl;

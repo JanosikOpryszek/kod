@@ -29,8 +29,6 @@ namespace pub
         virtual eErrorCodes mStop() = 0;
         virtual eErrorCodes mPause() = 0;
         virtual eErrorCodes mResume() = 0;
-        virtual eErrorCodes setLogger(srv::ILogger*)=0;
-        virtual eErrorCodes setMsgVeryficator(drv::MSGveryficator*)=0;
     };
 
 
