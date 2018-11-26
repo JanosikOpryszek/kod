@@ -98,8 +98,8 @@ namespace drv
         /// @brief     variables to sockets
         static int32_t m_i32ServerSockfd;
         static int32_t m_i32ServerSockfd2;
-        static char m_cBufferSS[ 4096 ];      //send
-        static char m_cBufferRR[ 4096 ];      //recieve
+        static char m_cBufferSS[ ];      //send
+        static char m_cBufferRR[ ];      //recieve
         static struct sockaddr_in m_soServer;
         static struct sockaddr_in m_soClient1;
         static struct sockaddr_in m_soFrom ;
