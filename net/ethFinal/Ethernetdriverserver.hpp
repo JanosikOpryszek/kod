@@ -29,7 +29,7 @@ namespace drv
     class Ethernetdriverserver:public pub::IEthernetdriverserver, public drv::Iethernet
     {
         public:
-        Ethernetdriverserver();
+        Ethernetdriverserver(srv::ILogger &a_oLogger,drv::MSGveryficator &a_oMSGver);
         /// @brief destructor
         ~Ethernetdriverserver();
         /// @brief mutex and thread variables
@@ -127,8 +127,8 @@ namespace drv
         /// @brief     for main loop, if false- stop
         static bool m_bIsWorking;
         /// @brief     pointers to antoher objects
-        static drv::MSGveryficator *m_pMsgverpointer;
-        static srv::ILogger *m_pLoggerPointer;
+        static drv::MSGveryficator &m_pMsgverpointer;
+        static srv::ILogger &m_pLoggerPointer;
 
 
 
