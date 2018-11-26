@@ -9,6 +9,8 @@
 #include <sys/socket.h> // AF_UNIX
 #include <netinet/in.h> // sockaddr_in    ??
 #include"Ethernetdriverserver.hpp"
+#include"Iethernet.hpp"
+#include"IEthernetdriverserver.hpp"
 #include"MSGveryficator.hpp"
 #include"eErrorCodes.h"
 #include"ILogger.h"
@@ -93,19 +95,22 @@ class Loger:public srv::ILogger
 
 int main ()
 {
-Ethernetdriverserver* myethserver=new Ethernetdriverserver();
+Ethernetdriverserver* myeth=new Ethernetdriverserver();
+
+Iethernet* myethserver1=myeth;
+pub::IEthernetdriverserver* myethserver2=myeth;
 MSGveryficator* fakemsgveryficator=new MSGveryficator();
 srv::ILogger* fakeloger=new Loger();
 
 //pthread_t thread_id;
 //pthread_create(&thread_id,NULL,&Ethernetdriverserver::initializess,myethserver);
 
-myethserver->setLogger(fakeloger);
+myethserver2->setLogger(fakeloger);
 
 std::cout<<"Logger pointer set"<<std::endl;
-myethserver->setMsgVeryficator(fakemsgveryficator);
+myethserver2->setMsgVeryficator(fakemsgveryficator);
 std::cout<<"msgver pointer set"<<std::endl;
-myethserver->mRun();
+myethserver2->mRun();
 
 std::cout<<"mRun started"<<std::endl;
 
@@ -114,43 +119,43 @@ std::string tekst("wyslane z mojego");
 
 
 
-myethserver->send(tekst);
+myethserver1->send(tekst);
 
 std::cout<<"send msg"<<std::endl;
 sleep(1);
-myethserver->send(tekst);
+myethserver1->send(tekst);
 sleep(1);
-myethserver->send(tekst);
+myethserver1->send(tekst);
 sleep(1);
-myethserver->send(tekst);
+myethserver1->send(tekst);
 sleep(1);
 
 
 std::cout<<"                                 ,,,,,,,,,,,,,,,,,,blokuje odczyt ale wysylam"<<std::endl;
-myethserver->mPause();
+myethserver2->mPause();
 
 sleep(2);
-myethserver->send(tekst);
+myethserver1->send(tekst);
 sleep(2);
-myethserver->send(tekst);
+myethserver1->send(tekst);
 sleep(2);
-myethserver->send(tekst);
+myethserver1->send(tekst);
 sleep(2);
-myethserver->send(tekst);
+myethserver1->send(tekst);
 sleep(2);
-myethserver->send(tekst);
+myethserver1->send(tekst);
 
 std::cout<<"                                ******************odblokowuje odczyt"<<std::endl;
-myethserver->mResume();
+myethserver2->mResume();
 
 
-myethserver->send(tekst);
+myethserver1->send(tekst);
 sleep(1);
-myethserver->send(tekst);
+myethserver1->send(tekst);
 sleep(1);
 while(1)
 {
-myethserver->send(tekst);
+myethserver1->send(tekst);
 sleep(1);
 }
 std::cout<<"koniec"<<std::endl;
