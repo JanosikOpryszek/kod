@@ -68,23 +68,6 @@ namespace drv
         //========================================
         eErrorCodes mRun();
 
-
-        //========================================
-        /// @brief     <set pointer to logger>
-        /// @param     [IN]  <logger pointer>
-        /// @param     [OUT] <enum-errorcode>
-        /// @return    <errorcode>
-        //========================================
-        eErrorCodes setLogger(srv::ILogger *a_pLogger);
-
-        //========================================
-        /// @brief     <set pointer to msgveryfikator>
-        /// @param     [IN]  <msgveryficator pointer>
-        /// @param     [OUT] <enum-errorcode>
-        /// @return    <errorcode>
-        //========================================
-        eErrorCodes setMsgVeryficator(drv::MSGveryficator *a_pMSGv);
-
         //========================================
         /// @brief     <run from DrvMenager in pthread, its main working loop>
         /// @param     [IN]  <void>
@@ -127,8 +110,8 @@ namespace drv
         /// @brief     for main loop, if false- stop
         static bool m_bIsWorking;
         /// @brief     pointers to antoher objects
-        static drv::MSGveryficator &m_pMsgverpointer;
-        static srv::ILogger &m_pLoggerPointer;
+        srv::ILogger &m_LoggerRef;
+        drv::MSGveryficator &m_MsgverRef;
 
 
 

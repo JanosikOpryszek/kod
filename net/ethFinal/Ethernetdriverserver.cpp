@@ -33,14 +33,16 @@ socklen_t drv::Ethernetdriverserver::m_Len2;
 char drv::Ethernetdriverserver::m_cIpAdd[]="192.168.0.255";
 uint16_t drv::Ethernetdriverserver::m_u16IpPort;
 bool drv::Ethernetdriverserver::m_bIsWorking;
-drv::MSGveryficator *drv::Ethernetdriverserver::m_pMsgverpointer;            // pointer to configurator
-srv::ILogger *drv::Ethernetdriverserver::m_pLoggerPointer;              //pointer to logger
+//drv::MSGveryficator *drv::Ethernetdriverserver::m_pMsgverpointer;            // pointer to configurator
+//srv::ILogger *drv::Ethernetdriverserver::m_pLoggerPointer;              //pointer to logger
 
 
-drv::Ethernetdriverserver::Ethernetdriverserver()
+drv::Ethernetdriverserver::Ethernetdriverserver(srv::ILogger &a_oLogger,drv::MSGveryficator &a_oMSGver ): m_LoggerRef(a_oLogger), m_MsgverRef(a_oMSGver)
 {
     drv::Ethernetdriverserver::m_u16IpPort=9742;
     drv::Ethernetdriverserver::m_bIsWorking=true;
+    //drv::Ethernetdriverserver::m_pLoggerPointer=&a_oLogger;
+    //drv::Ethernetdriverserver::m_pMsgverpointer=&a_oMSGver;
 }
 
 drv::Ethernetdriverserver::~Ethernetdriverserver()
@@ -52,7 +54,7 @@ eErrorCodes drv::Ethernetdriverserver::mStop()
 {
     m_eRetEr=OK;
     m_bIsWorking=false;
-    drv::Ethernetdriverserver::m_pLoggerPointer->mLog_DBG(std::string("ETHdriver DBG - got mStop, main loop stooped, ready to close- OK"));
+    drv::Ethernetdriverserver::m_LoggerRef.mLog_DBG(std::string("ETHdriver DBG - got mStop, main loop stooped, ready to close- OK"));
     return m_eRetEr;
 }   //Ethernetdriverserver::mStop()
 
@@ -61,7 +63,7 @@ eErrorCodes drv::Ethernetdriverserver::mResume()
 {
     m_eRetEr=OK;
     pthread_mutex_unlock( &drv::Ethernetdriverserver::m_Mutexeth );
-    drv::Ethernetdriverserver::m_pLoggerPointer->mLog_DBG(std::string("ETHdriver DBG - got mResume, main loop unlocked - OK"));
+    drv::Ethernetdriverserver::m_LoggerRef.mLog_DBG(std::string("ETHdriver DBG - got mResume, main loop unlocked - OK"));
     return m_eRetEr;
 }   //Ethernetdriverserver::mResume()
 
@@ -70,7 +72,7 @@ eErrorCodes drv::Ethernetdriverserver::mPause()
 {
     m_eRetEr=OK;
     pthread_mutex_lock( &drv::Ethernetdriverserver::m_Mutexeth );
-    drv::Ethernetdriverserver::m_pLoggerPointer->mLog_DBG(std::string("ETHdriver DBG - got mPause, main loop locked - OK"));
+    drv::Ethernetdriverserver::m_LoggerRef.mLog_DBG(std::string("ETHdriver DBG - got mPause, main loop locked - OK"));
     return m_eRetEr;
 }   //Ethernetdriverserver::mPause
 
@@ -78,33 +80,15 @@ eErrorCodes drv::Ethernetdriverserver::mPause()
 eErrorCodes drv::Ethernetdriverserver::mRun()  //starts main loop in initialize
 {
     m_eRetEr=OK;
-    drv::Ethernetdriverserver::m_pLoggerPointer->mLog_DBG(std::string("ETHdriver DBG - got mRun, main loop started - OK"));
+    drv::Ethernetdriverserver::m_LoggerRef.mLog_DBG(std::string("ETHdriver DBG - got mRun, main loop started - OK"));
     if((pthread_create(&drv::Ethernetdriverserver::m_Thread_id,0,&drv::Ethernetdriverserver::initializess,this))<0)
     {
-        drv::Ethernetdriverserver::m_pLoggerPointer->mLog_ERR(std::string("ETHdriver ERR - initializess pthreat create error - ERR"));
+        drv::Ethernetdriverserver::m_LoggerRef.mLog_ERR(std::string("ETHdriver ERR - initializess pthreat create error - ERR"));
         m_eRetEr=DRIVER_ERROR;
     }
     return m_eRetEr;
 }   //Ethernetdriverserver::mRun()
     
-
-eErrorCodes drv::Ethernetdriverserver::setLogger(srv::ILogger *a_pLogger)
-{
-    m_eRetEr=OK;
-    drv::Ethernetdriverserver::m_pLoggerPointer=a_pLogger;
-    drv::Ethernetdriverserver::m_pLoggerPointer->mLog_DBG(std::string("ETHdriver DBG - got LoggerPpointer, F I R S T    L O O G - OK"));
-    return m_eRetEr;
-}   //Ethernetdriverserver::setLogger
-
-
-eErrorCodes drv::Ethernetdriverserver::setMsgVeryficator(drv::MSGveryficator *a_pMSGv)
-{
-    m_eRetEr=OK;
-    drv::Ethernetdriverserver::m_pMsgverpointer=a_pMSGv;
-    drv::Ethernetdriverserver::m_pLoggerPointer->mLog_DBG(std::string("ETHdriver DBG - got MSGverPointer, ready to mRun  - OK"));
-    return m_eRetEr;
-}   //Ethernetdriverserver::setMsgVeryficator
-
 
 void *drv::Ethernetdriverserver::initialize()    //void using explanation: - used static wrapper class, to run pthreads
 {
@@ -112,7 +96,7 @@ void *drv::Ethernetdriverserver::initialize()    //void using explanation: - use
     m_i32ServerSockfd = socket(AF_INET,SOCK_DGRAM,0);
     if (m_i32ServerSockfd <0 )
     {
-        drv::Ethernetdriverserver::m_pLoggerPointer->mLog_ERR(std::string("ETHdriver ERR - serverSocked creation error  - ERR"));
+        drv::Ethernetdriverserver::m_LoggerRef.mLog_ERR(std::string("ETHdriver ERR - serverSocked creation error  - ERR"));
     }
     //2 ACTIVATE STRUCTURE serwer -me
     m_soServer.sin_family      = AF_INET;
@@ -122,7 +106,7 @@ void *drv::Ethernetdriverserver::initialize()    //void using explanation: - use
     socklen_t len = sizeof( m_soServer );
     if ((bind( m_i32ServerSockfd,reinterpret_cast<struct sockaddr*>(&m_soServer),len)) <0)
     {
-        drv::Ethernetdriverserver::m_pLoggerPointer->mLog_ERR(std::string("ETHdriver ERR - socked binding error  - ERR"));
+        drv::Ethernetdriverserver::m_LoggerRef.mLog_ERR(std::string("ETHdriver ERR - socked binding error  - ERR"));
     }
     //4 READING from network & PutMSG to MSGveryficator
     while(m_bIsWorking)                                                                   //M A I N  L O O P - reading network
@@ -131,9 +115,9 @@ void *drv::Ethernetdriverserver::initialize()    //void using explanation: - use
         memset( m_cBufferRR, 0, sizeof( m_cBufferRR ) );
         if(recv( m_i32ServerSockfd, m_cBufferRR, sizeof( m_cBufferRR ), 0)<0)
         {
-            drv::Ethernetdriverserver::m_pLoggerPointer->mLog_ERR(std::string("ETHdriver ERR - socked reciving error  - ERR"));
+            drv::Ethernetdriverserver::m_LoggerRef.mLog_ERR(std::string("ETHdriver ERR - socked reciving error  - ERR"));
         }
-        m_pMsgverpointer->mPutMessage(std::string(m_cBufferRR));  // CALL MSGVERYFICATOR INTERFACE HERE to pass MSG   (by string)
+        m_MsgverRef.mPutMessage(std::string(m_cBufferRR));  // CALL MSGVERYFICATOR INTERFACE HERE to pass MSG   (by string)
         pthread_mutex_lock( &drv::Ethernetdriverserver::m_Mutexeth );
     }
     return 0;
@@ -153,13 +137,13 @@ eErrorCodes drv::Ethernetdriverserver::send(std::string a_strTab)               
     m_i32ServerSockfd2 = socket(AF_INET,SOCK_DGRAM,0);
     if (m_i32ServerSockfd2<0)
     {
-         drv::Ethernetdriverserver::m_pLoggerPointer->mLog_ERR(std::string("ETHdriver ERR - socked client create error  - ERR"));
+         drv::Ethernetdriverserver::m_LoggerRef.mLog_ERR(std::string("ETHdriver ERR - socked client create error  - ERR"));
          m_eRetEr=DRIVER_ERROR;
     }
     int broadcastEnable=1;
     if ((setsockopt(m_i32ServerSockfd2, SOL_SOCKET, SO_BROADCAST, &broadcastEnable, sizeof(broadcastEnable)))<0)
     {
-        drv::Ethernetdriverserver::m_pLoggerPointer->mLog_ERR(std::string("ETHdriver ERR - socked client SETOPTION error  - ERR"));
+        drv::Ethernetdriverserver::m_LoggerRef.mLog_ERR(std::string("ETHdriver ERR - socked client SETOPTION error  - ERR"));
         m_eRetEr=DRIVER_ERROR;
     }
     //2 ACTIVATE STRUCTURE client
@@ -172,7 +156,7 @@ eErrorCodes drv::Ethernetdriverserver::send(std::string a_strTab)               
     //4 SENDING
     if((sendto( m_i32ServerSockfd2, m_cBufferSS, strlen( m_cBufferSS ), 0,reinterpret_cast< struct sockaddr * >(& m_soClient1), len2))<0)
     {
-        drv::Ethernetdriverserver::m_pLoggerPointer->mLog_ERR(std::string("ETHdriver ERR - socked client SENDTO error  - ERR"));
+        drv::Ethernetdriverserver::m_LoggerRef.mLog_ERR(std::string("ETHdriver ERR - socked client SENDTO error  - ERR"));
         m_eRetEr=DRIVER_ERROR;
     }
     memset( m_cBufferSS, 0, sizeof( m_cBufferSS ) );
