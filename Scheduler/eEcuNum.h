@@ -4,24 +4,20 @@
 // Copyright <2018> GlobalLogic
 //
 //=============================================================================
-/// @file        <eStates.h>
+/// @file        <eEcuNum.h>
 /// @ingroup     <pub>
-/// @brief       <enum estates>
-///
-#ifndef ESTATES_H
-#define ESTATES_H
+/// @brief       <enum Ecus number for config purpose>
 
 
-enum eStates
-{
-PREPEARING_SYSTEM=0,
-PRE_START ,
-IDLE ,
-INIT,
-FULL_OP ,
-DEINIT ,
-OFF
-};
+#ifndef EECUNUM_H
+#define EECUNUM_H
 
+enum eEcuNum
+    {
+    TM150 = 1,
+    HU151 = 2,
+    SM152 = 3,
+    IPC153 = 4
+    };
 
-#endif // ESTATES_H
+#endif // EECUNUM_H

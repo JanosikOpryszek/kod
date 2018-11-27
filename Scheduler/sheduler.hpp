@@ -16,16 +16,27 @@
 #include<iostream>
 #include<unistd.h>  // sleep
 #include"ISheduler.h"
-#include"pub/ISwC.h"
-#include"pub/eStates.h"
-#include"swc/TMSwC/timemaster.h"
-#include"swc/SMSwC/SensorMasterImpl.h"
-#include"swc/IPCSwC/IPCSwC.hpp"
-#include"rte/CommunicationMgr/CommunicationMgrImplementation.h"
-#include"swc/HUSwC/HUSwC.hpp"
+//#include"pub/ISwC.h"
+//#include"pub/eStates.h"
+#include"swc/ISwC.h"
+#include"eStates.h"
+
+//#include"swc/TMSwC/timemaster.h"
+//#include"swc/SMSwC/SensorMasterImpl.h"
+//#include"swc/IPCSwC/IPCSwC.hpp"
+//#include"rte/CommunicationMgr/CommunicationMgrImplementation.h"
+//#include"swc/HUSwC/HUSwC.hpp"
+
+#include"swc/timemaster.h"
+#include"swc/SensorMasterImpl.h"
+#include"swc/IPCSwC.hpp"
+#include"rte/CommunicationMgrImplementation.h"
+#include"swc/HUSwC.hpp"
+
 #include<new>
 #include<stdint.h>
 #include"Ticks.hpp"
+#include"Loger.hpp"
 
 namespace rte
 {
@@ -34,7 +45,7 @@ class Sheduler:public rte::ISheduler
     {
     public:
 
-    Sheduler(srv::ILogger &a_oLogger,srv::IConfigurator &a_oConf);
+    Sheduler(srv::ILogger &a_oLogger);
 
     //========================================
     /// @brief     <react on state changes>
@@ -73,18 +84,18 @@ class Sheduler:public rte::ISheduler
     static pthread_mutex_t m_Mutexeth;
     static pthread_t m_Thread_id;
     /// @brief     error code variable
-    static eErrorCodes m_eRetEr;
+    eErrorCodes m_eRetEr;
     /// @brief     my state variable
-    static eStates m_eMyState;
+    eStates m_eMyState;
     /// @brief     variable for main loop
-    static bool m_bIsWorking;
+    bool m_bIsWorking;
     /// @brief     variable for sheduling time
-    static uint16_t m_u16Microseconds;
-    static uint16_t m_u16CpuTicksRatio;
+    uint16_t m_u16Microseconds;
+    uint16_t m_u16CpuTicksRatio;
     /// @brief     variable for ref &pointers to: Config,Lgger,Communication,ISwC
     srv::ILogger &m_rLoggerRef;
-    srv::IConfigurator &m_rConfRef;
-    static rte::ICommunicationMgr *m_pCommPointer;
+
+    static rte::CommunicationMgrImplementation *m_pCommPointer;
     static pub::ISwC *m_pSwCpointer;
     static rte::Ticks *m_pTicks;
 

@@ -13,22 +13,17 @@
 
     pthread_mutex_t rte::Sheduler::m_Mutexeth;
     pthread_t rte::Sheduler::m_Thread_id;
-    eErrorCodes rte::Sheduler::m_eRetEr;
-    eStates rte::Sheduler::m_eMyState;
-    bool rte::Sheduler::m_bIsWorking;
-    uint16_t rte::Sheduler::m_u16Microseconds;
-    uint16_t rte::Sheduler::m_u16CpuTicksRatio;
     pub::ISwC *rte::Sheduler::m_pSwCpointer;
-    rte::ICommunicationMgr *rte::Sheduler::m_pCommPointer;
+    rte::CommunicationMgrImplementation *rte::Sheduler::m_pCommPointer;
     rte::Ticks *rte::Sheduler::m_pTicks;
 
 
-rte::Sheduler::Sheduler(srv::ILogger &a_oLogger,srv::IConfigurator &a_oConf): m_rLoggerRef(a_oLogger), m_rConfRef(a_oConf)
+rte::Sheduler::Sheduler(srv::ILogger &a_oLogger): m_rLoggerRef(a_oLogger)
 {
     rte::Sheduler::m_eMyState=PRE_START;
     rte::Sheduler::m_bIsWorking=true;
     rte::Sheduler::m_u16CpuTicksRatio=1000;
-    rte::Sheduler::m_pCommPointer=new(std::nothrow) rte::CommunicationMgrImplementation(m_rConfRef);   //create obj of Commanager
+    rte::Sheduler::m_pCommPointer=new(std::nothrow) rte::CommunicationMgrImplementation();   //create obj of Commanager
     rte::Sheduler::m_pTicks=new(std::nothrow) rte::Ticks(m_u16CpuTicksRatio);                          //create obj of Ticker
     rte::Sheduler::m_u16Microseconds=100;
 
@@ -135,14 +130,14 @@ eErrorCodes rte::Sheduler::mOnStateChange(eStates a_sNewState)
 eErrorCodes rte::Sheduler::objCreation()
 {
     m_eRetEr=OK;
-    eEcuNum EcuNr=rte::Sheduler::m_rConfRef.getECU(); //run configurathot methos to set Ecu number C O N F I G R E A D I N G
+    eEcuNum EcuNr=TM150; //run configurathot methos to set Ecu number C O N F I G R E A D I N G
 
     switch (EcuNr)
     {
         case TM150:
         {
             //object creation ecu1
-            if ((rte::Sheduler::m_pSwCpointer=new(std::nothrow) swc::TimeMaster(&(rte::Sheduler::m_rLoggerRef),rte::Sheduler::m_pCommPointer))==0)                //logger & commanager obj by constructor
+            if ((rte::Sheduler::m_pSwCpointer=new(std::nothrow) swc::TimeMaster())==0)                //logger & commanager obj by constructor
             {
                 rte::Sheduler::m_rLoggerRef.mLog_ERR(std::string("SHEDULER ERR:Timemaster obj creation error - ERR "));
                 m_eRetEr=RTE_ERROR;
@@ -153,7 +148,7 @@ eErrorCodes rte::Sheduler::objCreation()
         case HU151:
         {
             //object creation ecu2
-            if ((rte::Sheduler::m_pSwCpointer=new(std::nothrow) swc::HUSwC(rte::Sheduler::m_rLoggerRef,*rte::Sheduler::m_pCommPointer))==0)                //logger & commanager obj by constructor
+            if ((rte::Sheduler::m_pSwCpointer=new(std::nothrow) swc::HUSwC())==0)                //logger & commanager obj by constructor
             {
                 rte::Sheduler::m_rLoggerRef.mLog_ERR(std::string("SHEDULER ERR:Timemaster obj creation error - ERR "));
                 m_eRetEr=RTE_ERROR;
@@ -164,7 +159,7 @@ eErrorCodes rte::Sheduler::objCreation()
         case SM152:
         {
             //object creation ecu3
-            if((rte::Sheduler::m_pSwCpointer=new(std::nothrow) swc::SensorMasterImpl(rte::Sheduler::m_rLoggerRef,*rte::Sheduler::m_pCommPointer))==0)
+            if((rte::Sheduler::m_pSwCpointer=new(std::nothrow) swc::SensorMasterImpl())==0)
             {
                 rte::Sheduler::m_rLoggerRef.mLog_ERR(std::string("SHEDULER ERR:SensorMaster obj creation error - ERR "));
                 m_eRetEr=RTE_ERROR;
@@ -175,7 +170,7 @@ eErrorCodes rte::Sheduler::objCreation()
         case IPC153:
         {
             //object creation ecu4
-            if((rte::Sheduler::m_pSwCpointer=new(std::nothrow) swc::IPCSwC(rte::Sheduler::m_rLoggerRef,*rte::Sheduler::m_pCommPointer))==0)
+            if((rte::Sheduler::m_pSwCpointer=new(std::nothrow) swc::IPCSwC())==0)
             {
                 rte::Sheduler::m_rLoggerRef.mLog_ERR(std::string("SHEDULER ERR:IPCSwC  obj creation error - ERR "));
                 m_eRetEr=RTE_ERROR;
@@ -190,6 +185,8 @@ eErrorCodes rte::Sheduler::objCreation()
 
 void *rte::Sheduler::initialize()            //  Main L O O P  run in thread on FULL_OP state
 {
+    
+    
     while(rte::Sheduler::m_bIsWorking)
     {
         pthread_mutex_lock( &rte::Sheduler::m_Mutexeth);  //block my own LOOP if DEINIT
@@ -199,11 +196,11 @@ void *rte::Sheduler::initialize()            //  Main L O O P  run in thread on 
             rte::Sheduler::m_rLoggerRef.mLog_ERR(std::string("SHEDULER ERR:error in initialize, ISwC.run pthread creation- ERR "));
         }
 
-        //usleep(rte::Sheduler::microseconds);
-        m_pTicks->ticks(m_u16Microseconds);    // T I  C  K  S
+        usleep(m_u16Microseconds);
+        //m_pTicks->ticks(m_u16Microseconds);    // T I  C  K  S
 
         pthread_mutex_unlock( &rte::Sheduler::m_Mutexeth);
-    }
+    } 
     return 0;
 } //Sheduler::intialize()
 
