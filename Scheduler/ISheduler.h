@@ -11,20 +11,22 @@
 #ifndef ISHEDULER_H
 #define ISHEDULER_H
 
-//#include "pub/IObserver.h"
-#include "IObserver.h"
-//#include"pub/eErrorCodes.h"
-#include"eErrorCodes.h"
+#include "pub/IObserver.h"
+#include"pub/eErrorCodes.h"
+#include"pub/eStates.h"
+#include"pub/eEcuNum.h"
+#include"srv/Logger/ILogger.h"
+#include"srv/Configurator/IConfigurator.h"
+#include"rte/CommunicationMgr/ICommunicationMgr.h"
 
-namespace pub
+
+namespace rte
 {
-
-
-class ISheduler :public pub::IObserver
-{
-public:
+    class ISheduler :public pub::IObserver
+    {
+    public:
     virtual eErrorCodes mOnStateChange(eStates a_sNewState)=0;
-};
+    };
 
-} //namespace
+} //namespace rte
 #endif // ISHEDULER_H
