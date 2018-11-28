@@ -17,7 +17,7 @@ enum eEcuNum
     ECU1 = 1,
     ECU2 = 2,
     ECU3 = 3,
-    ECU4 = 4,
+    ECU4 = 4
     };
 
 #endif // EECUNUM_H

@@ -109,6 +109,10 @@ namespace drv
         uint16_t m_u16IpPort;
         /// @brief     for main loop, if false- stop
         bool m_bIsWorking;
+        /// @brief     variable if mRun was runned
+        bool m_bWasRunned;
+        /// @brief     buffer size variable
+        static const uint16_t m_u16BuffSize=4096;
         /// @brief     pointers to antoher objects
         srv::ILogger &m_LoggerRef;
         drv::MSGveryficator &m_MsgverRef;

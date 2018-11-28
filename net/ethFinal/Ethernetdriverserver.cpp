@@ -17,24 +17,25 @@
 #include<sys/socket.h> // AF_UNIX
 #include"Ethernetdriverserver.hpp"
 
-
+//Definition of mutex & pthread
 pthread_mutex_t drv::Ethernetdriverserver::m_Mutexeth;           //mutex for pause & resume
 pthread_t drv::Ethernetdriverserver::m_Thread_id;                //thread for main loop
-char drv::Ethernetdriverserver::m_cIpAdd[]="192.168.255";
-char drv::Ethernetdriverserver::m_cBufferSS[ 4096 ];      //send
-char drv::Ethernetdriverserver::m_cBufferRR[ 4096 ];      //recieve
+//set buffer size of char array for sockets work.
+char drv::Ethernetdriverserver::m_cBufferSS[ m_u16BuffSize ];      //send
+char drv::Ethernetdriverserver::m_cBufferRR[ m_u16BuffSize ];      //recieve
+char drv::Ethernetdriverserver::m_cIpAdd[]="192.168.0.255";
 
 
 drv::Ethernetdriverserver::Ethernetdriverserver(srv::ILogger &a_oLogger,drv::MSGveryficator &a_oMSGver ): m_LoggerRef(a_oLogger), m_MsgverRef(a_oMSGver)
 {
     drv::Ethernetdriverserver::m_u16IpPort=9742;
     drv::Ethernetdriverserver::m_bIsWorking=true;
-    
+    drv::Ethernetdriverserver::m_bWasRunned=false;    
 }
 
 drv::Ethernetdriverserver::~Ethernetdriverserver()
 {
-
+pthread_mutex_destroy(&drv::Ethernetdriverserver::m_Mutexeth);
 }
 
 eErrorCodes drv::Ethernetdriverserver::mStop()
@@ -66,12 +67,21 @@ eErrorCodes drv::Ethernetdriverserver::mPause()
 
 eErrorCodes drv::Ethernetdriverserver::mRun()  //starts main loop in initialize
 {
-    m_eRetEr=OK;
-    drv::Ethernetdriverserver::m_LoggerRef.mLog_DBG(std::string("ETHdriver DBG - got mRun, main loop started - OK"));
-    if((pthread_create(&drv::Ethernetdriverserver::m_Thread_id,0,&drv::Ethernetdriverserver::initializess,this))<0)
+if(m_bWasRunned)
     {
-        drv::Ethernetdriverserver::m_LoggerRef.mLog_ERR(std::string("ETHdriver ERR - initializess pthreat create error - ERR"));
+        drv::Ethernetdriverserver::m_LoggerRef.mLog_ERR(std::string("ETHdriver ERR - mRun runned second time - ERR"));
         m_eRetEr=DRIVER_ERROR;
+    }
+    else
+    {
+        m_eRetEr=OK;
+        m_bWasRunned=true;
+        drv::Ethernetdriverserver::m_LoggerRef.mLog_DBG(std::string("ETHdriver DBG - got mRun, main loop started - OK"));
+        if((pthread_create(&drv::Ethernetdriverserver::m_Thread_id,0,&drv::Ethernetdriverserver::initializess,this))<0)
+        {
+            drv::Ethernetdriverserver::m_LoggerRef.mLog_ERR(std::string("ETHdriver ERR - initializess pthreat create error - ERR"));
+            m_eRetEr=DRIVER_ERROR;
+        }   
     }
     return m_eRetEr;
 }   //Ethernetdriverserver::mRun()
@@ -135,7 +145,7 @@ eErrorCodes drv::Ethernetdriverserver::send(std::string a_strTab)               
     }
     //2 ACTIVATE STRUCTURE client
     m_soClient1.sin_family      = AF_INET;
-    m_soClient1.sin_addr.s_addr = inet_addr(m_cIpAdd);
+    m_soClient1.sin_addr.s_addr = inet_addr(drv::Ethernetdriverserver::m_cIpAdd);
     m_soClient1.sin_port        = htons(m_u16IpPort); // port
     //3 COPY string msg to Buffer
     socklen_t len2  = sizeof(m_soClient1 );

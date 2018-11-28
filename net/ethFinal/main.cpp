@@ -106,61 +106,16 @@ pub::IEthernetdriverserver* myethserver2=myeth;
 //pthread_create(&thread_id,NULL,&Ethernetdriverserver::initializess,myethserver);
 
 myethserver2->mRun();
-
 std::cout<<"mRun started"<<std::endl;
 
-//char tekst[]="wyslane z moj ";
 std::string tekst("wyslane z mojego");
-
-
-
-myethserver1->send(tekst);
-
-std::cout<<"send msg"<<std::endl;
-sleep(1);
-myethserver1->send(tekst);
-sleep(1);
-myethserver1->send(tekst);
-sleep(1);
-myethserver1->send(tekst);
 sleep(1);
 
-
-std::cout<<"                                 ,,,,,,,,,,,,,,,,,,blokuje odczyt ale wysylam"<<std::endl;
-myethserver2->mPause();
-
-sleep(2);
-myethserver1->send(tekst);
-sleep(2);
-myethserver1->send(tekst);
-sleep(2);
-myethserver1->send(tekst);
-sleep(2);
-myethserver1->send(tekst);
-sleep(2);
-myethserver1->send(tekst);
-
-std::cout<<"                                ******************odblokowuje odczyt"<<std::endl;
-myethserver2->mResume();
-
-
-myethserver1->send(tekst);
-sleep(1);
-myethserver1->send(tekst);
-sleep(1);
 while(1)
 {
-myethserver1->send(tekst);
-sleep(1);
+    myethserver1->send(tekst);
+    sleep(1);
 }
-std::cout<<"koniec"<<std::endl;
-//pthread_join(thread_id, NULL);
-
-//pthread_mutex_destroy(&Ethernetdriverserver::mutexeth);
-
-//delete myethserver;
-
-
 
 return 0;
 }
