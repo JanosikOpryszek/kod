@@ -26,8 +26,15 @@ rte::Sheduler::Sheduler(srv::ILogger &a_oLogger): m_rLoggerRef(a_oLogger)
     rte::Sheduler::m_pCommPointer=new(std::nothrow) rte::CommunicationMgrImplementation();   //create obj of Commanager
     rte::Sheduler::m_pTicks=new(std::nothrow) rte::Ticks(m_u16CpuTicksRatio);                          //create obj of Ticker
     rte::Sheduler::m_u16Microseconds=100;
+}
 
 
+rte::Sheduler::~Sheduler()
+{
+    delete rte::Sheduler::m_pCommPointer;
+    delete rte::Sheduler::m_pTicks;
+    delete rte::Sheduler::m_pSwCpointer;
+    pthread_mutex_destroy(&rte::Sheduler::m_Mutexeth);
 }
 
 eErrorCodes rte::Sheduler::mOnStateChange(eStates a_sNewState)
@@ -196,8 +203,8 @@ void *rte::Sheduler::initialize()            //  Main L O O P  run in thread on 
             rte::Sheduler::m_rLoggerRef.mLog_ERR(std::string("SHEDULER ERR:error in initialize, ISwC.run pthread creation- ERR "));
         }
 
-        usleep(m_u16Microseconds);
-        //m_pTicks->ticks(m_u16Microseconds);    // T I  C  K  S
+        //usleep(m_u16Microseconds);
+        m_pTicks->ticks(50);                    // m_u16Microseconds);    // T I  C  K  S
 
         pthread_mutex_unlock( &rte::Sheduler::m_Mutexeth);
     } 

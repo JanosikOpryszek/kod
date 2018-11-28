@@ -30,6 +30,7 @@ namespace rte
     class ISheduler :public pub::IObserver
     {
     public:
+    virtual ~ISheduler();
     virtual eErrorCodes mOnStateChange(eStates a_sNewState)=0;
     };
 

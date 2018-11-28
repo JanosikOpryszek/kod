@@ -18,20 +18,20 @@ int main ()
 {
 
 
-    srv::Loger logger;
-    rte::Sheduler *objsheduler=new rte::Sheduler(logger);
+srv::Loger logger;
+rte::Sheduler *objsheduler=new rte::Sheduler(logger);
 
-
+sleep(1);
 objsheduler->mOnStateChange(PRE_START);
 
+sleep(1);
 objsheduler->mOnStateChange(IDLE);
 
+sleep(1);
 objsheduler->mOnStateChange(INIT);
 
+sleep(1);
 objsheduler->mOnStateChange(FULL_OP);
-
-
-
 
 sleep(10);
 

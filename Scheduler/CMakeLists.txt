@@ -11,6 +11,7 @@ add_executable (pr
     ILogger.h
     IObserver.h
     ISheduler.h
+    ISheduler.cpp
     Loger.cpp
     Loger.hpp
     sheduler.cpp

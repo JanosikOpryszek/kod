@@ -44,8 +44,10 @@ namespace rte
 class Sheduler:public rte::ISheduler
     {
     public:
-
+    /// @brief Constructor
     Sheduler(srv::ILogger &a_oLogger);
+    /// @brief Destructor
+    ~Sheduler();
 
     //========================================
     /// @brief     <react on state changes>
