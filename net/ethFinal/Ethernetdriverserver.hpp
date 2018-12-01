@@ -18,16 +18,18 @@
 #include <sys/socket.h> // AF_UNIX
 #include"IEthernetdriverserver.hpp"
 #include"Iethernet.hpp"
-#include"pub/eEcuNum.h"
-#include"../MSGVerificator/MSGveryficator.hpp"
-
+//#include"pub/eEcuNum.h"
+//#include"../MSGVerificator/MSGveryficator.hpp"
+#include"eEcuNum.h"
+#include"MSGveryficator.hpp"
+#include"ILogger.h"
 
 namespace drv
 {
     class Ethernetdriverserver:public pub::IEthernetdriverserver, public drv::Iethernet
     {
         public:
-        Ethernetdriverserver();
+        Ethernetdriverserver(srv::ILogger &a_oLogger,drv::MSGveryficator &a_oMSGver);
         /// @brief destructor
         ~Ethernetdriverserver();
         /// @brief mutex and thread variables
@@ -66,23 +68,6 @@ namespace drv
         //========================================
         eErrorCodes mRun();
 
-
-        //========================================
-        /// @brief     <set pointer to logger>
-        /// @param     [IN]  <logger pointer>
-        /// @param     [OUT] <enum-errorcode>
-        /// @return    <errorcode>
-        //========================================
-        eErrorCodes setLogger(srv::ILogger* a_pLogger);
-
-        //========================================
-        /// @brief     <set pointer to msgveryfikator>
-        /// @param     [IN]  <msgveryficator pointer>
-        /// @param     [OUT] <enum-errorcode>
-        /// @return    <errorcode>
-        //========================================
-        eErrorCodes setMsgVeryficator(drv::MSGveryficator *a_pMSGv);
-
         //========================================
         /// @brief     <run from DrvMenager in pthread, its main working loop>
         /// @param     [IN]  <void>
@@ -109,24 +94,28 @@ namespace drv
 
         private:
         /// @brief     error code variable
-        static eErrorCodes m_eRetEr;
+        eErrorCodes m_eRetEr;
         /// @brief     variables to sockets
-        static int32_t m_i32ServerSockfd;
-        static int32_t m_i32ServerSockfd2;
-        static char m_cBufferSS[ 4096 ];      //send
-        static char m_cBufferRR[ 4096 ];      //recieve
-        static struct sockaddr_in m_soServer;
-        static struct sockaddr_in m_soClient1;
-        static struct sockaddr_in m_soFrom ;
-        static socklen_t m_Len;
-        static socklen_t m_Len2;
+        int32_t m_i32ServerSockfd;
+        int32_t m_i32ServerSockfd2;
+        static char m_cBufferSS[ ];      //send
+        static char m_cBufferRR[ ];      //recieve
+        struct sockaddr_in m_soServer;
+        struct sockaddr_in m_soClient1;
+        struct sockaddr_in m_soFrom ;
+        socklen_t m_Len;
+        socklen_t m_Len2;
         static char m_cIpAdd[];
-        static uint16_t m_u16IpPort;
+        uint16_t m_u16IpPort;
         /// @brief     for main loop, if false- stop
-        static bool m_bIsWorking;
+        bool m_bIsWorking;
+        /// @brief     variable if mRun was runned
+        bool m_bWasRunned;
+        /// @brief     buffer size variable
+        static const uint16_t m_u16BuffSize=4096;
         /// @brief     pointers to antoher objects
-        static drv::MSGveryficator *m_pMsgverpointer;
-        static srv::ILogger *m_pLoggerPointer;
+        srv::ILogger &m_LoggerRef;
+        drv::MSGveryficator &m_MsgverRef;
 
 
 

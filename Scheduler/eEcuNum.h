@@ -14,10 +14,10 @@
 
 enum eEcuNum
     {
-    ECU1 = 1,
-    ECU2 = 2,
-    ECU3 = 3,
-    ECU4 = 4
+    TM150 = 1,
+    HU151 = 2,
+    SM152 = 3,
+    IPC153 = 4
     };
 
 #endif // EECUNUM_H

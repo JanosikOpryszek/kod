@@ -12,10 +12,13 @@
 #ifndef IETHERNETDRIVERSERVER_HPP
 #define IETHERNETDRIVERSERVER_HPP
 
-#include "pub/IDriver.h"
-#include"srv/Logger/ILogger.h"
-#include "../MSGVerificator/MSGveryficator.hpp"
+//#include "pub/IDriver.h"
+//#include"srv/Logger/ILogger.h"
+//#include "../MSGVerificator/MSGveryficator.hpp"
 
+#include "IDriver.h"
+#include "ILogger.h"
+#include "MSGveryficator.hpp"
 namespace pub
 {
 
@@ -26,8 +29,6 @@ namespace pub
         virtual eErrorCodes mStop() = 0;
         virtual eErrorCodes mPause() = 0;
         virtual eErrorCodes mResume() = 0;
-        virtual eErrorCodes setLogger(srv::ILogger*)=0;
-        virtual eErrorCodes setMsgVeryficator(drv::MSGveryficator*)=0;
     };
 
 

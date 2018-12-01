@@ -5,108 +5,220 @@
 //
 //=============================================================================
 /// @file        <sheduler.cpp>
-/// @ingroup     <drv>
+/// @ingroup     <rte>
 /// @brief       <run and control rte and swc komponents>
 
 
 #include"sheduler.hpp"
 
-namespace rte
+    pthread_mutex_t rte::Sheduler::m_Mutexeth;
+    pthread_t rte::Sheduler::m_Thread_id;
+    pub::ISwC *rte::Sheduler::m_pSwCpointer;
+    rte::CommunicationMgrImplementation *rte::Sheduler::m_pCommPointer;
+    rte::Ticks *rte::Sheduler::m_pTicks;
+
+
+rte::Sheduler::Sheduler(srv::ILogger &a_oLogger): m_rLoggerRef(a_oLogger)
 {
+    rte::Sheduler::m_eMyState=PRE_START;
+    rte::Sheduler::m_bIsWorking=true;
+    rte::Sheduler::m_u16CpuTicksRatio=1000;
+    rte::Sheduler::m_pCommPointer=new(std::nothrow) rte::CommunicationMgrImplementation();   //create obj of Commanager
+    rte::Sheduler::m_pTicks=new(std::nothrow) rte::Ticks(m_u16CpuTicksRatio);                          //create obj of Ticker
+    rte::Sheduler::m_u16Microseconds=100;
+}
 
-    pthread_mutex_t Sheduler::mutexeth;     //mutex for pause & resume
-    pthread_t Sheduler::thread_id;          //thread for main loop
-    eErrorCodes Sheduler::eRetEr;          //variable to return errorcode
-    //add pointer to logger
-    //add pointer to configurator
 
+rte::Sheduler::~Sheduler()
+{
+    delete rte::Sheduler::m_pCommPointer;
+    delete rte::Sheduler::m_pTicks;
+    delete rte::Sheduler::m_pSwCpointer;
+    pthread_mutex_destroy(&rte::Sheduler::m_Mutexeth);
+}
 
-eErrorCodes Sheduler::mOnStateChange(eStates a_sNewState)
+eErrorCodes rte::Sheduler::mOnStateChange(eStates a_sNewState)
+{
+    m_eRetEr=OK;
+    switch (a_sNewState)
     {
-    eRetEr=OK;
-    //Init Deinit switching
-    return eRetEr;
+        case PREPEARING_SYSTEM:
+        {
+            rte::Sheduler::m_rLoggerRef.mLog_ERR(std::string("SHEDULER ERR - got PREPEARING_SYSTEM state - imposibl to got it! - ERR"));
+            m_eRetEr=RTE_ERROR;
+            break;
+        }
+        case PRE_START:               //Object creation
+        {
+            if(m_eMyState==PRE_START)
+            {
+                rte::Sheduler::objCreation(); //object creation (base on config information)
+                rte::Sheduler::m_rLoggerRef.mLog_DBG(std::string("SHEDULER DEBUG: got PRE_START starting object creation - OK "));
+                m_eMyState=IDLE;
+            }
+            else
+            {
+                rte::Sheduler::m_rLoggerRef.mLog_ERR(std::string("SHEDULER ERR: got PRE_START but i was on leater state - ERR "));
+                m_eRetEr=RTE_ERROR;
+            }
+            break;
+        }
+        case IDLE:               // Ready for INIT
+        {
+            if(m_eMyState==IDLE || m_eMyState==DEINIT)
+            {
+                rte::Sheduler::m_rLoggerRef.mLog_DBG(std::string("SHEDULER DEBUG: got IDLE state ready for INIT- OK "));
+                m_eMyState=IDLE;
+            }
+            else
+            {
+                rte::Sheduler::m_rLoggerRef.mLog_ERR(std::string("SHEDULER ERR: got IDLE but im not in IDLE or DEINIT - ERR "));
+                m_eRetEr=RTE_ERROR;
+            }
+            break;
+        }
+        case INIT:  // back from DEINIT or ready for FULL_OPP
+        {
+            if(m_eMyState == IDLE || m_eMyState==INIT || m_eMyState == DEINIT)
+            {
+                pthread_mutex_unlock( &rte::Sheduler::m_Mutexeth); //unblock my own LOOP after deinit
+                rte::Sheduler::m_rLoggerRef.mLog_DBG(std::string("SHEDULER DEBUG: got INIT in IDLE or INIT or DEINIT, unlock mutex - OK "));
+                m_eMyState=INIT;
+            }
+            else
+            {
+                rte::Sheduler::m_rLoggerRef.mLog_ERR(std::string("SHEDULER ERR: got IDLE but i was on leater state - ERR "));
+                m_eRetEr=RTE_ERROR;
+            }
+            break;
+         }
+        case FULL_OP:   //start Main LOOP
+        {
+            if(m_eMyState<FULL_OP)
+            {
+                rte::Sheduler::m_rLoggerRef.mLog_DBG(std::string("SHEDULER DEBUG: got got FULL_OP, creating pthread ownl loop - OK "));
+               if((pthread_create(&rte::Sheduler::m_Thread_id,0,&rte::Sheduler::initializess,this))<0)
+               {
+                   rte::Sheduler::m_rLoggerRef.mLog_ERR(std::string("SHEDULER ERR:error create pthread initializess own loop - ERR "));
+                   m_eRetEr=RTE_ERROR;
+               }
+                m_eMyState=FULL_OP;
+            }
+            else
+            {
+                rte::Sheduler::m_rLoggerRef.mLog_ERR(std::string("SHEDULER ERR: got FULL_OP but my state is fullop or higher already  - ERR "));
+                m_eRetEr=RTE_ERROR;
+            }
+            break;
+        }
+        case DEINIT:
+        {
+            pthread_mutex_lock( &rte::Sheduler::m_Mutexeth);  //block my own LOOP
+            rte::Sheduler::m_rLoggerRef.mLog_DBG(std::string("SHEDULER DEBUG: got DEINIT, lock loop - OK "));
+            m_eMyState=DEINIT;
+            break;
+        }
+        case OFF:
+        {
+            m_eMyState=OFF;
+            rte::Sheduler::m_rLoggerRef.mLog_DBG(std::string("SHEDULER DEBUG: got OFF, delete obj & stop LOOP - OK "));
+            rte::Sheduler::m_bIsWorking=false;                  // stoop main loop
+            delete(rte::Sheduler::m_pSwCpointer);              //delete obj of SwC
+            delete(rte::Sheduler::m_pCommPointer);             //delete obj of CommunicationMgr
+            pthread_mutex_destroy(&rte::Sheduler::m_Mutexeth);
+            break;
+        }
     }
+    return m_eRetEr;
+} //Sheduler::mOnStateChange(eStates a_sNewState)
 
 
-eErrorCodes Sheduler::setconfigurator()
+
+eErrorCodes rte::Sheduler::objCreation()
 {
-    eRetEr=OK;
+    m_eRetEr=OK;
+    eEcuNum EcuNr=TM150; //run configurathot methos to set Ecu number C O N F I G R E A D I N G
 
-    return eRetEr;
-}
-
-
-eErrorCodes Sheduler::setlogger()
-{
-    eRetEr=OK;
-
-    return eRetEr;
-}
-
-
-eErrorCodes Sheduler::mRun()
-    {
-    eRetEr=OK;
-    //use configurator interface  and read config,
-    int EcuNr=1; //run configurathot methos to set Ecu number
     switch (EcuNr)
     {
-    case 1:
+        case TM150:
+        {
+            //object creation ecu1
+            if ((rte::Sheduler::m_pSwCpointer=new(std::nothrow) swc::TimeMaster())==0)                //logger & commanager obj by constructor
+            {
+                rte::Sheduler::m_rLoggerRef.mLog_ERR(std::string("SHEDULER ERR:Timemaster obj creation error - ERR "));
+                m_eRetEr=RTE_ERROR;
+            }
+            break;
+        } //case TM150
+
+        case HU151:
+        {
+            //object creation ecu2
+            if ((rte::Sheduler::m_pSwCpointer=new(std::nothrow) swc::HUSwC())==0)                //logger & commanager obj by constructor
+            {
+                rte::Sheduler::m_rLoggerRef.mLog_ERR(std::string("SHEDULER ERR:Timemaster obj creation error - ERR "));
+                m_eRetEr=RTE_ERROR;
+            }
+            break;
+        } //case HU151
+
+        case SM152:
+        {
+            //object creation ecu3
+            if((rte::Sheduler::m_pSwCpointer=new(std::nothrow) swc::SensorMasterImpl())==0)
+            {
+                rte::Sheduler::m_rLoggerRef.mLog_ERR(std::string("SHEDULER ERR:SensorMaster obj creation error - ERR "));
+                m_eRetEr=RTE_ERROR;
+            }
+            break;
+        } //case SM152
+
+        case IPC153:
+        {
+            //object creation ecu4
+            if((rte::Sheduler::m_pSwCpointer=new(std::nothrow) swc::IPCSwC())==0)
+            {
+                rte::Sheduler::m_rLoggerRef.mLog_ERR(std::string("SHEDULER ERR:IPCSwC  obj creation error - ERR "));
+                m_eRetEr=RTE_ERROR;
+            }
+            break;
+        } //case IPC153
+    }
+    return m_eRetEr;
+}  //Sheduler::objCreation()
+
+
+
+void *rte::Sheduler::initialize()            //  Main L O O P  run in thread on FULL_OP state
+{
+    
+    
+    while(rte::Sheduler::m_bIsWorking)
     {
-        std::cout<<"run case 1"<<std::endl;
-      //object creation
-    break;
-    }
-    case 2:
-    {
-      //object creation
-    break;
-    }
-    case 3:
-    {
-      //object creation
-    break;
-    }
-    case 4:
-    {
-      //object creation
-    break;
-    }
+        pthread_mutex_lock( &rte::Sheduler::m_Mutexeth);  //block my own LOOP if DEINIT
 
-    default:
-    {
-    //Logging-  argument error configure Sheduler
-    }
-    }
-    //start in thread inicialize main loop
-    std::cout<<"runing pthread"<<std::endl;
-    pthread_create(&Sheduler::thread_id,0,&Sheduler::initializess,this);
+        if((pthread_create(&rte::Sheduler::m_Thread_id,0,&pub::ISwC::run,m_pSwCpointer))<0)
+        {
+            rte::Sheduler::m_rLoggerRef.mLog_ERR(std::string("SHEDULER ERR:error in initialize, ISwC.run pthread creation- ERR "));
+        }
 
-    return eRetEr;
-    }
+        //usleep(m_u16Microseconds);
+        m_pTicks->ticks(50);                    // m_u16Microseconds);    // T I  C  K  S
 
-void *Sheduler::initialize()
-    {
-    //main loop of sheduler, run in thread by Starter
-    while(1)
-    {
-        std::cout<<"main loop"<<std::endl;
-    }
-
-    } //Sheduler::intialize()
-
-
-void *Sheduler::initializess(void *context)
-    {
-    return ((Sheduler *)context)->Sheduler::initialize();
-    }
+        pthread_mutex_unlock( &rte::Sheduler::m_Mutexeth);
+    } 
+    return 0;
+} //Sheduler::intialize()
 
 
 
+void *rte::Sheduler::initializess(void *context)
+{
+    return ( static_cast<rte::Sheduler *>(context))->rte::Sheduler::initialize();
+}  //Sheduler::initializess
 
 
 
-} //namespace drv
 
 
