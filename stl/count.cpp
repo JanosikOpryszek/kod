@@ -5,26 +5,22 @@
 
 using namespace std;
 
-vector<int> mojva={1,2,3,4,5};
+vector<int> mojva={1,2,3,4,5,6,7,8,9,10,11};
 
 
-
-int add(const std::vector &v)
+int odd(const std::vector<int> &v)
 {
 
-count_if(begin(mojva),end(mojva),[](int ii){ return ii % 2 !0)      }
+return count_if(begin(v),end(v), [](int ii){ return ii%2 == 0;  } );
 
-return ii;
 }
-
-
-
 
 
 
 int main ()
 {
 
+cout<<odd(mojva)<<endl;
 
 return 0;
 }
