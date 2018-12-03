@@ -3,29 +3,25 @@
 #include<algorithm>
 #include<cctype>
 
-// poprawka, czy tym char czy string w lambda
 using namespace std;
 
 vector<string> mojva={"ala1","Ala","ALa","ala2","ALA"};
 
 void remove(std::vector<string> &v )
 {
-
-auto it=std::remove_if(v.begin(),end(v),[](char ss){
-       
-       if (isdigit(ss))
+auto it=std::remove_if(v.begin(),end(v),[](std::string ss){
+        for( auto element : ss)
+        {
+            if (isdigit(element))
                return true;
-        else
-            return false;
-            
-       
+        } 
+        return false;  
         }
-       
         ); 
+
 v.erase(it, v.end());
 
 }
-
 
 int main ()
 {
