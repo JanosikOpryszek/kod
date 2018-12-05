@@ -3,6 +3,7 @@
 #include<algorithm>
 #include<cmath>
 
+
 using namespace std;
 
 vector<string> mojva={"alaaaaaaaa","Alaaa","ALaaaaa","ala","ALAaa"};
