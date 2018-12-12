@@ -14,7 +14,7 @@
 #include<string>
 #include<iostream>
 #include<unistd.h>  // sleep
-#include<string.h> // memset strlen
+#include<string.h> // memset strlen strcpy
 #include<arpa/inet.h> // inet_pton inet_addr
 #include<sys/socket.h> // AF_UNIX
 #include"Ethernetdriverserver.hpp"
