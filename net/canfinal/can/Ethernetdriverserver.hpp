@@ -109,6 +109,7 @@ namespace drv
 
         struct sockaddr_can addr;
         struct can_frame frame;
+        struct can_frame frame2;
         struct ifreq ifr;
 
         char  buff[20];

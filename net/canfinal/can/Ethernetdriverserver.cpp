@@ -117,11 +117,30 @@ void *drv::Ethernetdriverserver::initialize()    //void using explanation: - use
     {
         pthread_mutex_unlock( &drv::Ethernetdriverserver::m_Mutexeth );             //mutex for pause & resume
         memset( m_cBufferRR, 0, sizeof( m_cBufferRR ) );
-        if(recv( m_i32ServerSockfd, m_cBufferRR, sizeof( m_cBufferRR ), 0)<0)
+ /*       if(recv( m_i32ServerSockfd, m_cBufferRR, sizeof( m_cBufferRR ), 0)<0)
         {
             drv::Ethernetdriverserver::m_LoggerRef.mLog_ERR(std::string("ETHdriver ERR - socked reciving error  - ERR"));
         }
-        std::cout<<"strlenBufferRR= "<< strlen(m_cBufferRR)<<std::endl;
+ */
+        if(recv( m_i32ServerSockfd, &frame2, sizeof( struct can_frame ), 0)<0)
+        {
+            drv::Ethernetdriverserver::m_LoggerRef.mLog_ERR(std::string("ETHdriver ERR - socked reciving error  - ERR"));
+        }
+
+
+
+        std::cout<<"canID"<<frame2.can_id<<std::endl;
+        int size = frame.can_dlc;
+        std::cout<<"canSize"<<size<<std::endl;
+        int i=0;
+        for (i;i<size;i++)
+        {
+        std::cout<<"write from frame2.data ="<<frame.data[i]<<std::endl;
+        m_cBufferRR[i]=frame2.data[i];
+        }
+        m_cBufferRR[i]='\0';
+
+
         m_MsgverRef.mPutMessage(std::string(m_cBufferRR));  // CALL MSGVERYFICATOR INTERFACE HERE to pass MSG   (by string)
         pthread_mutex_lock( &drv::Ethernetdriverserver::m_Mutexeth );
     }
