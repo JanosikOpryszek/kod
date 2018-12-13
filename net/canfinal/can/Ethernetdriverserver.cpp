@@ -135,8 +135,8 @@ void *drv::Ethernetdriverserver::initialize()    //void using explanation: - use
         int i=0;
         for (;i<size;i++)
         {
-        std::cout<<"write from frame2.data ="<<frame.data[i]<<std::endl;
-        m_cBufferRR[i]=frame2.data[i]-'0';
+        std::cout<<"write from frame2.data ="<<frame2.data[i]<<std::endl;
+        m_cBufferRR[i]=frame2.data[i];       //-'0';
         }
         m_cBufferRR[i]='\0';
 
