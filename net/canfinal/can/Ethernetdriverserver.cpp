@@ -128,17 +128,23 @@ void *drv::Ethernetdriverserver::initialize()    //void using explanation: - use
         }
 
 
+        char msg[3];
+        sprintf(msg,"%d",frame2.can_id);    //converts int to hexadecimal base char array
+        std::cout<<"canID z msg: "<<msg<<std::endl;
+        m_cBufferRR[0]=msg[0];
+        m_cBufferRR[1]='0';
+        m_cBufferRR[2]=msg[1];
+        m_cBufferRR[3]=msg[2];
 
-        std::cout<<"canID"<<frame2.can_id<<std::endl;
         int size = frame2.can_dlc;
         std::cout<<"canSize"<<size<<std::endl;
         int i=0;
         for (;i<size;i++)
         {
         //std::cout<<"write from frame2.data ="<<frame2.data[i]<<std::endl;
-        m_cBufferRR[i]=frame2.data[i];       //-'0';
+        m_cBufferRR[i+4]=frame2.data[i];       //-'0';
         }
-        m_cBufferRR[i]='\0';
+        m_cBufferRR[i+4]='\0';
 
 
         m_MsgverRef.mPutMessage(std::string(m_cBufferRR));  // CALL MSGVERYFICATOR INTERFACE HERE to pass MSG   (by string)
