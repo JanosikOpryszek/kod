@@ -159,14 +159,14 @@ eErrorCodes drv::Ethernetdriverserver::send(std::string a_strTab)               
     index1[1]='\0';
     uint32_t intindex1= atoi (index1);    //char array number to int
     intindex1*=100;
-    std::cout<<"intindex1"<<intindex1<<std::endl;
+    std::cout<<"intindex1: "<<intindex1<<std::endl;
 
     char index2[3];
     index2[0]=m_cBufferSS[2];
     index2[1]=m_cBufferSS[3];
     index2[2]='\0';
     uint32_t intindex2= atoi (index2);
-    std::cout<<"intindex2"<<intindex2<<std::endl;
+    std::cout<<"intindex2: "<<intindex2<<std::endl;
 
     intindex1+=intindex2;
 
@@ -175,31 +175,43 @@ eErrorCodes drv::Ethernetdriverserver::send(std::string a_strTab)               
     uint8_t size=a_strTab.length();
     size-=4;
 
-
+/*
     frame.can_id  = intindex1;         //zobaczyc jak wyglada msg
     frame.can_dlc = size;                 // liczyc po dlugosci dostarczonego stringa
     for (int i=0;i<size;i++)
     {
     std::cout<<"write to frame.data ="<<m_cBufferSS[i+5]<<std::endl;
-    frame.data[i] = m_cBufferSS[i+5];
+    frame.data[i] = m_cBufferSS[i+4];
     }
+  */
+    frame.can_id  = 0x156;
+        frame.can_dlc = 8;
+        frame.data[0] = 0xff;
+        frame.data[1] = 0xff;
+        frame.data[2] = 0xff;
+        frame.data[3] = 0xff;
+        frame.data[4] = 0xff;
+        frame.data[5] = 0xff;
+        frame.data[6] = 0xff;
+    frame.data[7] = 0xa0;
+
 
 
     //4 SENDING
-    /*
+
     if((sendto( m_i32ServerSockfd2, &frame, sizeof (struct can_frame ), 0,reinterpret_cast< struct sockaddr * >(& addr), sizeof(addr)))<0)
     {
         drv::Ethernetdriverserver::m_LoggerRef.mLog_ERR(std::string("ETHdriver ERR - socked client SENDTO error  - ERR"));
         m_eRetEr=DRIVER_ERROR;
     }
-    */                                                                              // albo
+    /*                                                                              // albo
     if((write(m_i32ServerSockfd2, &frame, sizeof(struct can_frame)))<0)
     {
         drv::Ethernetdriverserver::m_LoggerRef.mLog_ERR(std::string("ETHdriver ERR - socked client SENDTO error  - ERR"));
         m_eRetEr=DRIVER_ERROR;
     }
 
-
+*/
     memset( m_cBufferSS, 0, sizeof( m_cBufferSS ) );
     return m_eRetEr;
 }   //Ethernetdriverserver::send
