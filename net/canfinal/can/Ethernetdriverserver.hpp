@@ -4,13 +4,13 @@
 // Copyright <2018> GlobalLogic
 //
 //=============================================================================
-/// @file        <Ethernetdriverserver.hpp>
+/// @file        <Candriverserver.hpp>
 /// @ingroup     <drv>
-/// @brief       <receive msg from antoher ecu by ethernet>
+/// @brief       <receive msg from antoher ecu by Can>
 
 
-#ifndef ETHERNETDRIVERSERVER_HPP
-#define ETHERNETDRIVERSERVER_HPP
+#ifndef CANDRIVERSERVER_HPP
+#define CANDRIVERSERVER_HPP
 
 #include <net/if.h>
 #include <sys/types.h>
@@ -20,7 +20,7 @@
 #include <linux/can/raw.h>
 #include<pthread.h>
 #include<stdint.h>
-#include <arpa/inet.h> // inet_pton inet_addr      //???????
+//#include <arpa/inet.h> // inet_pton inet_addr      //???????
 #include <sys/socket.h> // AF_UNIX
 #include"IEthernetdriverserver.hpp"
 #include"Iethernet.hpp"
@@ -32,18 +32,18 @@
 
 namespace drv
 {
-    class Ethernetdriverserver:public pub::IEthernetdriverserver, public drv::Iethernet
+    class Candriverserver:public pub::IEthernetdriverserver, public drv::Iethernet
     {
         public:
-        Ethernetdriverserver(srv::ILogger &a_oLogger,drv::MSGveryficator &a_oMSGver);
+        Candriverserver(srv::ILogger &a_oLogger,drv::MSGveryficator &a_oMSGver);
         /// @brief destructor
-        ~Ethernetdriverserver();
+        ~Candriverserver();
         /// @brief mutex and thread variables
         static pthread_mutex_t m_Mutexeth;           //mutex for pause & resume
         static pthread_t m_Thread_id;                //thread for main loop
 
         //========================================
-        /// @brief     <init after deinit, its not initialization!>
+        /// @brief     <Resume after Pause, its not initialization!>
         /// @param     [IN]  <void>
         /// @param     [OUT] <enum errorcode>
         /// @return    <errorcode>
@@ -51,7 +51,7 @@ namespace drv
         eErrorCodes mResume();
 
         //========================================
-        /// @brief     <deinit on reset>
+        /// @brief     <Pause on reset>
         /// @param     [IN]  <void>
         /// @param     [OUT] <enum errorcoed>
         /// @return    <errorcode>
@@ -80,7 +80,7 @@ namespace drv
         /// @param     [OUT] <enum-int>
         /// @return    <errorcode>
         //========================================
-        void *initialize(void);
+        void *Work(void);
 
         //========================================
         /// @brief     <initialize pthread run method>
@@ -88,7 +88,7 @@ namespace drv
         /// @param     [OUT] <>
         /// @return    <>
         //========================================
-        static void *initializess(void *);
+        static void *RunWork(void *);
 
         //========================================
         /// @brief     <send msg to ethernet>
@@ -134,7 +134,7 @@ namespace drv
 
 }     //namespace drv
 
-#endif //ETHERNETDRIVERSERVER_HPP
+#endif //CANDRIVERSERVER_HPP
 
 
 

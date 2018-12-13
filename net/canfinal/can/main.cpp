@@ -97,7 +97,7 @@ int main ()
 {
 MSGveryficator* fakemsgveryficator=new MSGveryficator();
 srv::ILogger* fakeloger=new Loger();
-Ethernetdriverserver* myeth=new Ethernetdriverserver(*fakeloger,*fakemsgveryficator);
+Candriverserver* myeth=new Candriverserver(*fakeloger,*fakemsgveryficator);
 
 Iethernet* myethserver1=myeth;
 pub::IEthernetdriverserver* myethserver2=myeth;
