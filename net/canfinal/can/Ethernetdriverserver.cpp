@@ -135,7 +135,7 @@ void *drv::Ethernetdriverserver::initialize()    //void using explanation: - use
         int i=0;
         for (;i<size;i++)
         {
-        std::cout<<"write from frame2.data ="<<frame2.data[i]<<std::endl;
+        //std::cout<<"write from frame2.data ="<<frame2.data[i]<<std::endl;
         m_cBufferRR[i]=frame2.data[i];       //-'0';
         }
         m_cBufferRR[i]='\0';
@@ -200,7 +200,7 @@ eErrorCodes drv::Ethernetdriverserver::send(std::string a_strTab)               
     frame.can_dlc = size;                 // liczyc po dlugosci dostarczonego stringa
     for (int i=0;i<size;i++)
     {
-    std::cout<<"write to frame.data ="<<m_cBufferSS[i+4]<<std::endl;
+    //std::cout<<"write to frame.data ="<<m_cBufferSS[i+4]<<std::endl;
     frame.data[i] = m_cBufferSS[i+4];
     }
 

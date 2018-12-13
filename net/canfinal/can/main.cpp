@@ -108,13 +108,13 @@ pub::IEthernetdriverserver* myethserver2=myeth;
 myethserver2->mRun();
 std::cout<<"mRun started"<<std::endl;
 
-std::string tekst("102325525525");
+std::string tekst("102325525499");
 sleep(1);
 
 while(1)
 {
     myethserver1->send(tekst);
-    sleep(30);
+    sleep(1);
 }
 
 return 0;
