@@ -175,15 +175,15 @@ eErrorCodes drv::Ethernetdriverserver::send(std::string a_strTab)               
     uint8_t size=a_strTab.length();
     size-=4;
 
-/*
+
     frame.can_id  = intindex1;         //zobaczyc jak wyglada msg
     frame.can_dlc = size;                 // liczyc po dlugosci dostarczonego stringa
     for (int i=0;i<size;i++)
     {
-    std::cout<<"write to frame.data ="<<m_cBufferSS[i+5]<<std::endl;
+    std::cout<<"write to frame.data ="<<m_cBufferSS[i+4]<<std::endl;
     frame.data[i] = m_cBufferSS[i+4];
     }
-  */
+  /*
     frame.can_id  = 0x156;
         frame.can_dlc = 8;
         frame.data[0] = 0xff;
@@ -195,7 +195,7 @@ eErrorCodes drv::Ethernetdriverserver::send(std::string a_strTab)               
         frame.data[6] = 0xff;
     frame.data[7] = 0xa0;
 
-
+*/
 
     //4 SENDING
 
