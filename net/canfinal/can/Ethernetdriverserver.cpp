@@ -4,9 +4,9 @@
 // Copyright <2018> GlobalLogic
 //
 //=============================================================================
-/// @file        <Ethernetdriverserver.cpp>
+/// @file        <Candriverserver.cpp>
 /// @ingroup     <drv>
-/// @brief       <receive msg from antoher ecu by ethernet>
+/// @brief       <receive msg from antoher ecu by can>
 #include<stdlib.h>  //atoi
 #include <stdio.h>  //sprintf
 
@@ -25,7 +25,7 @@ pthread_t drv::Ethernetdriverserver::m_Thread_id;                //thread for ma
 //set buffer size of char array for sockets work.
 char drv::Ethernetdriverserver::m_cBufferSS[ m_u16BuffSize ];      //send
 char drv::Ethernetdriverserver::m_cBufferRR[ m_u16BuffSize ];      //recieve
-//char drv::Ethernetdriverserver::m_cIpAdd[]="192.168.0.255";
+
 
 char drv::Ethernetdriverserver::ifname[] = "can0";                                            // ifname can
 
