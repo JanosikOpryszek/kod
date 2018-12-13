@@ -121,6 +121,7 @@ void *drv::Ethernetdriverserver::initialize()    //void using explanation: - use
         {
             drv::Ethernetdriverserver::m_LoggerRef.mLog_ERR(std::string("ETHdriver ERR - socked reciving error  - ERR"));
         }
+        std::cout<<"strlenBufferRR= "<< strlen(m_cBufferRR)<<std::endl;
         m_MsgverRef.mPutMessage(std::string(m_cBufferRR));  // CALL MSGVERYFICATOR INTERFACE HERE to pass MSG   (by string)
         pthread_mutex_lock( &drv::Ethernetdriverserver::m_Mutexeth );
     }
@@ -183,19 +184,7 @@ eErrorCodes drv::Ethernetdriverserver::send(std::string a_strTab)               
     std::cout<<"write to frame.data ="<<m_cBufferSS[i+4]<<std::endl;
     frame.data[i] = m_cBufferSS[i+4];
     }
-  /*
-    frame.can_id  = 0x156;
-        frame.can_dlc = 8;
-        frame.data[0] = 0xff;
-        frame.data[1] = 0xff;
-        frame.data[2] = 0xff;
-        frame.data[3] = 0xff;
-        frame.data[4] = 0xff;
-        frame.data[5] = 0xff;
-        frame.data[6] = 0xff;
-    frame.data[7] = 0xa0;
 
-*/
 
     //4 SENDING
 
