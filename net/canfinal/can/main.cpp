@@ -113,7 +113,7 @@ sleep(1);
 
 while(1)
 {
-    myethserver1->send(tekst);
+    //myethserver1->send(tekst);
     sleep(10);
 }
 

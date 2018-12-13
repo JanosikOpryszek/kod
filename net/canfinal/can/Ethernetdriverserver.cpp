@@ -130,13 +130,13 @@ void *drv::Ethernetdriverserver::initialize()    //void using explanation: - use
 
 
         std::cout<<"canID"<<frame2.can_id<<std::endl;
-        int size = frame.can_dlc;
+        int size = frame2.can_dlc;
         std::cout<<"canSize"<<size<<std::endl;
         int i=0;
         for (i;i<size;i++)
         {
         std::cout<<"write from frame2.data ="<<frame.data[i]<<std::endl;
-        m_cBufferRR[i]=frame2.data[i];
+        m_cBufferRR[i]=frame2.data[i]-'0';
         }
         m_cBufferRR[i]='\0';
 
@@ -190,8 +190,8 @@ eErrorCodes drv::Ethernetdriverserver::send(std::string a_strTab)               
 
     intindex1+=intindex2;
 
-    char msg[8];
-    sprintf(msg,"%x",intindex1);    //converts int to hexadecimal base char array
+    //char msg[8];
+    //sprintf(msg,"%x",intindex1);    //converts int to hexadecimal base char array
     uint8_t size=a_strTab.length();
     size-=4;
 
