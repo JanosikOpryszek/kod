@@ -153,17 +153,20 @@ eErrorCodes drv::Ethernetdriverserver::send(std::string a_strTab)               
 
     strcpy (m_cBufferSS,a_strTab.c_str()  );    //copy string param to char array Buffer
 
+    std::cout<<"BufferSS: "<<m_cBufferSS<<std::endl;
     char index1[2];
     index1[0]=m_cBufferSS[0];
     index1[1]='\0';
     uint32_t intindex1= atoi (index1);    //char array number to int
     intindex1*=100;
+    std::cout<<"intindex1"<<intindex1<<std::endl;
 
     char index2[3];
     index2[0]=m_cBufferSS[2];
     index2[1]=m_cBufferSS[3];
     index2[2]='\0';
     uint32_t intindex2= atoi (index2);
+    std::cout<<"intindex2"<<intindex2<<std::endl;
 
     intindex1+=intindex2;
 
@@ -177,6 +180,7 @@ eErrorCodes drv::Ethernetdriverserver::send(std::string a_strTab)               
     frame.can_dlc = size;                 // liczyc po dlugosci dostarczonego stringa
     for (int i=0;i<size;i++)
     {
+    std::cout<<"write to frame.data ="<<m_cBufferSS[i+5]<<std::endl;
     frame.data[i] = m_cBufferSS[i+5];
     }
 
