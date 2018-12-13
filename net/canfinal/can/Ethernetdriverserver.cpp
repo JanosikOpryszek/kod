@@ -156,24 +156,29 @@ eErrorCodes drv::Ethernetdriverserver::send(std::string a_strTab)               
     char index1[2];
     index1[0]=m_cBufferSS[0];
     index1[1]='\0';
-    int intindex1= atoi (index1);    //char array number to int
+    uint32_t intindex1= atoi (index1);    //char array number to int
     intindex1*=100;
 
     char index2[3];
     index2[0]=m_cBufferSS[2];
     index2[1]=m_cBufferSS[3];
     index2[2]='\0';
-    int intindex2= atoi (index2);
+    uint32_t intindex2= atoi (index2);
 
     intindex1+=intindex2;
 
-    char msg[6];
+    char msg[8];
     sprintf(msg,"%x",intindex1);    //converts int to hexadecimal base char array
+    uint8_t size=a_strTab.length();
+    size-=4;
 
-    frame.can_id  = 0x0ff;         //zobaczyc jak wyglada msg
-    frame.can_dlc = 8;                 // liczyc po dlugosci dostarczonego stringa
-    frame.data[0] = m_cBufferSS[5];
-    frame.data[1] = m_cBufferSS[6];
+
+    frame.can_id  = intindex1;         //zobaczyc jak wyglada msg
+    frame.can_dlc = size;                 // liczyc po dlugosci dostarczonego stringa
+    for (int i=0;i<size;i++)
+    {
+    frame.data[i] = m_cBufferSS[i+5];
+    }
 
 
     //4 SENDING
