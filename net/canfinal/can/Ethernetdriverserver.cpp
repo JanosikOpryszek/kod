@@ -133,7 +133,7 @@ void *drv::Ethernetdriverserver::initialize()    //void using explanation: - use
         int size = frame2.can_dlc;
         std::cout<<"canSize"<<size<<std::endl;
         int i=0;
-        for (i;i<size;i++)
+        for (;i<size;i++)
         {
         std::cout<<"write from frame2.data ="<<frame.data[i]<<std::endl;
         m_cBufferRR[i]=frame2.data[i]-'0';
