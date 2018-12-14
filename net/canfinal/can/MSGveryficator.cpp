@@ -27,6 +27,18 @@ namespace drv
     std::cout<<comingMessage<<std::endl;
     return retEr;
     }
+
+    eErrorCodes MSGveryficator::init()
+    {
+        return retEr;
+    }
+
+    eErrorCodes MSGveryficator::deinit()
+    {
+        return retEr;
+    }
+
+
     eErrorCodes MSGveryficator::mRun()
     {
     retEr=OK;
