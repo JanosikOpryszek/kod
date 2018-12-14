@@ -37,8 +37,8 @@ namespace drv
         /// @brief destructor
         ~Candriverserver();
         /// @brief mutex and thread variables
-        pthread_mutex_t m_Mutexeth;           //mutex for pause & resume
-        pthread_t m_Thread_id;                //thread for main loop
+        pthread_mutex_t m_Mutexeth;
+        pthread_t m_Thread_id;
 
         //========================================
         /// @brief     <initialization!>
@@ -48,6 +48,12 @@ namespace drv
         //========================================
         eErrorCodes init();
 
+        //========================================
+        /// @brief     <deinitialization!>
+        /// @param     [IN]  <void>
+        /// @param     [OUT] <enum errorcode>
+        /// @return    <errorcode>
+        //========================================
         eErrorCodes deinit();
 
         //========================================
@@ -107,11 +113,17 @@ namespace drv
         eErrorCodes send(std::string);
 
         private:
+        /// @brief  <Candriverserver copy constructor>
+        Candriverserver(const Candriverserver &arg);
+        /// @brief  <Candriverserver assignment constructor>
+        Candriverserver& operator=(const Candriverserver &arg);
+
+
         /// @brief     error code variable
         eErrorCodes m_eRetEr;
         /// @brief     variables for sockets
-        int32_t m_i32ServerSockfd;                 //socked s1
-        int32_t m_i32ServerSockfd2;                //socked s2
+        int32_t m_i32ServerSockfd;
+        int32_t m_i32ServerSockfd2;
         static char m_cBufferSS[ ];      //send
         static char m_cBufferRR[ ];      //recieve
         struct sockaddr_can addr;
@@ -123,13 +135,13 @@ namespace drv
 
         /// @brief     for main loop, if false- stop
         bool m_bIsWorking;
-        /// @brief     variable if mRun was runned
+        /// @brief     variable- if mRun was runned
         bool m_bWasRunned;
-        /// @brief     variable if Init was runned
+        /// @brief     variable- if Init was runned
         bool m_bWasInit;
         /// @brief     buffer size variable
         static const uint16_t m_u16BuffSize=1024;
-        /// @brief     pointers to antoher objects
+        /// @brief     references to antoher objects
         srv::ILogger &m_LoggerRef;
         drv::MSGveryficator &m_MsgverRef;
 
