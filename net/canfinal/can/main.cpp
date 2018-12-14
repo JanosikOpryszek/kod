@@ -10,7 +10,7 @@
 #include <netinet/in.h> // sockaddr_in    ??
 #include"Candriverserver.hpp"
 #include"Iethernet.hpp"
-#include"IEthernetdriverserver.hpp"
+#include"ICandriverserver.hpp"
 #include"MSGveryficator.hpp"
 #include"eErrorCodes.h"
 #include"ILogger.h"
@@ -99,8 +99,8 @@ MSGveryficator* fakemsgveryficator=new MSGveryficator();
 srv::ILogger* fakeloger=new Loger();
 Candriverserver* myeth=new Candriverserver(*fakeloger,*fakemsgveryficator);
 
-Iethernet* myethserver1=myeth;
-pub::IEthernetdriverserver* myethserver2=myeth;
+//Iethernet* myethserver1=myeth;
+drv::ICandriverserver* myethserver2=myeth;
 myethserver2->init();
 //pthread_t thread_id;
 //pthread_create(&thread_id,NULL,&Ethernetdriverserver::initializess,myethserver);
@@ -113,7 +113,7 @@ sleep(1);
 
 while(1)
 {
-    myethserver1->send(tekst);
+    myethserver2->send(tekst);
     sleep(1);
 }
 

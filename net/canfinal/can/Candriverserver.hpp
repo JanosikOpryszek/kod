@@ -20,8 +20,8 @@
 #include<pthread.h>
 #include<stdint.h>
 #include <sys/socket.h>
-#include"IEthernetdriverserver.hpp"
-#include"Iethernet.hpp"
+#include"ICandriverserver.hpp"
+//#include"Iethernet.hpp"
 //#include"pub/eEcuNum.h"
 //#include"../MSGVerificator/MSGveryficator.hpp"
 #include"eEcuNum.h"
@@ -30,7 +30,7 @@
 
 namespace drv
 {
-    class Candriverserver:public pub::IEthernetdriverserver, public drv::Iethernet
+    class Candriverserver:public drv::ICandriverserver
     {
         public:
         Candriverserver(srv::ILogger &a_oLogger,drv::MSGveryficator &a_oMSGver);

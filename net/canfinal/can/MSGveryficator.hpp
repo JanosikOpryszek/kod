@@ -24,11 +24,14 @@ class MSGveryficator:public drv::Imsgvermethod, public pub::IMSGVerificator
     static eErrorCodes retEr;
     public:
     eErrorCodes mPutMessage(std::string comingMessage);
+
+    eErrorCodes init();
+    eErrorCodes deinit();
     eErrorCodes mRun();
     eErrorCodes mStop();
     eErrorCodes mPause();
     eErrorCodes mResume();
-    };    //class prototypes
+    };
 
 }     //namespace drv
 

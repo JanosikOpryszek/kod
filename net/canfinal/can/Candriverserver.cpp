@@ -15,9 +15,9 @@
 #include<iostream>
 #include<unistd.h>  // sleep
 #include<string.h> // memset strlen strcpy
-#include<arpa/inet.h> // inet_pton inet_addr
+//#include<arpa/inet.h> // inet_pton inet_addr
 #include<sys/socket.h> // AF_UNIX
-#include"Candriverserver.hpp"                                               //zmiana nazwy
+#include"Candriverserver.hpp"
 
 
 char drv::Candriverserver::m_cBufferSS[ m_u16BuffSize ];      //send
