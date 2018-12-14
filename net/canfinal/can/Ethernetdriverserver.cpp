@@ -165,7 +165,7 @@ void *drv::Candriverserver::Work()
 
 
         m_MsgverRef.mPutMessage(std::string(m_cBufferRR));  // CALL MSGVERYFICATOR INTERFACE HERE to pass MSG   (by string)
-        pthread_mutex_lock( &drv::Candriverserver::m_Mutexeth );
+        pthread_mutex_lock( &m_Mutexeth );
     }
     return 0;
 }
