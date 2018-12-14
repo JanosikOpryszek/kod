@@ -37,8 +37,8 @@ namespace drv
         /// @brief destructor
         ~Candriverserver();
         /// @brief mutex and thread variables
-        static pthread_mutex_t m_Mutexeth;           //mutex for pause & resume
-        static pthread_t m_Thread_id;                //thread for main loop
+        pthread_mutex_t m_Mutexeth;           //mutex for pause & resume
+        pthread_t m_Thread_id;                //thread for main loop
 
         //========================================
         /// @brief     <initialization!>
