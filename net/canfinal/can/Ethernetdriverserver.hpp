@@ -15,13 +15,11 @@
 #include <net/if.h>
 #include <sys/types.h>
 #include <sys/ioctl.h>
-
 #include <linux/can.h>
 #include <linux/can/raw.h>
 #include<pthread.h>
 #include<stdint.h>
-//#include <arpa/inet.h> // inet_pton inet_addr      //???????
-#include <sys/socket.h> // AF_UNIX
+#include <sys/socket.h>
 #include"IEthernetdriverserver.hpp"
 #include"Iethernet.hpp"
 //#include"pub/eEcuNum.h"
@@ -43,6 +41,14 @@ namespace drv
         static pthread_t m_Thread_id;                //thread for main loop
 
         //========================================
+        /// @brief     <initialization!>
+        /// @param     [IN]  <void>
+        /// @param     [OUT] <enum errorcode>
+        /// @return    <errorcode>
+        //========================================
+        eErrorCodes init();
+
+        //========================================
         /// @brief     <Resume after Pause, its not initialization!>
         /// @param     [IN]  <void>
         /// @param     [OUT] <enum errorcode>
@@ -59,7 +65,7 @@ namespace drv
         eErrorCodes mPause();
 
         //========================================
-        /// @brief     <deinit on reset>
+        /// @brief     <deinit>
         /// @param     [IN]  <void>
         /// @param     [OUT] <enum-errorcode>
         /// @return    <errorcode>
@@ -101,34 +107,29 @@ namespace drv
         private:
         /// @brief     error code variable
         eErrorCodes m_eRetEr;
-        /// @brief     variables to sockets
+        /// @brief     variables for sockets
         int32_t m_i32ServerSockfd;                 //socked s1
         int32_t m_i32ServerSockfd2;                //socked s2
         static char m_cBufferSS[ ];      //send
         static char m_cBufferRR[ ];      //recieve
-
         struct sockaddr_can addr;
-        struct can_frame frame;
-        struct can_frame frame2;
-        struct ifreq ifr;
-
-        char  buff[20];
-        static char ifname[];
-
-
-
+        struct can_frame m_soCanFrameSS;
+        struct can_frame m_soCanFrameRR;
+        struct ifreq m_soiFreq;
+        static char  m_cBufferTmp[];
+        static char m_soCanName[];
 
         /// @brief     for main loop, if false- stop
         bool m_bIsWorking;
         /// @brief     variable if mRun was runned
         bool m_bWasRunned;
+        /// @brief     variable if Init was runned
+        bool m_bWasInit;
         /// @brief     buffer size variable
-        static const uint16_t m_u16BuffSize=4096;
+        static const uint16_t m_u16BuffSize=1024;
         /// @brief     pointers to antoher objects
         srv::ILogger &m_LoggerRef;
         drv::MSGveryficator &m_MsgverRef;
-
-
 
     };    //class prototypes
 

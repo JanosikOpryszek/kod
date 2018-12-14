@@ -25,6 +25,7 @@ namespace pub
     class IEthernetdriverserver:public pub::IDriver
     {
         public:
+        virtual eErrorCodes init() = 0;
         virtual eErrorCodes mRun() = 0;
         virtual eErrorCodes mStop() = 0;
         virtual eErrorCodes mPause() = 0;

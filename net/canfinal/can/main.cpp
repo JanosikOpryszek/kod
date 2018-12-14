@@ -101,7 +101,7 @@ Candriverserver* myeth=new Candriverserver(*fakeloger,*fakemsgveryficator);
 
 Iethernet* myethserver1=myeth;
 pub::IEthernetdriverserver* myethserver2=myeth;
-
+myethserver2->init();
 //pthread_t thread_id;
 //pthread_create(&thread_id,NULL,&Ethernetdriverserver::initializess,myethserver);
 
