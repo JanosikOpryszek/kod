@@ -19,10 +19,7 @@
 #include<sys/socket.h> // AF_UNIX
 #include"Ethernetdriverserver.hpp"                                               //zmiana nazwy
 
-//Definition of mutex & pthread
-//pthread_mutex_t drv::Candriverserver::m_Mutexeth;           //mutex for pause & resume
-//pthread_t drv::Candriverserver::m_Thread_id;                //thread for main loop
-//set buffer size of char array for sockets work.
+
 char drv::Candriverserver::m_cBufferSS[ m_u16BuffSize ];      //send
 char drv::Candriverserver::m_cBufferRR[ m_u16BuffSize ];      //recieve
 char  drv::Candriverserver::m_cBufferTmp[m_u16BuffSize];
@@ -64,6 +61,12 @@ eErrorCodes drv::Candriverserver::init()
     }
     m_bWasInit=true;
 
+    return m_eRetEr;
+}
+
+eErrorCodes drv::Candriverserver::deinit()
+{
+    m_eRetEr=OK;
     return m_eRetEr;
 }
 

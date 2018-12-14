@@ -48,6 +48,8 @@ namespace drv
         //========================================
         eErrorCodes init();
 
+        eErrorCodes deinit();
+
         //========================================
         /// @brief     <Resume after Pause, its not initialization!>
         /// @param     [IN]  <void>
