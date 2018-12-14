@@ -17,7 +17,7 @@
 #include<string.h> // memset strlen strcpy
 #include<arpa/inet.h> // inet_pton inet_addr
 #include<sys/socket.h> // AF_UNIX
-#include"Ethernetdriverserver.hpp"                                               //zmiana nazwy
+#include"Candriverserver.hpp"                                               //zmiana nazwy
 
 
 char drv::Candriverserver::m_cBufferSS[ m_u16BuffSize ];      //send

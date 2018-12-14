@@ -11,8 +11,8 @@ add_executable (pr
     ILogger.h
     #    Loger.hpp
     main.cpp
-    Ethernetdriverserver.cpp
-    Ethernetdriverserver.hpp
+    Candriverserver.cpp
+    Candriverserver.hpp
     eErrorCodes.h
     IDriver.h
     Iethernet.hpp
