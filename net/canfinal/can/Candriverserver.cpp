@@ -196,6 +196,15 @@ void *drv::Candriverserver::RunWork(void *context)
 eErrorCodes drv::Candriverserver::send(std::string a_strTab)
 {
     m_eRetEr=OK;
+    /// @brief check if data in msg is not longer than 8
+    uint8_t size=static_cast<uint8_t>(a_strTab.length());
+    if (size>12)
+    {
+        m_LoggerRef.mLog_ERR(std::string("CANdriver ERR - MSG length more 12, so data longer 8, cut to 8  - ERR"));
+        m_eRetEr=DRIVER_ERROR;
+    }
+    else
+    {
     /// @brief COPY string msg to Can Struct (ID + data)
     strcpy (m_cBufferSS,a_strTab.c_str()  );    //c_str() copy string to char array Buffer
     /// @brief     change 4character MsgID to 3character canID
@@ -212,8 +221,8 @@ eErrorCodes drv::Candriverserver::send(std::string a_strTab)
     /// @brief     intindex1=final 3character canID
     intindex1+=intindex2;
     m_soCanFrameSS.can_id  = intindex1;
-    uint8_t size=static_cast<uint8_t>(a_strTab.length());
-    /// @brief MsgID has 4 charso -4=real size of pure DATA
+
+    /// @brief MsgID has 4 char, so -4=real size of pure DATA
     size-=4;
     /// @brief   check size of canMsg to iterate
     m_soCanFrameSS.can_dlc = size;
@@ -229,6 +238,8 @@ eErrorCodes drv::Candriverserver::send(std::string a_strTab)
         m_eRetEr=DRIVER_ERROR;
     }
     memset( m_cBufferSS, 0, sizeof( m_cBufferSS ) );
+    }
+
     return m_eRetEr;
 }
 
