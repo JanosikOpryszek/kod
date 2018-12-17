@@ -11,7 +11,7 @@
 #include"Candriverserver.hpp"
 #include"Iethernet.hpp"
 #include"ICandriverserver.hpp"
-#include"MSGveryficator.hpp"
+#include"imsgvermethod.hpp"
 #include"eErrorCodes.h"
 #include"ILogger.h"
 //#include"Loger.hpp"
@@ -95,7 +95,7 @@ class Loger:public srv::ILogger
 
 int main ()
 {
-MSGveryficator* fakemsgveryficator=new MSGveryficator();
+ImsgvermethodPut* fakemsgveryficator=new ImsgvermethodPut();
 srv::ILogger* fakeloger=new Loger();
 Candriverserver* myeth=new Candriverserver(*fakeloger,*fakemsgveryficator);
 

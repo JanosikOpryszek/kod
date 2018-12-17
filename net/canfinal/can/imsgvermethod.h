@@ -29,7 +29,7 @@ class Imsgvermethod
     /// @param     [OUT] <output error cod>
     /// @return    <enum error code >
     //========================================
-   virtual eErrorCodes mPutMessage(std::string comingMessage)=0;
+   virtual eErrorCodes putMessage(std::string comingMessage)=0;
     };    //class prototypes
 
 }     //namespace drv
