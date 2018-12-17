@@ -19,7 +19,7 @@
 #include <string>
 #include "IDriver.h"
 #include "ILogger.h"
-#include "MSGveryficator.hpp"
+#include "imsgvermethod.hpp"
 namespace drv
 {
 

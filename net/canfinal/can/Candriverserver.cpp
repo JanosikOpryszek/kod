@@ -25,7 +25,7 @@ char  drv::Candriverserver::m_cBufferTmp[m_u16BuffSize];
 char drv::Candriverserver::m_soCanName[] = "can0";
 
 
-drv::Candriverserver::Candriverserver(srv::ILogger &a_oLogger,drv::MSGveryficator &a_oMSGver ):
+drv::Candriverserver::Candriverserver(srv::ILogger &a_oLogger,drv::ImsgvermethodPut &a_oMSGver ):
     m_bIsWorking(true),
     m_bWasRunned(false),
     m_bWasInit(false),
@@ -177,7 +177,7 @@ void *drv::Candriverserver::Work()
         }
         m_cBufferRR[i+4]='\0';
         /// @brief CALL MSGVERYFICATOR INTERFACE to pass MSG
-        m_MsgverRef.mPutMessage(std::string(m_cBufferRR));  //
+        m_MsgverRef.putMessage(std::string(m_cBufferRR));  //
         pthread_mutex_lock( &m_Mutexeth );
     }
     return 0;

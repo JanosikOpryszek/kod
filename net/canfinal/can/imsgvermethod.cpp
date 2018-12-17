@@ -14,47 +14,47 @@
 #include<string>
 #include<iostream>
 #include<unistd.h>  // sleep
-#include"MSGveryficator.hpp"
+#include"imsgvermethod.hpp"
 
 
 namespace drv
 {
 
-    eErrorCodes MSGveryficator::retEr;          //variable to return errorcode
-    eErrorCodes MSGveryficator::mPutMessage(std::string comingMessage)
+    eErrorCodes ImsgvermethodPut::retEr;          //variable to return errorcode
+    eErrorCodes ImsgvermethodPut::putMessage(std::string comingMessage)
     {
     retEr=OK;
     std::cout<<comingMessage<<std::endl;
     return retEr;
     }
 
-    eErrorCodes MSGveryficator::init()
+    eErrorCodes ImsgvermethodPut::init()
     {
         return retEr;
     }
 
-    eErrorCodes MSGveryficator::deinit()
+    eErrorCodes ImsgvermethodPut::deinit()
     {
         return retEr;
     }
 
 
-    eErrorCodes MSGveryficator::mRun()
+    eErrorCodes ImsgvermethodPut::mRun()
     {
     retEr=OK;
     return retEr;
     }
-    eErrorCodes MSGveryficator::mStop()
+    eErrorCodes ImsgvermethodPut::mStop()
     {
         retEr=OK;
         return retEr;
     }
-    eErrorCodes MSGveryficator::mPause()
+    eErrorCodes ImsgvermethodPut::mPause()
     {
         retEr=OK;
         return retEr;
     }
-    eErrorCodes MSGveryficator::mResume()
+    eErrorCodes ImsgvermethodPut::mResume()
     {
         retEr=OK;
         return retEr;

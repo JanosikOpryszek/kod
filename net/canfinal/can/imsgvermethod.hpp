@@ -18,12 +18,12 @@
 namespace drv
 {
 
-class MSGveryficator:public drv::Imsgvermethod, public pub::IMSGVerificator
+class ImsgvermethodPut:public drv::Imsgvermethod, public pub::IMSGVerificator
     {
 
     static eErrorCodes retEr;
     public:
-    eErrorCodes mPutMessage(std::string comingMessage);
+    eErrorCodes putMessage(std::string comingMessage);
 
     eErrorCodes init();
     eErrorCodes deinit();

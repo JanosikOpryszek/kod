@@ -19,8 +19,8 @@ add_executable (pr
     # Iethernet.hpp
     ICandriverserver.cpp
     ICandriverserver.hpp
-    MSGveryficator.cpp
-    MSGveryficator.hpp
+    imsgvermethod.cpp
+    imsgvermethod.hpp
     imsgvermethod.h
     eEcuNum.h
     eStates.h

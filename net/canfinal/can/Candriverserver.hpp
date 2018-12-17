@@ -23,9 +23,9 @@
 #include"ICandriverserver.hpp"
 //#include"Iethernet.hpp"
 //#include"pub/eEcuNum.h"
-//#include"../MSGVerificator/MSGveryficator.hpp"
+//#include"../MSGVerificator/imsgvermethod.hpp"
 #include"eEcuNum.h"
-#include"MSGveryficator.hpp"
+#include"imsgvermethod.hpp"
 #include"ILogger.h"
 
 namespace drv
@@ -33,7 +33,7 @@ namespace drv
     class Candriverserver:public drv::ICandriverserver
     {
         public:
-        Candriverserver(srv::ILogger &a_oLogger,drv::MSGveryficator &a_oMSGver);
+        Candriverserver(srv::ILogger &a_oLogger,drv::ImsgvermethodPut &a_oMSGver);
         /// @brief destructor
         ~Candriverserver();
         /// @brief mutex and thread variables
@@ -143,7 +143,7 @@ namespace drv
 
         /// @brief     references to antoher objects
         srv::ILogger &m_LoggerRef;
-        drv::MSGveryficator &m_MsgverRef;
+        drv::ImsgvermethodPut &m_MsgverRef;
 
     };    //class prototypes
 
