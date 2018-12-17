@@ -17,6 +17,7 @@ add_executable (pr
     eErrorCodes.h
     IDriver.h
     # Iethernet.hpp
+    ICandriverserver.cpp
     ICandriverserver.hpp
     MSGveryficator.cpp
     MSGveryficator.hpp

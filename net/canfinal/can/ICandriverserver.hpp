@@ -27,7 +27,7 @@ namespace drv
     {
         public:
         /// @brief     <destructor>
-        virtual ~ICandriverserver(){}
+        virtual ~ICandriverserver();
         virtual eErrorCodes init() = 0;
         virtual eErrorCodes mRun() = 0;
         virtual eErrorCodes mStop() = 0;

@@ -117,7 +117,8 @@ namespace drv
         Candriverserver(const Candriverserver &arg);
         /// @brief  <Candriverserver assignment constructor>
         Candriverserver& operator=(const Candriverserver &arg);
-
+        /// @brief     buffer size variable
+        static const uint16_t m_u16BuffSize=1024;
 
         /// @brief     error code variable
         eErrorCodes m_eRetEr;
@@ -139,8 +140,7 @@ namespace drv
         bool m_bWasRunned;
         /// @brief     variable- if Init was runned
         bool m_bWasInit;
-        /// @brief     buffer size variable
-        static const uint16_t m_u16BuffSize=1024;
+
         /// @brief     references to antoher objects
         srv::ILogger &m_LoggerRef;
         drv::MSGveryficator &m_MsgverRef;

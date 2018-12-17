@@ -18,7 +18,7 @@
 #include<sys/socket.h> // AF_UNIX
 #include"Candriverserver.hpp"
 
-
+//uint16_t drv::Candriverserver::m_u16BuffSize=1024;
 char drv::Candriverserver::m_cBufferSS[ m_u16BuffSize ];      //send
 char drv::Candriverserver::m_cBufferRR[ m_u16BuffSize ];      //recieve
 char  drv::Candriverserver::m_cBufferTmp[m_u16BuffSize];
@@ -185,7 +185,6 @@ void *drv::Candriverserver::Work()
 
 
 
-
 void *drv::Candriverserver::RunWork(void *context)
 {
     return ( reinterpret_cast<drv::Candriverserver *>(context))->drv::Candriverserver::Work();
@@ -200,46 +199,45 @@ eErrorCodes drv::Candriverserver::send(std::string a_strTab)
     uint8_t size=static_cast<uint8_t>(a_strTab.length());
     if (size>12)
     {
-        m_LoggerRef.mLog_ERR(std::string("CANdriver ERR - MSG length more 12, so data longer 8, cut to 8  - ERR"));
+        m_LoggerRef.mLog_ERR(std::string("CANdriver ERR - MSG length more 12, so data longer 8, not sended  - ERR"));
         m_eRetEr=DRIVER_ERROR;
     }
     else
     {
-    /// @brief COPY string msg to Can Struct (ID + data)
-    strcpy (m_cBufferSS,a_strTab.c_str()  );    //c_str() copy string to char array Buffer
-    /// @brief     change 4character MsgID to 3character canID
-    char index1[2];
-    index1[0]=m_cBufferSS[0];
-    index1[1]='\0';
-    uint32_t intindex1= static_cast<uint32_t>( atoi (index1));    //atoi- char array number to int
-    intindex1*=100;
-    char index2[3];
-    index2[0]=m_cBufferSS[2];
-    index2[1]=m_cBufferSS[3];
-    index2[2]='\0';
-    uint32_t intindex2= static_cast<uint32_t>(atoi (index2));    //atoi- char array number to int
-    /// @brief     intindex1=final 3character canID
-    intindex1+=intindex2;
-    m_soCanFrameSS.can_id  = intindex1;
+        /// @brief COPY string msg to Can Struct (ID + data)
+        strcpy (m_cBufferSS,a_strTab.c_str()  );    //c_str() copy string to char array Buffer
+        /// @brief     change 4character MsgID to 3character canID
+        char index1[2];
+        index1[0]=m_cBufferSS[0];
+        index1[1]='\0';
+        uint32_t intindex1= static_cast<uint32_t>( atoi (index1));    //atoi- char array number to int
+        intindex1*=100;
+        char index2[3];
+        index2[0]=m_cBufferSS[2];
+        index2[1]=m_cBufferSS[3];
+        index2[2]='\0';
+        uint32_t intindex2= static_cast<uint32_t>(atoi (index2));    //atoi- char array number to int
+        /// @brief     intindex1=final 3character canID
+        intindex1+=intindex2;
+        m_soCanFrameSS.can_id  = intindex1;
 
-    /// @brief MsgID has 4 char, so -4=real size of pure DATA
-    size-=4;
-    /// @brief   check size of canMsg to iterate
-    m_soCanFrameSS.can_dlc = size;
-    /// @brief iterate Buffer to write DATA to CanStructure to send
-    for (int i=0;i<size;i++)
-    {
-        m_soCanFrameSS.data[i] = static_cast<uint8_t>(m_cBufferSS[i+4]);
+        /// @brief MsgID has 4 char, so -4=real size of pure DATA
+        size-=4;
+        /// @brief   check size of canMsg to iterate
+        m_soCanFrameSS.can_dlc = size;
+        /// @brief iterate Buffer to write DATA to CanStructure to send
+        for (int i=0;i<size;i++)
+        {
+            m_soCanFrameSS.data[i] = static_cast<uint8_t>(m_cBufferSS[i+4]);
+        }
+        /// @brief SENDING
+        if((sendto( m_i32ServerSockfd2, &m_soCanFrameSS, sizeof (struct can_frame ), 0,reinterpret_cast< struct sockaddr * >(& addr), sizeof(addr)))<0)
+        {
+            m_LoggerRef.mLog_ERR(std::string("CANdriver ERR - socked client SENDTO error  - ERR"));
+            m_eRetEr=DRIVER_ERROR;
+        }
+        memset( m_cBufferSS, 0, sizeof( m_cBufferSS ) );
     }
-    /// @brief SENDING
-    if((sendto( m_i32ServerSockfd2, &m_soCanFrameSS, sizeof (struct can_frame ), 0,reinterpret_cast< struct sockaddr * >(& addr), sizeof(addr)))<0)
-    {
-        m_LoggerRef.mLog_ERR(std::string("CANdriver ERR - socked client SENDTO error  - ERR"));
-        m_eRetEr=DRIVER_ERROR;
-    }
-    memset( m_cBufferSS, 0, sizeof( m_cBufferSS ) );
-    }
-
     return m_eRetEr;
 }
 
