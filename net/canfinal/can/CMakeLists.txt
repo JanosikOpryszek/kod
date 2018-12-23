@@ -11,14 +11,16 @@ add_executable (pr
     ILogger.h
     #    Loger.hpp
     main.cpp
-    Ethernetdriverserver.cpp
-    Ethernetdriverserver.hpp
+    IMSGVerificator.h
+    Candriverserver.cpp
+    Candriverserver.hpp
     eErrorCodes.h
     IDriver.h
-    Iethernet.hpp
-    IEthernetdriverserver.hpp
-    MSGveryficator.cpp
-    MSGveryficator.hpp
+    # Iethernet.hpp
+    ICandriverserver.cpp
+    ICandriverserver.hpp
+    imsgvermethod.cpp
+    imsgvermethod.hpp
     imsgvermethod.h
     eEcuNum.h
     eStates.h
