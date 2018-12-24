@@ -194,6 +194,7 @@ eErrorCodes drv::Ethernetdriverserver::send(std::string a_strTab)               
     socklen_t len  = sizeof(m_soClient1 );
     //strcpy (m_cBufferSS,a_strTab.c_str()  );    //copy string param to char array Buffer
     memcpy(m_cBufferSS, a_strTab.data(), a_strTab.length());
+    std::cout<<"got str length"<<a_strTab.length()<<std::endl;
 
     //4 SENDING
     /// @brief checking if error

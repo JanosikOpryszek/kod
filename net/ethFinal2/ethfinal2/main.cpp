@@ -15,10 +15,19 @@
 #include"eErrorCodes.h"
 #include"ILogger.h"
 //#include"Loger.hpp"
+#include <sstream>   //ostringstream
+#include<stdint.h>
 
 using namespace drv;
 
+std::string toString(u_int8_t i)
+{
+    std::ostringstream ostr;
 
+        ostr << static_cast<uint8_t>(i);
+
+    return ostr.str();
+}
 
 
 class Loger:public srv::ILogger
@@ -109,7 +118,10 @@ myethserver2->mRun();
 std::cout<<"mRun started"<<std::endl;
 
 std::string tekst("1000100");
+tekst+=toString(0);
+tekst+="23";
 sleep(1);
+std::cout<<tekst<<std::endl;
 
 while(1)
 {
