@@ -1,20 +1,21 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
 // smart wskaznik bez licznika referencji - wskaznik wylaczny jak unique_ptr
 template <typename T>
-class C
+class Unique
 {
     public:
-    C(){                       // konstruktor bezparametrowy
+    Unique(){                       // konstruktor bezparametrowy
         pointer = nullptr;
     }
-    C(T* ptr){                 // konstruktor z parametrem
+    Unique(T* ptr){                 // konstruktor z parametrem
         pointer = ptr;
     }
 
-    ~C(){                     //destruktor
+    ~Unique(){                     //destruktor
         delete pointer;
     }
 
@@ -22,13 +23,13 @@ class C
         return pointer;
     }
 
-    void swap(C& other){      //funkcja swap
+    void swap(Unique& other){      //funkcja swap
         T* tmp = pointer;
         pointer = other.pointer;
         other.pointer = tmp;
     }
 
-    C(C&& other){                //konstruktor przenoszacy
+    Unique(Unique&& other){                //konstruktor przenoszacy
         T* tmp = pointer;
         pointer = other.pointer;
         other.pointer = nullptr;
@@ -42,7 +43,7 @@ class C
         return 0;
     }
 
-    bool operator==(const C& other){     // operator ==
+    bool operator==(const Unique& other){     // operator ==
      if(pointer && other.pointer )
      {
          if(*pointer  == *other.pointer)
@@ -55,7 +56,7 @@ class C
     }
 
 
-    bool operator != (const C& other){      // operator !=
+    bool operator != (const Unique& other){      // operator !=
     if(pointer && other.pointer )
     {
          if(*pointer  != *other.pointer)
@@ -68,7 +69,7 @@ class C
     }
 
 
-    bool operator < (const C& other){      // operator <
+    bool operator < (const Unique& other){      // operator <
     if(pointer && other.pointer )
     {
         if(*pointer  < *other.pointer)
@@ -81,7 +82,7 @@ class C
     }
 
 
-    bool operator <= (const C& other){      // operator <=
+    bool operator <= (const Unique& other){      // operator <=
     if(pointer && other.pointer )
     {
         if(*pointer  <= *other.pointer)
@@ -94,7 +95,7 @@ class C
     }
 
 
-    bool operator > (const C& other){      // operator >
+    bool operator > (const Unique& other){      // operator >
     if(pointer && other.pointer )
     {
         if(*pointer  > *other.pointer)
@@ -107,7 +108,7 @@ class C
     }
 
 
-    bool operator >= (const C& other){      // operator >=
+    bool operator >= (const Unique& other){      // operator >=
     if(pointer && other.pointer )
     {
         if(*pointer  >= *other.pointer)
@@ -121,8 +122,8 @@ class C
 
 
     private:                             //prywatny, blokowanie uzycia konst. kopiujacego i operatora przypisania
-    C(const C& other) {};               // kopiujacy
-    C& operator=(const C& other){}      // operator  przypisania
+    Unique(const Unique& other) {};               // kopiujacy
+    Unique& operator=(const Unique& other){}      // operator  przypisania
     T* pointer;
 
 };
@@ -131,32 +132,34 @@ class C
 
 // smart wskaznik z licznikiem referencji - wskaznik wspoldzielony jak shared_ptr
 template <typename T>
-class S
+class Shared
 {
     public:
-    S(){                       // konstruktor bezparametrowy
+    Shared(){                       // konstruktor bezparametrowy
         pointer = nullptr;
-    }
-    S(T* ptr){                 // konstruktor z parametrem
+     }
+
+    Shared(T* ptr){                 // konstruktor z parametrem
         pointer = ptr;
         licznik++;
     }
 
-    S(const S& other) {        // konstruktor kopiujacy
+    Shared(const Shared& other) {        // konstruktor kopiujacy
     pointer=other.pointer;
     licznik++;
     }
 
-    S(S&& other){              //konstruktor przenoszacy
+    Shared(Shared&& other){              //konstruktor przenoszacy
         T* tmp = pointer;
         pointer = other.pointer;
         other.pointer = nullptr;
     }
 
 
-    ~S(){                     //destruktor
-        delete pointer;
+    ~Shared(){                     //destruktor
         licznik--;
+        delete pointer;
+
     }
 
 
@@ -164,7 +167,7 @@ class S
         return pointer;
     }
 
-    void swap(S& other){      //funkcja swap
+    void swap(Shared& other){      //funkcja swap
         T* tmp = pointer;
         pointer = other.pointer;
         other.pointer = tmp;
@@ -175,7 +178,7 @@ class S
     }
 
 
-    void operator=(const S& other){      // operator  przypisania z innego wskaznika
+    void operator=(const Shared& other){      // operator  przypisania z innego wskaznika
     if(other.pointer)          //czy argument ma przypisany wskaznik
     {
         if(pointer)
@@ -192,7 +195,7 @@ class S
     }
 
 
-    void operator=(int wartosc){      // operator  przypisania wartosci
+    void reset(int wartosc){      // funkcja  przypisania wartosci
         if(pointer)
             *pointer = wartosc;
         else
@@ -211,7 +214,7 @@ class S
         return 0;
     }
 
-    bool operator==(const S& other){     // operator ==
+    bool operator==(const Shared& other){     // operator ==
      if(pointer && other.pointer )
      {
          if(*pointer  == *other.pointer)
@@ -224,7 +227,7 @@ class S
     }
 
 
-    bool operator != (const S& other){      // operator !=
+    bool operator != (const Shared& other){      // operator !=
     if(pointer && other.pointer )
     {
          if(*pointer  != *other.pointer)
@@ -237,7 +240,7 @@ class S
     }
 
 
-    bool operator < (const S& other){      // operator <
+    bool operator < (const Shared& other){      // operator <
     if(pointer && other.pointer )
     {
         if(*pointer  < *other.pointer)
@@ -250,7 +253,7 @@ class S
     }
 
 
-    bool operator <= (const S& other){      // operator <=
+    bool operator <= (const Shared& other){      // operator <=
     if(pointer && other.pointer )
     {
         if(*pointer  <= *other.pointer)
@@ -263,7 +266,7 @@ class S
     }
 
 
-    bool operator > (const S& other){      // operator >
+    bool operator > (const Shared& other){      // operator >
     if(pointer && other.pointer )
     {
         if(*pointer  > *other.pointer)
@@ -276,7 +279,7 @@ class S
     }
 
 
-    bool operator >= (const S& other){      // operator >=
+    bool operator >= (const Shared& other){      // operator >=
     if(pointer && other.pointer )
     {
         if(*pointer  >= *other.pointer)
@@ -297,26 +300,32 @@ class S
 };
 
 template <typename T>
-int S<T>::licznik=0;
+int Shared<T>::licznik=0;
 
 
-void foo(C<int> argu){
-    cout << "z wnetrza funkcji to co dal przeslany argument: "<<*argu << endl;
+void foo(Unique<int> argu){
+    cout << "------------------z wnetrza funkcji to co dal przeslany argument: "<<*argu << endl;
 }
 
-void foos(S<int> argu){
-    cout << "z wnetrza funkcji, kopia argumentu  ma wartosc: "<<*argu << endl;
-    cout << " z wnetrza funkcji ile= "<< argu.ile()<< endl;;
+Unique<int> foo2(Unique<int> argu){
+    cout << "------------------z wnetrza funkcji to co dal przeslany argument: "<<*argu << endl;
+    return move(argu);
+}
+
+void foos(Shared<int> argu){
+    cout << "------------------z wnetrza funkcji, kopia argumentu  ma wartosc: "<<*argu << endl;
+    cout << "------------------z wnetrza funkcji ile= "<< argu.ile()<< endl;;
 
 }
 
 int main()
 {
-        cout << " Klasa C - smart wskaznik bez licznika referencji - wskaznik wylaczny jak unique_ptr \n";
-        cout << "tworze c z wartoscia 10\n";
-        C<int> c(new int(10));
-        cout << "tworze inny z wartoscia 100\n";
-        C<int> inny(new int(100));
+        cout << "****************************************************************************************\n";
+        cout << "Klasa Unique - smart wskaznik bez licznika referencji - wskaznik wylaczny jak unique_ptr \n";
+        cout << "tworze wskaznik 'c' z wartoscia 10\n";
+        Unique<int> c(new int(10));
+        cout << "tworze wskaznik 'inny' z wartoscia 100\n";
+        Unique<int> inny(new int(100));
         cout << "\n";
         cout <<"c.get() wyswietla adres: ";
         cout << c.get() << "\n";
@@ -326,7 +335,7 @@ int main()
         cout << *c << "\n";
         cout << "\n";
 
-        cout << "zamieniam inny z c za pomoca  inny.swap(c) \n";
+        cout << "zamieniam 'inny' z 'c' za pomoca  inny.swap(c) \n";
         inny.swap(c);
         cout << "inny.get() wyswietla : ";
         cout << inny.get() << "\n";
@@ -338,8 +347,8 @@ int main()
         cout << *c << "\n";
         cout << "\n";
 
-        cout << "tworze nowy cc konstruktorem przenoszacym z inny cc(move(inny)), inny powinien sie wyzerowac, cc byc jak inny\n";
-        C<int> cc(move(inny));
+        cout << "tworze nowy 'cc' konstruktorem przenoszacym z 'inny' cc(move(inny)), 'inny' powinien sie wyzerowac, 'cc' byc jak 'inny'\n";
+        Unique<int> cc(move(inny));
         cout << "inny.get() wyswietla : ";
         cout << inny.get() << "\n";
         cout << "*inny wyswietla : ";
@@ -351,17 +360,24 @@ int main()
         cout << "\n";
 
         //foo(c);  nie zadziala bo kopiujacy w obszarze prywatnym
-        cout << "nasz pointer c jako argument funkcji przeslany konstruktorem przenoszacym foo(move(c))\n";
+        cout << "funkcja foo, pointer 'c' jako argument funkcji - przeslany konstruktorem przenoszacym foo(move(c))\n";
         foo(move(c));
         cout << "*c po przeniesieniu do argumentu funkcji wyswietla : ";
-        cout << *c << "\n";
-
+        cout << *c << "\n\n";
+        cout << "funkcja foo2 ktora przyjmuje argument 'cc' i zwraca do 'odb' za pomoca konstruktora przenoszacego \n";
+        Unique<int> odb( foo2(move(cc)) );
+        cout <<"*cc wyswietla: ";
+        cout << *cc << "\n";
+        cout <<"*odb wyswietla: ";
+        cout << *odb << "\n";
         cout << "\n";
+
+
         cout << "operator == \n";
-        cout << "tworze a z wartoscia 5\n";
-        C<int> a(new int(5));
-        cout << "tworze b z wartoscia 5\n";
-        C<int> b(new int(5));
+        cout << "tworze wskaznika 'a' z wartoscia 5\n";
+        Unique<int> a(new int(5));
+        cout << "tworze wskaznika 'b' z wartoscia 5\n";
+        Unique<int> b(new int(5));
         cout << "a == b  : ";
         if (a == b)
             cout << "rowne\n";
@@ -385,24 +401,46 @@ int main()
             cout << "falsz\n";
         cout << "\n";
 
-        cout << "*********************************************************\n";
-        cout << "Klasa S - smart wskaznik z licznikiem referencji - wskaznik wspoldzielony jak shared_ptr \n";
-        cout << "tworze s z wartoscia 7\n";
-        S<int> s(new int(7));
-        cout << "ile obiektow: " << s.ile() << endl;
+        cout << "*********************************************************************************************\n";
+        cout << "Klasa Shared - smart wskaznik z licznikiem referencji - wskaznik wspoldzielony jak shared_ptr \n";
+        cout << "tworze wskaznik 's' z wartoscia 7\n";
+        Shared<int> s(new int(7));
+        cout << "ile obiektow 's' typu <int> : " << s.ile() << endl;
         cout << "\n";
-        cout << "tworze wskaznik ale bez wartosci\n";
-        S<int> s2;
-        cout << "ile obiektow: " << s.ile() << endl;
-        cout << " przypisanie do powyzszego wskaznika wartosci\n";
-        s2=11;
-        cout << "ile obiektow: " << s.ile() << endl;
+        cout << "tworze nowy wskaznik 's2' ale bez wartosci, ilosc nie wzrasta\n";
+        Shared<int> s2;
+        cout << "ile obiektow 's2' typu <int> : " << s2.ile() << endl;
+        cout << "przypisanie do powyzszego wskaznika 's2' wartosci 11 za pomoca s2.reset(11) \n";
+        s2.reset(11);
+        cout << "*s2=" << *s2 <<"\n";
+        cout << "ile obiektow 's2' typu <int>: " << s2.ile() << endl;
         cout << "\n";
-        cout << " wywolanie funkcji foos czyli stworzenie kopi przez przeslanie argumentu\n";
+        cout << "wywolanie funkcji foos(s2) czyli stworzenie kopi przez przeslanie argumentu\n";
         foos(s2);
         cout << "po wyjsciu z funkcji: ";
-        cout << "ile obiektow: " << s.ile() << endl;
+        cout << "ile obiektow 's2' typu <int> : " << s2.ile() << endl;
+        cout << "\n";
+        cout << "vector typu Shared<int> i dodane typu <int>\n";
+        // umieœæ wskaŸniki w kontenerze
+        vector<Shared<int>> whoMadeCoffee;
+        whoMadeCoffee.push_back(s);
+        whoMadeCoffee.push_back(s);
+        whoMadeCoffee.push_back(s2);
+        whoMadeCoffee.push_back(s);
+        whoMadeCoffee.push_back(s2);
 
+        // wypisz wszystkie elementy
+        for (auto ptr : whoMadeCoffee) {
+             cout << *ptr << " ";
+        }
+        cout << endl ;
+        cout << "ile obiektow <int> : " << s.ile() << endl;
+        cout << "ile obiektow vector[x] : " << whoMadeCoffee[2].ile() << endl;
+        cout << "\n";
+        cout << "tworze wskaznik 'ch' typu <char> z wartoscia 8\n";
+        Shared<char> ch(new char(7));
+        cout << "ile obiektow typu <char>: " << ch.ile() << endl;
+        cout << "ile obiektow typu <int> : " << s.ile() << endl;
 
 
 
