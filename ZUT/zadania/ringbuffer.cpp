@@ -22,6 +22,16 @@ Ringbuffer()
     it=myvec.begin();
 }
 
+typename std::vector<T>::iterator begin()
+{
+    return myvec.begin();
+}
+
+typename std::vector<T>::iterator end()
+{
+    myvec.end();
+
+}
 
 void push(T arg1 )
 {
@@ -175,6 +185,13 @@ cout<<"metoda pop\n"<<ring.pop()<<endl;
 
 cout << "metoda show :";
 ring.show();
+
+cout << "_____________range_for______________\n";
+for (const auto& element: ring)
+    cout<<element<<",";
+cout<<endl;
+cout << "_____________range_for______________\n";
+
 return 0;
 }
 
