@@ -405,20 +405,20 @@ int main()
         cout << "Klasa Shared - smart wskaznik z licznikiem referencji - wskaznik wspoldzielony jak shared_ptr \n";
         cout << "tworze wskaznik 's' z wartoscia 7\n";
         Shared<int> s(new int(7));
-        cout << "ile obiektow 's' typu <int> : " << s.ile() << endl;
+        cout << "ile obiektow typu <int> : " << s.ile() << endl;
         cout << "\n";
         cout << "tworze nowy wskaznik 's2' ale bez wartosci, ilosc nie wzrasta\n";
         Shared<int> s2;
-        cout << "ile obiektow 's2' typu <int> : " << s2.ile() << endl;
+        cout << "ile obiektow  typu <int> : " << s2.ile() << endl;
         cout << "przypisanie do powyzszego wskaznika 's2' wartosci 11 za pomoca s2.reset(11) \n";
         s2.reset(11);
         cout << "*s2=" << *s2 <<"\n";
-        cout << "ile obiektow 's2' typu <int>: " << s2.ile() << endl;
+        cout << "ile obiektow  typu <int>: " << s2.ile() << endl;
         cout << "\n";
         cout << "wywolanie funkcji foos(s2) czyli stworzenie kopi przez przeslanie argumentu\n";
         foos(s2);
         cout << "po wyjsciu z funkcji: ";
-        cout << "ile obiektow 's2' typu <int> : " << s2.ile() << endl;
+        cout << "ile obiektow typu <int> : " << s2.ile() << endl;
         cout << "\n";
         cout << "vector typu Shared<int> i dodane typu <int>\n";
         // umieœæ wskaŸniki w kontenerze

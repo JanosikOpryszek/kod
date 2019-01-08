@@ -25,7 +25,7 @@ Matrix (const Matrix<N1,M1,T1>& another){                        //konstruktor k
 
 if( std::is_convertible<T,T1>::value )
 {
-    if(N1<N && M1<M )
+    if(N1<=N && M1<=M )
     {
         for(int i=0; i<N1;i++)
         {

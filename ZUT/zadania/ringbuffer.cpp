@@ -80,7 +80,7 @@ ring.push(13);
 ring.push(14);
 ring.push(15);
 
-cout << "rangefor na ringu: ";
+cout << "rangefor na vektorze z ringu: ";   //prawdziwy rangefor na koncu
 for (auto element : ring.myvec)
     cout<<element<<",";
 cout<<endl;
