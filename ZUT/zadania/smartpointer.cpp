@@ -157,8 +157,14 @@ class Shared
 
 
     ~Shared(){                     //destruktor
-        licznik--;
-        delete pointer;
+        if(pointer)
+        {
+        if(licznik>0)
+            {
+            delete pointer;
+            licznik--;
+            }    
+        }
 
     }
 
@@ -430,7 +436,7 @@ int main()
         whoMadeCoffee.push_back(s2);
 
         // wypisz wszystkie elementy
-        for (auto ptr : whoMadeCoffee) {
+        for (auto &ptr : whoMadeCoffee) {
              cout << *ptr << " ";
         }
         cout << endl ;
