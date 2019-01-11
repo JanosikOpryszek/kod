@@ -108,12 +108,12 @@ myethserver2->init();
 myethserver2->mRun();
 std::cout<<"mRun started"<<std::endl;
 
-std::string tekst("1023111111112");
+std::string tekst("12345678");
 sleep(1);
 
 myethserver2->send(tekst);
 sleep(5);
-tekst="102325525499";
+tekst="87654321";
 
 while(1)
 {
