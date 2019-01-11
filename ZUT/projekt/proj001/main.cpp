@@ -108,16 +108,20 @@ myethserver2->init();
 myethserver2->mRun();
 std::cout<<"mRun started"<<std::endl;
 
-std::string tekst("12345678");
+std::string tekst;
 sleep(1);
 
-myethserver2->send(tekst);
-sleep(5);
-tekst="87654321";
+
+
 
 while(1)
 {
+    std::cout <<" 05-cooland tem=A-40, 12(0c)RMP (2568A+B)/4, 12(0d) speed\n";
+    std::cout << " podaj message id 10x0mmmmmmm: ";
+    std::cin >> tekst;
+    std::cout << "\npodales: " << tekst <<std::endl;
     myethserver2->send(tekst);
+    tekst.clear();
     sleep(1);
 }
 
