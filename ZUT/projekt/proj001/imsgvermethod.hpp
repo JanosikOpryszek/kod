@@ -1,15 +1,8 @@
-
-//=============================================================================
-// Project      <<CAA4>>
-//
-// Copyright <2018> GlobalLogic
-//
-//=============================================================================
 /// @file        <MSGveryficator.hpp>
 /// @ingroup     <drv>
 /// @brief       <MSGveryficator class>
 
-#ifndef MSGVERYFICATOR_H       
+#ifndef MSGVERYFICATOR_H
 #define MSGVERYFICATOR_H
 
 #include"imsgvermethod.h"

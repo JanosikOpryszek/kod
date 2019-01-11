@@ -1,12 +1,6 @@
-//=============================================================================
-// Project      <<CAA4>>
-//
-// Copyright <2018> GlobalLogic
-//
-//=============================================================================
 /// @file        <Iethernet.hpp>
 /// @ingroup     <drv>
-/// @brief       <interface for MSGveryficator & PDUrouter to send MSG in network>
+/// @brief       <interface for send MSG in network>
 
 
 #ifndef IETHERNET_HPP

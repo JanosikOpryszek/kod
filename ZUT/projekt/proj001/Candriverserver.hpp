@@ -1,12 +1,6 @@
-//=============================================================================
-// Project      <<CAA4>>
-//
-// Copyright <2018> GlobalLogic
-//
-//=============================================================================
 /// @file        <Candriverserver.hpp>
 /// @ingroup     <drv>
-/// @brief       <receive msg from antoher ecu by Can>
+/// @brief       <receive msg from Can>
 
 
 #ifndef CANDRIVERSERVER_HPP
@@ -21,9 +15,6 @@
 #include<stdint.h>
 #include <sys/socket.h>
 #include"ICandriverserver.hpp"
-//#include"Iethernet.hpp"
-//#include"pub/eEcuNum.h"
-//#include"../MSGVerificator/imsgvermethod.hpp"
 #include"eEcuNum.h"
 #include"imsgvermethod.hpp"
 #include"ILogger.h"

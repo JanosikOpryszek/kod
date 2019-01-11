@@ -1,12 +1,6 @@
-//=============================================================================
-// Project      <<CAA4>>
-//
-// Copyright <2018> GlobalLogic
-//
-//=============================================================================
 /// @file        <Candriverserver.cpp>
 /// @ingroup     <drv>
-/// @brief       <receive msg from antoher ecu by can>
+/// @brief       <receive msg from can>
 ///
 #include<stdlib.h>  //atoi
 #include <stdio.h>  //sprintf
@@ -141,11 +135,11 @@ if(m_bWasRunned)
         {
             m_LoggerRef.mLog_ERR(std::string("CANdriver ERR - initializess pthreat create error - ERR"));
             m_eRetEr=DRIVER_ERROR;
-        }   
+        }
     }
     return m_eRetEr;
 }
-    
+
 
 void *drv::Candriverserver::Work()
 {

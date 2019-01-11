@@ -1,14 +1,6 @@
-
-//=============================================================================
-// Project      <<CAA4>>
-//
-// Copyright <2018> GlobalLogic
-//
-//=============================================================================
 /// @file        <MSGveryficator.cpp>
 /// @ingroup     <drv>
-/// @brief       <fake  MSGveryficator class>
-
+/// @brief       <MSGveryficator class>
 
 
 #include<string>

@@ -1,20 +1,12 @@
-//=============================================================================
-// Project      <<CAA4>>
-//
-// Copyright <2018> GlobalLogic
-//
-//=============================================================================
 /// @file        <ICandriverserver.hpp>
 /// @ingroup     <drv>
 /// @brief       <interface of Can>
 
 
-#ifndef IETHERNETDRIVERSERVER_HPP
-#define IETHERNETDRIVERSERVER_HPP
+#ifndef ICANDRIVERSERVER_HPP
+#define ICANDRIVERSERVER_HPP
 
-//#include "pub/IDriver.h"
-//#include"srv/Logger/ILogger.h"
-//#include "../MSGVerificator/MSGveryficator.hpp"
+
 
 #include <string>
 #include "IDriver.h"
