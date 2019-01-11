@@ -136,15 +136,18 @@ class Shared
 {
     public:
     Shared(){                       // konstruktor bezparametrowy
+        cout << " konstruktor bezparametrowy\n";
         pointer = nullptr;
      }
 
     Shared(T* ptr){                 // konstruktor z parametrem
+        cout <<"konstruktor z parametrem\n";
         pointer = ptr;
         licznik++;
     }
 
     Shared(const Shared& other) {        // konstruktor kopiujacy
+        cout << "konstruktor kopiujacy\n";
     pointer=other.pointer;
     licznik++;
     }
@@ -158,12 +161,13 @@ class Shared
 
     ~Shared(){                     //destruktor
         if(pointer)
+            cout<<"destruktor pointer>0, licznik= " << licznik <<endl;;
         {
         if(licznik>0)
             {
             delete pointer;
             licznik--;
-            }    
+            }
         }
 
     }
@@ -185,6 +189,7 @@ class Shared
 
 
     void operator=(const Shared& other){      // operator  przypisania z innego wskaznika
+        cout << "operator przypisania\n";
     if(other.pointer)          //czy argument ma przypisany wskaznik
     {
         if(pointer)
@@ -429,16 +434,23 @@ int main()
         cout << "vector typu Shared<int> i dodane typu <int>\n";
         // umieœæ wskaŸniki w kontenerze
         vector<Shared<int>> whoMadeCoffee;
+        cout <<"zaczynam pushback\n";
         whoMadeCoffee.push_back(s);
+        cout << "byl push s\n";
         whoMadeCoffee.push_back(s);
+        cout << "byl push s\n";
         whoMadeCoffee.push_back(s2);
+        cout << "byl push s2\n";
         whoMadeCoffee.push_back(s);
+        cout << "byl push s\n";
         whoMadeCoffee.push_back(s2);
-
+        cout << "byl push s2\n\n";
+        cout << " wyswietlam rangefor:\n";
         // wypisz wszystkie elementy
         for (auto &ptr : whoMadeCoffee) {
              cout << *ptr << " ";
         }
+        cout << " rangefor koniec\n";
         cout << endl ;
         cout << "ile obiektow <int> : " << s.ile() << endl;
         cout << "ile obiektow vector[x] : " << whoMadeCoffee[2].ile() << endl;
