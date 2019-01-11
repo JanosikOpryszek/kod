@@ -163,11 +163,12 @@ class Shared
         if(pointer)
             cout<<"destruktor pointer>0, licznik= " << licznik <<endl;;
         {
-        if(licznik>0)
+        if(licznik>1)
             {
-            delete pointer;
-            licznik--;
+                licznik--;
             }
+        else if (licznik==1)
+            delete pointer;
         }
 
     }
