@@ -135,43 +135,39 @@ template <typename T>
 class Shared
 {
     public:
-    Shared(){                       // konstruktor bezparametrowy
-//cout << " konstruktor bezparametrowy\n";
-        pointer = nullptr;
-     }
 
-    Shared(T* ptr){                 // konstruktor z parametrem
-//cout <<"konstruktor z parametrem\n";
-        pointer = ptr;
-        licznik++;
+
+
+    Shared(T* ptr): pointer(ptr),licznik(new int){                 // konstruktor z parametrem
+        *licznik=1;
     }
 
-    Shared(const Shared& other) {        // konstruktor kopiujacy
-//cout << "konstruktor kopiujacy\n";
+    Shared(const Shared<T>& other) {        // konstruktor kopiujacy
+    licznik=other.licznik;
     pointer=other.pointer;
-    licznik++;
+    (*licznik)++;
     }
+
+
 
     Shared(Shared&& other){              //konstruktor przenoszacy
-        T* tmp = pointer;
         pointer = other.pointer;
-        other.pointer = nullptr;
+        licznik=other.licznik;
+        delete other;            // albo pointer i licznik
     }
 
 
     ~Shared(){                     //destruktor
-        if(pointer)
-//cout<<"destruktor pointer>0, licznik= " << licznik <<endl;;
-        {
-        if(licznik>1)
+        if(*licznik>1)
             {
-                licznik--;
+                (*licznik)--;
             }
-        else if (licznik==1)
+        else if (*licznik==1)
+        {
             delete pointer;
+            delete licznik;
         }
-
-    }
+     }
 
 
     T* get(){                 //funkcja get
@@ -182,40 +178,38 @@ class Shared
         T* tmp = pointer;
         pointer = other.pointer;
         other.pointer = tmp;
+        int* tmp2 = licznik;
+        licznik = other.licznik;
+        other.licznik = tmp2;
+
+
     }
 
     int ile(){               //funkcja ile
-        return licznik;
+        return *licznik;
     }
 
 
-    void operator=(const Shared& other){      // operator  przypisania z innego wskaznika
+    void operator=(const Shared<T>& other){      // operator  przypisania z innego wskaznika
         cout << "operator przypisania\n";
-    if(other.pointer)          //czy argument ma przypisany wskaznik
-    {
         if(pointer)
-            *pointer = *other.pointer;
+            {
+                *pointer = *other.pointer;
+                licznik=other.licznik;
+                *licznik++;
+            }
         else
-        {
-            pointer=new T;
-            *pointer=*other.pointer;
-            licznik++;
+            {
+                pointer=new T;
+                *pointer=*other.pointer;
+                licznik=other.licznik;
+                *licznik++;
+            }
         }
-    }
-    else
-        cout << " probujesz przypisac wskaznik o wartosci nullptr\n";
-    }
 
 
     void reset(int wartosc){      // funkcja  przypisania wartosci
-        if(pointer)
             *pointer = wartosc;
-        else
-        {
-            pointer=new T;
-            *pointer=wartosc;
-            licznik++;
-        }
     }
 
 
@@ -307,12 +301,10 @@ class Shared
 
     private:
     T* pointer;
-    static int licznik;
+    int* licznik;
 
 };
 
-template <typename T>
-int Shared<T>::licznik=0;
 
 
 void foo(Unique<int> argu){
@@ -417,20 +409,20 @@ int main()
         cout << "Klasa Shared - smart wskaznik z licznikiem referencji - wskaznik wspoldzielony jak shared_ptr \n";
         cout << "tworze wskaznik 's' z wartoscia 7\n";
         Shared<int> s(new int(7));
-        cout << "ile obiektow typu <int> : " << s.ile() << endl;
+        cout << "ile obiektow typu s : " << s.ile() << endl;
         cout << "\n";
-        cout << "tworze nowy wskaznik 's2' ale bez wartosci, ilosc nie wzrasta\n";
-        Shared<int> s2;
-        cout << "ile obiektow  typu <int> : " << s2.ile() << endl;
+        cout << "tworze wskaznik 's2' z wartoscia 10\n";
+        Shared<int> s2(new int(10));
+        cout << "ile obiektow  typu s : " << s2.ile() << endl;
         cout << "przypisanie do powyzszego wskaznika 's2' wartosci 11 za pomoca s2.reset(11) \n";
         s2.reset(11);
         cout << "*s2=" << *s2 <<"\n";
-        cout << "ile obiektow  typu <int>: " << s2.ile() << endl;
+        cout << "ile obiektow  typu s2: " << s2.ile() << endl;
         cout << "\n";
         cout << "wywolanie funkcji foos(s2) czyli stworzenie kopi przez przeslanie argumentu\n";
         foos(s2);
         cout << "po wyjsciu z funkcji: ";
-        cout << "ile obiektow typu <int> : " << s2.ile() << endl;
+        cout << "ile obiektow typu s2 : " << s2.ile() << endl;
         cout << "\n";
         cout << "vector typu Shared<int> i dodane typu <int>\n";
         // umieœæ wskaŸniki w kontenerze
@@ -453,13 +445,15 @@ int main()
         }
         cout << "\nrangefor koniec\n";
         cout << endl ;
-        cout << "ile obiektow <int> : " << s.ile() << endl;
-        cout << "ile obiektow vector[x] : " << whoMadeCoffee[2].ile() << endl;
+        cout << "ile obiektow s : " << s.ile() << endl;
+        cout << "ile obiektow vector[s] : " << whoMadeCoffee[1].ile() << endl;
+        cout << "\n";
+        cout << "ile obiektow vector[s2] : " << whoMadeCoffee[2].ile() << endl;
         cout << "\n";
         cout << "tworze wskaznik 'ch' typu <char> z wartoscia 8\n";
         Shared<char> ch(new char(7));
-        cout << "ile obiektow typu <char>: " << ch.ile() << endl;
-        cout << "ile obiektow typu <int> : " << s.ile() << endl;
+        cout << "ile obiektow typu ch: " << ch.ile() << endl;
+        cout << "ile obiektow typu s2 : " << s2.ile() << endl;
 
 
 
