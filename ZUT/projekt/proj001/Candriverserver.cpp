@@ -201,7 +201,7 @@ eErrorCodes drv::Candriverserver::send(std::string a_strTab)
         /// @brief COPY string msg to Can Struct (ID + data)
         strcpy (m_cBufferSS,a_strTab.c_str()  );    //c_str() copy string to char array Buffer
 
-        unsigned int intindexx=std::stoul(a_strTab.substr(0,2),nullptr,16);   //stoul conver hex string to int, substring 0-2
+        unsigned long intindexx=std::stoul(a_strTab.substr(0,3),nullptr,16);   //stoul conver hex string to int, substring 0-2
         /*
         /// @brief     change 4character MsgID to 3character canID
         char index1[2];
