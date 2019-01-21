@@ -26,7 +26,7 @@ class Loger:public srv::ILogger
 
     eErrorCodes errRet;
 
-    public:    
+    public:
     Loger()
     {
     std::cout<<"Logger created"<<std::endl;
@@ -39,13 +39,13 @@ class Loger:public srv::ILogger
 
     eErrorCodes init()
     {
-        errRet=OK;    
+        errRet=OK;
         return errRet;
     }
 
     eErrorCodes deinit()
     {
-        errRet=OK;    
+        errRet=OK;
         return errRet;
     }
 
@@ -54,7 +54,7 @@ class Loger:public srv::ILogger
     eErrorCodes mLog_ERR(std::string a_strInput)
     {
         std::cout<<a_strInput<<std::endl;
-        errRet=OK;    
+        errRet=OK;
         return errRet;
     }
 
@@ -62,14 +62,14 @@ class Loger:public srv::ILogger
     eErrorCodes mLog_DBG(std::string a_strInput)
     {
         std::cout<<a_strInput<<std::endl;
-        errRet=OK;    
+        errRet=OK;
         return errRet;
     }
 
     eErrorCodes mLog_INF(std::string a_strInput)
     {
         std::cout<<a_strInput<<std::endl;
-        errRet=OK;    
+        errRet=OK;
         return errRet;
     }
 
@@ -78,7 +78,7 @@ class Loger:public srv::ILogger
     eErrorCodes mLog_WRN(std::string a_strInput)
     {
         std::cout<<a_strInput<<std::endl;
-        errRet=OK;    
+        errRet=OK;
         return errRet;
     }
 
@@ -116,8 +116,8 @@ sleep(1);
 
 while(1)
 {
-    std::cout <<" 05-cooland tem=A-40, 12(0c)RMP (2568A+B)/4, 12(0d) speed\n";
-    std::cout << " podaj message id 10x0mmmmmmm: ";
+    std::cout <<" 05(05)-cooland tem=A-40, 12(0c)RMP (2568A+B)/4, 12(0d) speed\n";
+    std::cout << " podaj message id#data 00c#12345678: ";
     std::cin >> tekst;
     std::cout << "\npodales: " << tekst <<std::endl;
     myethserver2->send(tekst);

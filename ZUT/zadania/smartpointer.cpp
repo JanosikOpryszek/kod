@@ -456,8 +456,5 @@ int main()
         cout << "ile obiektow typu s2 : " << s2.ile() << endl;
 
 
-
-
-
     return 0;
 }

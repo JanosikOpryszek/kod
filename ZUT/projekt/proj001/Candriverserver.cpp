@@ -156,11 +156,11 @@ void *drv::Candriverserver::Work()
         }
         /// @brief     change 3character canID to 4character MsgID
         char msgTemp[3];
-        sprintf(msgTemp,"%d",m_soCanFrameRR.can_id);    //sprintf - converts int to decimal base char array
+        sprintf(msgTemp,"%x",m_soCanFrameRR.can_id);    //sprintf - converts int to hexadecimal base char array
         m_cBufferRR[0]=msgTemp[0];
-        m_cBufferRR[1]='0';
-        m_cBufferRR[2]=msgTemp[1];
-        m_cBufferRR[3]=msgTemp[2];
+        m_cBufferRR[1]=msgTemp[1];
+        m_cBufferRR[2]=msgTemp[2];
+        m_cBufferRR[3]='#';
         /// @brief     check size of canMsg to iterate
         int size = m_soCanFrameRR.can_dlc;
         int i=0;
@@ -200,6 +200,9 @@ eErrorCodes drv::Candriverserver::send(std::string a_strTab)
     {
         /// @brief COPY string msg to Can Struct (ID + data)
         strcpy (m_cBufferSS,a_strTab.c_str()  );    //c_str() copy string to char array Buffer
+
+        unsigned int intindexx=std::stoul(a_strTab.substr(0,2),nullptr,16)   //stoul conver hex string to int, substring 0-2
+        /*
         /// @brief     change 4character MsgID to 3character canID
         char index1[2];
         index1[0]=m_cBufferSS[0];
@@ -214,6 +217,8 @@ eErrorCodes drv::Candriverserver::send(std::string a_strTab)
         /// @brief     intindex1=final 3character canID
         intindex1+=intindex2;
         m_soCanFrameSS.can_id  = intindex1;
+        */
+        m_soCanFrameSS.can_id  = intindexx;
 
         /// @brief MsgID has 4 char, so -4=real size of pure DATA
         size-=4;
