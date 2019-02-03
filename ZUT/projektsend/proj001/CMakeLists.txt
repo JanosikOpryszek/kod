@@ -39,5 +39,4 @@ add_executable (pr
     eEcuNum.h
     eStates.h
     )
-target_link_libraries (pr ${CMAKE_THREAD_LIBS_INIT} rascapp
-    ${GTKMM_LIBRARIES})
+target_link_libraries (pr ${CMAKE_THREAD_LIBS_INIT} ${GTKMM_LIBRARIES})
