@@ -1,4 +1,5 @@
 #include<iostream>
+#include <gtk/gtk.h>
 #include<string>
 #include<pthread.h>
 #include<unistd.h>  // sleep
@@ -18,6 +19,18 @@
 
 using namespace drv;
 
+
+static void
+activate (GtkApplication* app,
+          gpointer        user_data)
+{
+  GtkWidget *window;
+
+  window = gtk_application_window_new (app);
+  gtk_window_set_title (GTK_WINDOW (window), "Window");
+  gtk_window_set_default_size (GTK_WINDOW (window), 200, 200);
+  gtk_widget_show_all (window);
+}
 
 
 
@@ -95,6 +108,21 @@ class Loger:public srv::ILogger
 
 int main ()
 {
+
+
+    GtkApplication *app;
+      int status;
+
+      app = gtk_application_new ("org.gtk.example", G_APPLICATION_FLAGS_NONE);
+      g_signal_connect (app, "activate", G_CALLBACK (activate), NULL);
+      status = g_application_run (G_APPLICATION (app), argc, argv);
+      g_object_unref (app);
+
+      return status;
+
+
+
+
 ImsgvermethodPut* fakemsgveryficator=new ImsgvermethodPut();
 srv::ILogger* fakeloger=new Loger();
 Candriverserver* myeth=new Candriverserver(*fakeloger,*fakemsgveryficator);
