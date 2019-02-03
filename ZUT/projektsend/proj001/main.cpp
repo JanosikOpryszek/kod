@@ -20,16 +20,12 @@
 using namespace drv;
 
 
-static void
-print_hello (GtkWidget *widget,
-             gpointer   data)
+static void print_hello (GtkWidget *widget, gpointer   data)
 {
   g_print ("Hello World\n");
 }
 
-static void
-activate (GtkApplication *app,
-          gpointer        user_data)
+static void activate (GtkApplication *app, gpointer  user_data)
 {
   GtkWidget *window;
   GtkWidget *button;
@@ -130,18 +126,6 @@ int main (int    argc,
 {
 
 
-    GtkApplication *app;
-      int status;
-
-      app = gtk_application_new ("org.gtk.example", G_APPLICATION_FLAGS_NONE);
-      g_signal_connect (app, "activate", G_CALLBACK (activate), NULL);
-      status = g_application_run (G_APPLICATION (app), argc, argv);
-      g_object_unref (app);
-
-      //return status;
-
-
-
 
 ImsgvermethodPut* fakemsgveryficator=new ImsgvermethodPut();
 srv::ILogger* fakeloger=new Loger();
@@ -181,11 +165,18 @@ else
 
 
 //reading and showing messages part
-char c;
-while (std::cin >> c)
-{
 
-}
+
+
+GtkApplication *app;
+  int status;
+
+  app = gtk_application_new ("org.gtk.example", G_APPLICATION_FLAGS_NONE);
+  g_signal_connect (app, "activate", G_CALLBACK (activate), NULL);
+  //status = g_application_run (G_APPLICATION (app), argc, argv);
+  g_object_unref (app);
+
+  //return status;
 
 
 return 0;
