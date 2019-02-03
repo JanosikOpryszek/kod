@@ -105,25 +105,36 @@ myethserver2->init();
 //pthread_t thread_id;
 //pthread_create(&thread_id,NULL,&Ethernetdriverserver::initializess,myethserver);
 
-myethserver2->mRun();
-std::cout<<"mRun started"<<std::endl;
+bool version;
+std::cout<<"Sending (car emulation) press 0, receiving (tester emulation) press 1: ";
+std::cin >> version;
 
 std::string tekst;
 sleep(1);
 
-
-
-
-while(1)
+if(version)
 {
-    std::cout <<" 05(05)-cooland tem=A-40, 12(0c)RMP (2568A+B)/4, 12(0d) speed\n";
-    std::cout << " podaj message id#data 00c#12345678: ";
-    std::cin >> tekst;
-    std::cout << "\npodales: " << tekst <<std::endl;
-    myethserver2->send(tekst);
-    tekst.clear();
-    sleep(1);
+myethserver2->mRun();
+std::cout<<"reading messages (tester emulation)"<<std::endl;
 }
+else
+{
+    while(1)
+    {
+        std::cout <<" 05(05)-cooland tem=A-40, 12(0c)RMP (2568A+B)/4, 12(0d) speed\n";
+        std::cout << " podaj message id#data 00c#12345678: ";
+        std::cin >> tekst;
+        std::cout << "\npodales: " << tekst <<std::endl;
+        myethserver2->send(tekst);
+        tekst.clear();
+        sleep(1);
+    }
+
+
+}
+
+
+
 
 return 0;
 }

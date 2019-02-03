@@ -13,6 +13,7 @@ namespace drv
 {
 
     eErrorCodes ImsgvermethodPut::retEr;          //variable to return errorcode
+
     eErrorCodes ImsgvermethodPut::putMessage(std::string comingMessage)
     {
     retEr=OK;
