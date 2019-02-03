@@ -5,6 +5,20 @@ set(CMAKE_AUTOMOC ON)
 project (pr)
 SET(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++11 -Lpthread ")
 
+
+# Must use GNUInstallDirs to install libraries into correct locations on all platforms:
+include(GNUInstallDirs)
+
+# Pkg_config is used to locate header and files for dependency libraries:
+find_package(PkgConfig)
+
+# Defines variables GTKMM_INCLUDE_DIRS, GTKMM_LIBRARY_DIRS and GTKMM_LIBRARIES.
+pkg_check_modules(GTKMM gtkmm-3.0)
+link_directories( ${GTKMM_LIBRARY_DIRS} )
+include_directories( ${GTKMM_INCLUDE_DIRS} )
+
+
+
 find_package (Threads)
 add_executable (pr 
 
@@ -25,4 +39,5 @@ add_executable (pr
     eEcuNum.h
     eStates.h
     )
-target_link_libraries (pr ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries (pr ${CMAKE_THREAD_LIBS_INIT} rascapp
+    ${GTKMM_LIBRARIES})
