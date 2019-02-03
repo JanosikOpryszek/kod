@@ -129,11 +129,15 @@ else
         tekst.clear();
         sleep(1);
     }
-
-
 }
 
 
+//reading and showing messages part
+char c;
+while (std::cin >> c)
+{
+
+}
 
 
 return 0;
