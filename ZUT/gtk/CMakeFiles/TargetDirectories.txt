@@ -1,0 +1,3 @@
+/home/marcin/kod/ZUT/gtk/CMakeFiles/rebuild_cache.dir
+/home/marcin/kod/ZUT/gtk/CMakeFiles/pr.dir
+/home/marcin/kod/ZUT/gtk/CMakeFiles/edit_cache.dir
