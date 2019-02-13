@@ -1,36 +1,54 @@
 #include<iostream>
-#include<string>
-#include<string.h>
 
 
 
 using namespace std;
 
-char m_cBufferSS[1024];
-string a_strTab="1203456";
+class Bazowa
+{
+public:
+    int a;
+    int b;
+    Bazowa(int a,int b):a(a),b(b){}
+
+};
+
+
+class Pochodna :public Bazowa
+{
+public:
+    static int c;
+    Pochodna(int a, int b ):Bazowa(a,b){}
+
+};
+
+//zmienna statyczna klasy moze byc inicjalizowana tylko w obszarze globalnym, nie w konstruktorze
+int Pochodna::c=3;
 
 
 int main()
 {
-cout<<a_strTab<<endl;
-//a_strTab.append(  );
-//a_strTab.append("789");
 
-cout<<a_strTab<<endl;
-
-//strcpy(m_cBufferSS,a_strTab.c_str() );
-memcpy(m_cBufferSS, a_strTab.data(),8 );
-//copy(a_strTab.begin(), a_strTab.end(), m_cBufferSS);
-
-a_strTab.copy(m_cBufferSS, 8);
+//Tworzymy obiekty klasy pochodnej ale typu klasy bazowej
+Bazowa *obiekt=new Pochodna(1,2);
+Bazowa *obiekt2=new Pochodna(5,6);
 
 
-for(int i=0;i<8;i++)
-    cout<<m_cBufferSS[i]<<endl;
+//to nie zadziala !!!
+//obiekt->c=4;
+//bo
+//dostep do pola c zdefiniowanego w klasie pochodnej tylko po kastowaniu na obiekt typem klasy pochodnej
+static_cast<Pochodna*>(obiekt)->c=4;
 
 
+//tu tak samo nie zadziala, bo z punktu widzenia typu klasy bazowej pole c nie istnieje
+//cout<<obiekt->c<<endl;
 
+//wiec kastujemy
+cout<<static_cast<Pochodna*>(obiekt)->c<<endl;
 
+//jak widać zmienna statyczna wspolna dla obu obiektow
+cout<<static_cast<Pochodna*>(obiekt2)->c<<endl;
 
 
 return 0;
