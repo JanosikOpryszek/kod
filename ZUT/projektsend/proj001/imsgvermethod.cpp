@@ -17,26 +17,44 @@ namespace drv
     eErrorCodes ImsgvermethodPut::putMessage(std::string comingMessage)
     {
     retEr=OK;
+    int temp=0;
+    int fpreasure=0;
+    int rmp=0;
     switch (comingMessage[2] )
     {
     case '5': //coolant temp= A-40
     {
+        temp=std::stoul(comingMessage.substr(4,6),nullptr,10); //stoul conver string to int
+        std::system("clear");
         std::cout<<"coolant temp=";
-        int temp=std::stoul(comingMessage.substr(4,6),nullptr,10);   //stoul conver hex string to int, substring 0-2
         std::cout<<temp<<std::endl;
+        std::cout<<"fuel preasure=";
+        std::cout<<fpreasure<<std::endl;
+        std::cout<<"engine RPM=";
+        std::cout<<rmp<<std::endl;
         break;
     }
     case 'a':
     {
+        fpreasure=std::stoul(comingMessage.substr(4,6),nullptr,10);   //stoul conver string to int
+        std::system("clear");
+        std::cout<<"coolant temp=";
+        std::cout<<temp<<std::endl;
         std::cout<<"fuel preasure=";
-        int fpreasure=std::stoul(comingMessage.substr(4,6),nullptr,10);   //stoul conver hex string to int, substring 0-2
         std::cout<<fpreasure<<std::endl;
+        std::cout<<"engine RPM=";
+        std::cout<<rmp<<std::endl;
         break;
     }
     case 'c':
     {
+        rmp=std::stoul(comingMessage.substr(4,6),nullptr,10);   //stoul conver string to int
+        std::system("clear");
+        std::cout<<"coolant temp=";
+        std::cout<<temp<<std::endl;
+        std::cout<<"fuel preasure=";
+        std::cout<<fpreasure<<std::endl;
         std::cout<<"engine RPM=";
-        int rmp=std::stoul(comingMessage.substr(4,6),nullptr,10);   //stoul conver hex string to int, substring 0-2
         std::cout<<rmp<<std::endl;
         break;
     }
