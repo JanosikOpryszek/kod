@@ -144,6 +144,7 @@ if(m_bWasRunned)
 void *drv::Candriverserver::Work()
 {
     /// @brief M A I N  L O O P - reading canMsg
+    int ii=0;
     while(m_bIsWorking)
     {
         /// @brief   mutex for pause & resume
@@ -154,9 +155,10 @@ void *drv::Candriverserver::Work()
         {
             m_LoggerRef.mLog_ERR(std::string("CANdriver ERR - socked reciving error  - ERR"));
         }
+        std::cout<<ii<<std::endl;
+        ii++;
         /// @brief     change 3character canID to 4character MsgID
-        char msgTemp[4];
-        memset( msgTemp, 0, sizeof( msgTemp ) );
+        char msgTemp[3];
         std::cout<<"can_id="<<m_soCanFrameRR.can_id<<std::endl;
         sprintf(msgTemp,"%x",m_soCanFrameRR.can_id);    //sprintf - converts int to hexadecimal base char array
         std::cout<<"msgTemp po %x="<<msgTemp<<std::endl;
@@ -208,23 +210,7 @@ eErrorCodes drv::Candriverserver::send(std::string a_strTab)
         strcpy (m_cBufferSS,a_strTab.c_str()  );    //c_str() copy string to char array Buffer
 
         unsigned long intindexx=std::stoul(a_strTab.substr(0,3),nullptr,16);   //stoul conver hex string to int, substring 0-2
-        /*
-        /// @brief     change 4character MsgID to 3character canID
-        char index1[2];
-        index1[0]=m_cBufferSS[0];
-        index1[1]='\0';
-        uint32_t intindex1= static_cast<uint32_t>( atoi (index1));    //atoi- char array number to int
-        intindex1*=100;
-        char index2[3];
-        index2[0]=m_cBufferSS[2];
-        index2[1]=m_cBufferSS[3];
-        index2[2]='\0';
-        uint32_t intindex2= static_cast<uint32_t>(atoi (index2));    //atoi- char array number to int
-        /// @brief     intindex1=final 3character canID
-        intindex1+=intindex2;
-        m_soCanFrameSS.can_id  = intindex1;
-        */
-        std::cout<<"can_id="<<intindexx<<std::endl;
+
         m_soCanFrameSS.can_id  = intindexx;
 
         /// @brief MsgID has 4 char, so -4=real size of pure DATA
