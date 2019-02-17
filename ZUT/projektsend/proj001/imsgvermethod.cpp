@@ -17,6 +17,24 @@ namespace drv
     eErrorCodes ImsgvermethodPut::putMessage(std::string comingMessage)
     {
     retEr=OK;
+    switch (comingMessage[2] )
+    {
+    case 5:
+        std::cout<<"id=5"<<std::endl;
+        break;
+    case 'b':
+        std::cout<<"id=b"<<std::endl;
+        break;
+    case 'c':
+        std::cout<<"id=c"<<std::endl;
+        break;
+    default:
+        std::cout<<"default"<<std::endl;
+        break;
+
+    }
+
+
     std::cout<<comingMessage<<std::endl;
     return retEr;
     }
