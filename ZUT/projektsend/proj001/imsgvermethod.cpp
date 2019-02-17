@@ -13,6 +13,11 @@ namespace drv
 {
 
     eErrorCodes ImsgvermethodPut::retEr;          //variable to return errorcode
+    int ImsgvermethodPut::temp=0;
+    int ImsgvermethodPut::fpreasure=0;
+    int ImsgvermethodPut::rmp=0;
+
+
 
     eErrorCodes ImsgvermethodPut::putMessage(std::string comingMessage)
     {
