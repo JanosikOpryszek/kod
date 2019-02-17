@@ -15,6 +15,9 @@ class ImsgvermethodPut:public drv::Imsgvermethod, public pub::IMSGVerificator
     {
 
     static eErrorCodes retEr;
+    static int temp;
+    static int fpreasure;
+    static int rmp;
     public:
     eErrorCodes putMessage(std::string comingMessage);
 

@@ -133,19 +133,19 @@ else
         tekst+="023";
         myethserver2->send(tekst);
         tekst.clear();
-        sleep(1);
+        usleep(100000);
         //send fuler presure
         tekst="10a#";
         tekst+="100";
         myethserver2->send(tekst);
         tekst.clear();
-        sleep(1);
+        usleep(100000);
         //send rpm
         tekst="10c#";
         tekst+="200";
         myethserver2->send(tekst);
         tekst.clear();
-        sleep(1);
+        usleep(100000);
 
 
 

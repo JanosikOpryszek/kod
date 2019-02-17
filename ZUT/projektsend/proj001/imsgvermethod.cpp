@@ -17,9 +17,7 @@ namespace drv
     eErrorCodes ImsgvermethodPut::putMessage(std::string comingMessage)
     {
     retEr=OK;
-    int temp=0;
-    int fpreasure=0;
-    int rmp=0;
+
     switch (comingMessage[2] )
     {
     case '5': //coolant temp= A-40
