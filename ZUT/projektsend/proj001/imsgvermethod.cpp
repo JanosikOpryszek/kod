@@ -19,23 +19,34 @@ namespace drv
     retEr=OK;
     switch (comingMessage[2] )
     {
-    case '5':
-        std::cout<<"id=5"<<std::endl;
+    case '5': //coolant temp= A-40
+    {
+        std::cout<<"coolant temp=";
+        int temp=std::stoul(comingMessage.substr(4,6),nullptr,10);   //stoul conver hex string to int, substring 0-2
+        std::cout<<temp<<std::endl;
         break;
+    }
     case 'a':
-        std::cout<<"id=a"<<std::endl;
+    {
+        std::cout<<"fuel preasure=";
+        int fpreasure=std::stoul(comingMessage.substr(4,6),nullptr,10);   //stoul conver hex string to int, substring 0-2
+        std::cout<<fpreasure<<std::endl;
         break;
+    }
     case 'c':
-        std::cout<<"id=c"<<std::endl;
+    {
+        std::cout<<"engine RPM=";
+        int rmp=std::stoul(comingMessage.substr(4,6),nullptr,10);   //stoul conver hex string to int, substring 0-2
+        std::cout<<rmp<<std::endl;
         break;
+    }
     default:
-        std::cout<<"default"<<std::endl;
         break;
 
     }
 
 
-    std::cout<<comingMessage<<std::endl;
+    //std::cout<<comingMessage<<std::endl;
     return retEr;
     }
 

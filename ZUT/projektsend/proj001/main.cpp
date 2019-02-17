@@ -130,19 +130,19 @@ else
     {
         //send coolant temp
         tekst="105#";
-        tekst+="200";
+        tekst+="023";
         myethserver2->send(tekst);
         tekst.clear();
         sleep(1);
         //send fuler presure
         tekst="10a#";
-        tekst+="10";
+        tekst+="100";
         myethserver2->send(tekst);
         tekst.clear();
         sleep(1);
         //send rpm
         tekst="10c#";
-        tekst+="50";
+        tekst+="200";
         myethserver2->send(tekst);
         tekst.clear();
         sleep(1);

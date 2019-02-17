@@ -144,7 +144,7 @@ if(m_bWasRunned)
 void *drv::Candriverserver::Work()
 {
     /// @brief M A I N  L O O P - reading canMsg
-    int ii=0;
+
     while(m_bIsWorking)
     {
         /// @brief   mutex for pause & resume
@@ -155,17 +155,13 @@ void *drv::Candriverserver::Work()
         {
             m_LoggerRef.mLog_ERR(std::string("CANdriver ERR - socked reciving error  - ERR"));
         }
-        std::cout<<ii<<std::endl;
-        ii++;
         /// @brief     change 3character canID to 4character MsgID
         char msgTemp[3];
-        std::cout<<"can_id="<<m_soCanFrameRR.can_id<<std::endl;
         sprintf(msgTemp,"%x",m_soCanFrameRR.can_id);    //sprintf - converts int to hexadecimal base char array
-        std::cout<<"msgTemp po %x="<<msgTemp<<std::endl;
+
         m_cBufferRR[0]=msgTemp[0];
         m_cBufferRR[1]=msgTemp[1];
         m_cBufferRR[2]=msgTemp[2];
-        std::cout<<"........"<<m_cBufferRR[2]<<std::endl;
         m_cBufferRR[3]='#';
         /// @brief     check size of canMsg to iterate
         int size = m_soCanFrameRR.can_dlc;
@@ -178,7 +174,6 @@ void *drv::Candriverserver::Work()
         }
         m_cBufferRR[i+4]='\0';
         /// @brief CALL MSGVERYFICATOR INTERFACE to pass MSG
-        std::cout<<"..."<<m_cBufferRR<<std::endl;
         m_MsgverRef.putMessage(std::string(m_cBufferRR));  //
         pthread_mutex_lock( &m_Mutexeth );
     }
