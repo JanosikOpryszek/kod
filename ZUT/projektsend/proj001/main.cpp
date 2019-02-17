@@ -135,11 +135,11 @@ else
         tekst="105#";
 
         sprintf(msgTmp,"%d",temp);    //sprintf - converts int to decimal base char array
-
-        tekst[4]=msgTemp[0];
-        tekst[5]=msgTemp[1];
-        tekst[6]=msgTemp[2];
-        //tekst+="023";
+        std::cout<<"sdgtmp="<<msgTmp<<std::endl;
+        //tekst[4]=msgTemp[0];
+        //tekst[5]=msgTemp[1];
+        //tekst[6]=msgTemp[2];
+        tekst+=msgTmp;
         myethserver2->send(tekst);
         tekst.clear();
         temp++;
