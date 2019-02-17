@@ -163,7 +163,7 @@ void *drv::Candriverserver::Work()
         m_cBufferRR[3]='#';
         /// @brief     check size of canMsg to iterate
         int size = m_soCanFrameRR.can_dlc;
-        std::cout<<"data size ="<<size<<std::endl;
+        //std::cout<<"data size ="<<size<<std::endl;
         int i=0;
         /// @brief iterate to write readed DATA to Buffer
         for (;i<size;i++)
@@ -171,7 +171,6 @@ void *drv::Candriverserver::Work()
             m_cBufferRR[i+4]=static_cast<char>(m_soCanFrameRR.data[i]);
         }
         m_cBufferRR[i+4]='\0';
-        std::cout<<m_cBufferRR<<std::endl;
         /// @brief CALL MSGVERYFICATOR INTERFACE to pass MSG
         m_MsgverRef.putMessage(std::string(m_cBufferRR));  //
         pthread_mutex_lock( &m_Mutexeth );

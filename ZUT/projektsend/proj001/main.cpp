@@ -128,13 +128,27 @@ else
 {
     while(1)
     {
-        std::cout <<" 05(05)-cooland tem=A-40, 12(0c)RMP (2568A+B)/4, 12(0d) speed\n";
-        std::cout << " podaj message id#data 00c#12345678: ";
-        std::cin >> tekst;
-        std::cout << "\npodales: " << tekst <<std::endl;
+        //send coolant temp
+        tekst="105#";
+        tekst+="200";
         myethserver2->send(tekst);
         tekst.clear();
         sleep(1);
+        //send fuler presure
+        tekst="10a#";
+        tekst+="10";
+        myethserver2->send(tekst);
+        tekst.clear();
+        sleep(1);
+        //send rpm
+        tekst="10c#";
+        tekst+="50";
+        myethserver2->send(tekst);
+        tekst.clear();
+        sleep(1);
+
+
+
     }
 }
 
