@@ -156,6 +156,7 @@ void *drv::Candriverserver::Work()
         }
         /// @brief     change 3character canID to 4character MsgID
         char msgTemp[3];
+        memset( msgTemp, 0, sizeof( msgTemp ) );
         sprintf(msgTemp,"%x",m_soCanFrameRR.can_id);    //sprintf - converts int to hexadecimal base char array
         m_cBufferRR[0]=msgTemp[0];
         m_cBufferRR[1]=msgTemp[1];
