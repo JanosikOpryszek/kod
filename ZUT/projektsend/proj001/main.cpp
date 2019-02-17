@@ -126,13 +126,23 @@ std::cout<<"reading messages (tester emulation)"<<std::endl;
 }
 else
 {
+    char msgTmp[3];
+    int temp=23;
+    char msgTemp[3];
     while(1)
     {
         //send coolant temp
         tekst="105#";
-        tekst+="023";
+
+        sprintf(msgTmp,"%d",temp);    //sprintf - converts int to decimal base char array
+
+        tekst[4]=msgTemp[0];
+        tekst[5]=msgTemp[1];
+        tekst[6]=msgTemp[2];
+        //tekst+="023";
         myethserver2->send(tekst);
         tekst.clear();
+        temp++;
         usleep(100000);
         //send fuler presure
         tekst="10a#";
