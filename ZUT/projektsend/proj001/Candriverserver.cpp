@@ -224,6 +224,7 @@ eErrorCodes drv::Candriverserver::send(std::string a_strTab)
         intindex1+=intindex2;
         m_soCanFrameSS.can_id  = intindex1;
         */
+        std::cout<<"can_id="<<intindexx<<std::endl;
         m_soCanFrameSS.can_id  = intindexx;
 
         /// @brief MsgID has 4 char, so -4=real size of pure DATA
