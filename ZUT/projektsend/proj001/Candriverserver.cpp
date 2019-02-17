@@ -155,9 +155,11 @@ void *drv::Candriverserver::Work()
             m_LoggerRef.mLog_ERR(std::string("CANdriver ERR - socked reciving error  - ERR"));
         }
         /// @brief     change 3character canID to 4character MsgID
-        char msgTemp[3];
+        char msgTemp[4];
         memset( msgTemp, 0, sizeof( msgTemp ) );
+        std::cout<<"can_id="<<m_soCanFrameRR.can_id<<std::endl;
         sprintf(msgTemp,"%x",m_soCanFrameRR.can_id);    //sprintf - converts int to hexadecimal base char array
+        std::cout<<"msgTemp po %x="<<msgTemp<<std::endl;
         m_cBufferRR[0]=msgTemp[0];
         m_cBufferRR[1]=msgTemp[1];
         m_cBufferRR[2]=msgTemp[2];
