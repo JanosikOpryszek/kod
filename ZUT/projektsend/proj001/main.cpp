@@ -128,34 +128,32 @@ else
 {
     char msgTmp[3];
     int temp=23;
-    char msgTemp[3];
+    int presure=100;
+    int rpm=200;
+
     while(1)
     {
         //send coolant temp
         tekst="105#";
-
         sprintf(msgTmp,"%d",temp);    //sprintf - converts int to decimal base char array
-        std::cout<<"sdgtmp="<<msgTmp<<std::endl;
-        //tekst[4]=msgTemp[0];
-        //tekst[5]=msgTemp[1];
-        //tekst[6]=msgTemp[2];
         tekst+=msgTmp;
         myethserver2->send(tekst);
         tekst.clear();
-        temp++;
-        usleep(100000);
+        usleep(10000);
         //send fuler presure
         tekst="10a#";
-        tekst+="100";
+        sprintf(msgTmp,"%d",presure);    //sprintf - converts int to decimal base char array
+        tekst+=msgTmp;
         myethserver2->send(tekst);
         tekst.clear();
-        usleep(100000);
+        usleep(10000);
         //send rpm
         tekst="10c#";
-        tekst+="200";
+        sprintf(msgTmp,"%d",rpm);    //sprintf - converts int to decimal base char array
+        tekst+=msgTmp;
         myethserver2->send(tekst);
         tekst.clear();
-        usleep(100000);
+        usleep(10000);
 
 
 

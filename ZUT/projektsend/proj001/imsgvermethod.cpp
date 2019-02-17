@@ -28,37 +28,19 @@ namespace drv
     case '5': //coolant temp= A-40
     {
         temp=std::stoul(comingMessage.substr(4,6),nullptr,10); //stoul conver string to int
-        std::system("clear");
-        std::cout<<"coolant temp=";
-        std::cout<<temp<<std::endl;
-        std::cout<<"fuel preasure=";
-        std::cout<<fpreasure<<std::endl;
-        std::cout<<"engine RPM=";
-        std::cout<<rmp<<std::endl;
+        init();
         break;
     }
     case 'a':
     {
         fpreasure=std::stoul(comingMessage.substr(4,6),nullptr,10);   //stoul conver string to int
-        std::system("clear");
-        std::cout<<"coolant temp=";
-        std::cout<<temp<<std::endl;
-        std::cout<<"fuel preasure=";
-        std::cout<<fpreasure<<std::endl;
-        std::cout<<"engine RPM=";
-        std::cout<<rmp<<std::endl;
+        init();
         break;
     }
     case 'c':
     {
         rmp=std::stoul(comingMessage.substr(4,6),nullptr,10);   //stoul conver string to int
-        std::system("clear");
-        std::cout<<"coolant temp=";
-        std::cout<<temp<<std::endl;
-        std::cout<<"fuel preasure=";
-        std::cout<<fpreasure<<std::endl;
-        std::cout<<"engine RPM=";
-        std::cout<<rmp<<std::endl;
+        init();
         break;
     }
     default:
@@ -73,6 +55,14 @@ namespace drv
 
     eErrorCodes ImsgvermethodPut::init()
     {
+
+        std::system("clear");
+        std::cout<<"coolant temp=";
+        std::cout<<temp<<std::endl;
+        std::cout<<"fuel preasure=";
+        std::cout<<fpreasure<<std::endl;
+        std::cout<<"engine RPM=";
+        std::cout<<rmp<<std::endl;
         return retEr;
     }
 
