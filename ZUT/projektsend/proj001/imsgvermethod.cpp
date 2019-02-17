@@ -19,11 +19,11 @@ namespace drv
     retEr=OK;
     switch (comingMessage[2] )
     {
-    case 5:
+    case '5':
         std::cout<<"id=5"<<std::endl;
         break;
-    case 'b':
-        std::cout<<"id=b"<<std::endl;
+    case 'a':
+        std::cout<<"id=a"<<std::endl;
         break;
     case 'c':
         std::cout<<"id=c"<<std::endl;
