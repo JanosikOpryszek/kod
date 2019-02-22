@@ -18,11 +18,11 @@
 using namespace drv;
 
 void *sendmsg(void*);
-char msgTmp[3];
-int temp=23;
-int presure=100;
-int rpm=200;
-std::string tekst;
+static char msgTmp[3];
+static int temp=23;
+static int presure=100;
+static int rpm=200;
+static std::string tekst;
 
 
 
@@ -77,7 +77,7 @@ void *sendmsg(void* mycandrv)
         sprintf(msgTmp,"%d",temp);    //sprintf - converts int to decimal base char array
         tekst+=msgTmp;
 
-        (reinterpret_cast<drv::ICandriverserver *>(mycandrv))->drv::ICandriverserver::send(tekst);
+        (reinterpret_cast<drv::ICandriverserver *>(mycandrv))->drv::ICandriverserver::send(::tekst);
 
 
 
@@ -87,14 +87,14 @@ void *sendmsg(void* mycandrv)
         tekst="10a#";
         sprintf(msgTmp,"%d",presure);    //sprintf - converts int to decimal base char array
         tekst+=msgTmp;
-        (reinterpret_cast<drv::ICandriverserver *>(mycandrv))->drv::ICandriverserver::send(tekst);
+        (reinterpret_cast<drv::ICandriverserver *>(mycandrv))->drv::ICandriverserver::send(::tekst);
         tekst.clear();
         usleep(100000);
         //send rpm
         tekst="10c#";
         sprintf(msgTmp,"%d",rpm);    //sprintf - converts int to decimal base char array
         tekst+=msgTmp;
-        (reinterpret_cast<drv::ICandriverserver *>(mycandrv))->drv::ICandriverserver::send(tekst);
+        (reinterpret_cast<drv::ICandriverserver *>(mycandrv))->drv::ICandriverserver::send(::tekst);
         tekst.clear();
         usleep(100000);
     }
