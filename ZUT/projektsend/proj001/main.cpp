@@ -110,15 +110,15 @@ void change(ImsgmethodPut* msgmetput)
     {
         std::cout<<"if"<<msgmetput->checkdirection() <<std::endl;
         temp+=1;
-        presure+=10;
-        rpm+=20;
+        presure+=1;
+        rpm+=2;
     }
     else
     {
         std::cout<<"else"<< msgmetput->checkdirection()<<std::endl;
         temp-=1;
-        presure-=10;
-        rpm-=20;
+        presure-=1;
+        rpm-=2;
     }
 
 }
