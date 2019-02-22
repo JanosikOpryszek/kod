@@ -17,7 +17,7 @@
 
 using namespace drv;
 
-void *sendmsg(void*);
+void *sendmsg(drv::ICandriverserver*);
 static char msgTmp[3];
 static int temp=23;
 static int presure=100;
@@ -42,19 +42,17 @@ int main ()
     std::cout<<"Receiving (tester emulation)  press 1: ";
     std::cin >> version;
 
-    pthread_t thread_id;
+
 
     //jesli 1 tylko odczyt msg czyli mRun
     if(version)
     {
         mycandrv->mRun();
-        std::cout<<"reading messages (tester emulation)"<<std::endl;
     }
     //jesli 0 tylko wysylanie msg
     else
     {
-        pthread_create(&thread_id, NULL, sendmsg, mycandrv);
-        //sendmsg(mycandrv);
+       sendmsg(mycandrv);
     }
 
 
@@ -67,7 +65,7 @@ int main ()
 }
 
 
-void *sendmsg(void* mycandrv)
+void *sendmsg(drv::ICandriverserver* mycandrv)
 {
 
     while(1)
@@ -76,25 +74,21 @@ void *sendmsg(void* mycandrv)
         tekst="105#";
         sprintf(msgTmp,"%d",temp);    //sprintf - converts int to decimal base char array
         tekst+=msgTmp;
-
-        (reinterpret_cast<drv::ICandriverserver *>(mycandrv))->drv::ICandriverserver::send(::tekst);
-
-
-
+        mycandrv->send(tekst);
         tekst.clear();
         usleep(100000);
         //send fuler presure
         tekst="10a#";
         sprintf(msgTmp,"%d",presure);    //sprintf - converts int to decimal base char array
         tekst+=msgTmp;
-        (reinterpret_cast<drv::ICandriverserver *>(mycandrv))->drv::ICandriverserver::send(::tekst);
+        mycandrv->send(tekst);
         tekst.clear();
         usleep(100000);
         //send rpm
         tekst="10c#";
         sprintf(msgTmp,"%d",rpm);    //sprintf - converts int to decimal base char array
         tekst+=msgTmp;
-        (reinterpret_cast<drv::ICandriverserver *>(mycandrv))->drv::ICandriverserver::send(::tekst);
+        mycandrv->send(tekst);
         tekst.clear();
         usleep(100000);
     }
