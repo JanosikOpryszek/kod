@@ -38,6 +38,6 @@ add_executable (pr
     imsgvermethod.hpp
     imsgvermethod.h
     eEcuNum.h
-    eStates.h
+    # eStates.h
     )
 target_link_libraries (pr ${CMAKE_THREAD_LIBS_INIT} ${GTKMM_LIBRARIES})
