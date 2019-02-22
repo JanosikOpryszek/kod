@@ -17,6 +17,7 @@ namespace drv
     int ImsgvermethodPut::fpreasure=0;
     int ImsgvermethodPut::rmp=0;
     std::string ImsgvermethodPut::spacee=" ";
+    bool ImsgvermethodPut::direction=1;
 
 
 

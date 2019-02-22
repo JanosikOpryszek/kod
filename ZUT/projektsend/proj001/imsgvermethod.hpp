@@ -5,14 +5,15 @@
 #ifndef MSGVERYFICATOR_H
 #define MSGVERYFICATOR_H
 
-#include"imsgvermethod.h"
-#include"IMSGVerificator.h"
+//#include"imsgvermethod.h"
+//#include"IMSGVerificator.h"
+#include"eErrorCodes.h"
 #include<string>
 
 namespace drv
 {
 
-class ImsgvermethodPut:public drv::Imsgvermethod, public pub::IMSGVerificator
+class ImsgvermethodPut//:public drv::Imsgvermethod, public pub::IMSGVerificator
     {
 
     static eErrorCodes retEr;
@@ -20,6 +21,7 @@ class ImsgvermethodPut:public drv::Imsgvermethod, public pub::IMSGVerificator
     static int fpreasure;
     static int rmp;
     static std::string spacee;
+    static bool direction;
     public:
     eErrorCodes putMessage(std::string comingMessage);
 
