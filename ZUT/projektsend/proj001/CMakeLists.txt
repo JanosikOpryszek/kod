@@ -26,18 +26,13 @@ add_executable (pr
     Loger.hpp
     Loger.cpp
     main.cpp
-    # IMSGVerificator.h
     Candriverserver.cpp
     Candriverserver.hpp
     eErrorCodes.h
-    # IDriver.h
-    # Iethernet.hpp
     ICandriverserver.cpp
     ICandriverserver.hpp
     imsgvermethod.cpp
     imsgvermethod.hpp
-    # imsgvermethod.h
-    # eEcuNum.h
-    # eStates.h
+
     )
 target_link_libraries (pr ${CMAKE_THREAD_LIBS_INIT} ${GTKMM_LIBRARIES})

@@ -10,7 +10,7 @@
 #include <sys/socket.h> // AF_UNIX
 #include <netinet/in.h> // sockaddr_in    ??
 #include"Candriverserver.hpp"
-#include"Iethernet.hpp"
+//#include"Iethernet.hpp"
 #include"ICandriverserver.hpp"
 #include"imsgvermethod.hpp"
 #include"eErrorCodes.h"
