@@ -3,24 +3,23 @@
 #define LOGER_HPP
 
 #include"ILogger.h"
-//#include"eErrorCodes.h"
 
+namespace drv
+{
 
-
-class Loger:public srv::ILogger
-    {
-    static eErrorCodes errRet;
-    public:
+class Loger:public drv::ILogger
+{
+public:
     Loger();
     ~Loger();
-    /*
-    eErrorCodes init();
-    eErrorCodes deinit();
-    */
     eErrorCodes mLog_ERR(std::string a_strInput);
     eErrorCodes mLog_DBG(std::string a_strInput);
-    };
+private:
+    static eErrorCodes errRet;
 
+};
+
+}
 
 #endif
 

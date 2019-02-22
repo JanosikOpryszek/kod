@@ -10,20 +10,21 @@ namespace drv
 
 class ImsgmethodPut
     {
-
-    static eErrorCodes retEr;
-    static int temp;
-    static int fpreasure;
-    static int rmp;
-    static std::string spacee;
-    static bool direction;
-    public:
+public:
     eErrorCodes putMessage(std::string comingMessage);
     eErrorCodes show();
+    static bool direction;
+private:
+    static eErrorCodes retEr;
+    static unsigned long temp;
+    static unsigned long  fpreasure;
+    static unsigned long  rmp;
+    static std::string spacee;
+
 
     };
 
-}     //namespace drv
+}
 
 
 #endif

@@ -17,7 +17,8 @@
 
 using namespace drv;
 
-void *sendmsg(drv::ICandriverserver*);
+void sendmsg(drv::ICandriverserver*);
+void change();
 static char msgTmp[3];
 static int temp=23;
 static int presure=100;
@@ -31,9 +32,9 @@ static std::string tekst;
 int main ()
 {
     ImsgmethodPut* msgmetput=new ImsgmethodPut();
-    srv::ILogger* loger=new Loger();
+    ILogger* loger=new Loger();
 
-    drv::ICandriverserver* mycandrv=new Candriverserver(*loger,*msgmetput);
+    ICandriverserver* mycandrv=new Candriverserver(*loger,*msgmetput);
     mycandrv->init();
 
 
@@ -43,29 +44,34 @@ int main ()
     std::cin >> version;
 
 
-
-    //jesli 1 tylko odczyt msg czyli mRun
+    //if 1 only reading msg and show on cmd
     if(version)
     {
         mycandrv->mRun();
     }
-    //jesli 0 tylko wysylanie msg
+    //if 0 only sending msg (car emulation)
     else
     {
-       sendmsg(mycandrv);
+        std::cout<<"press Ctrl + C to exit! "<<std::endl;
+        sendmsg(mycandrv);
     }
 
-
+    //wait for key
     char c;
     std::cout<<"press x + enter to exit! "<<std::endl;
     std::cin>>c;
+
+    //exiting
     mycandrv->mStop();
+    delete(mycandrv);
+    delete(loger);
+    delete(msgmetput);
 
     return 0;
 }
 
 
-void *sendmsg(drv::ICandriverserver* mycandrv)
+void sendmsg(drv::ICandriverserver* mycandrv)
 {
 
     while(1)
@@ -91,7 +97,24 @@ void *sendmsg(drv::ICandriverserver* mycandrv)
         mycandrv->send(tekst);
         tekst.clear();
         usleep(100000);
+        change();
     }
 
 }
 
+void change()
+{
+    if(ImsgmethodPut::direction)
+    {
+        temp+=1;
+        presure+=10;
+        rpm+=100;
+    }
+    else
+    {
+        temp-=1;
+        presure-=10;
+        rpm-=100;
+    }
+
+}

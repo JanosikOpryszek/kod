@@ -3,47 +3,33 @@
 
 
 
-
-    eErrorCodes Loger::errRet;
+eErrorCodes drv::Loger::errRet;
     
-    Loger::Loger()
-    {
+drv::Loger::Loger()
+{
     std::cout<<"Logger created"<<std::endl;
-    }
+}
 
-    Loger::~Loger()
-    {
+drv::Loger::~Loger()
+{
 
-    }
-/*
-    eErrorCodes Loger::init()
-    {
-        errRet=OK;    
-        return errRet;
-    }
-
-    eErrorCodes Loger::deinit()
-    {
-        errRet=OK;    
-        return errRet;
-    }
-
-*/
-
-    eErrorCodes Loger::mLog_ERR(std::string a_strInput)
-    {
-        std::cout<<a_strInput<<std::endl;
-        errRet=OK;    
-        return errRet;
-    }
+}
 
 
-    eErrorCodes Loger::mLog_DBG(std::string a_strInput)
-    {
-        std::cout<<a_strInput<<std::endl;
-        errRet=OK;    
-        return errRet;
-    }
+eErrorCodes drv::Loger::mLog_ERR(std::string a_strInput)
+{
+    std::cout<<a_strInput<<std::endl;
+    errRet=OK;
+    return errRet;
+}
+
+
+eErrorCodes drv::Loger::mLog_DBG(std::string a_strInput)
+{
+    std::cout<<a_strInput<<std::endl;
+    errRet=OK;
+    return errRet;
+}
 
 
 

@@ -8,9 +8,9 @@ namespace drv
 {
 
     eErrorCodes ImsgmethodPut::retEr;          //variable to return errorcode
-    int ImsgmethodPut::temp=0;
-    int ImsgmethodPut::fpreasure=0;
-    int ImsgmethodPut::rmp=0;
+    unsigned long ImsgmethodPut::temp=0;
+    unsigned long  ImsgmethodPut::fpreasure=0;
+    unsigned long  ImsgmethodPut::rmp=0;
     std::string ImsgmethodPut::spacee=" ";
     bool ImsgmethodPut::direction=1;
 

@@ -5,8 +5,9 @@
 #include "eErrorCodes.h"
 
 
-namespace srv
+namespace drv
 {
+
 class ILogger
 {
 public:
@@ -15,5 +16,6 @@ public:
     virtual eErrorCodes mLog_DBG(std::string a_strInput) = 0;
 
 };
+
 }
-#endif // ILOGGER_H
+#endif

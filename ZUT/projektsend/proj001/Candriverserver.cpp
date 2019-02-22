@@ -15,7 +15,7 @@ char  drv::Candriverserver::m_cBufferTmp[m_u16BuffSize];
 char drv::Candriverserver::m_soCanName[] = "can0";
 
 
-drv::Candriverserver::Candriverserver(srv::ILogger &a_oLogger,drv::ImsgmethodPut &a_oMSGver ):
+drv::Candriverserver::Candriverserver(drv::ILogger &a_oLogger,drv::ImsgmethodPut &a_oMSGver ):
     m_bIsWorking(true),
     m_bWasRunned(false),
     m_bWasInit(false),
@@ -87,22 +87,22 @@ eErrorCodes drv::Candriverserver::mStop()
 
 eErrorCodes drv::Candriverserver::mRun()
 {
-if(m_bWasRunned)
-    {
-        m_LoggerRef.mLog_ERR(std::string("CANdriver ERR - mRun runned second time - ERR"));
-        m_eRetEr=DRIVER_ERROR;
-    }
-    else
-    {
-        m_eRetEr=OK;
-        m_bWasRunned=true;
-        m_LoggerRef.mLog_DBG(std::string("CANdriver DBG - got mRun, main loop started - OK"));
-        if((pthread_create(&m_Thread_id,0,&RunWork,this))<0)
+    if(m_bWasRunned)
         {
-            m_LoggerRef.mLog_ERR(std::string("CANdriver ERR - initializess pthreat create error - ERR"));
+            m_LoggerRef.mLog_ERR(std::string("CANdriver ERR - mRun runned second time - ERR"));
             m_eRetEr=DRIVER_ERROR;
         }
-    }
+        else
+        {
+            m_eRetEr=OK;
+            m_bWasRunned=true;
+            m_LoggerRef.mLog_DBG(std::string("CANdriver DBG - got mRun, main loop started - OK"));
+            if((pthread_create(&m_Thread_id,0,&RunWork,this))<0)
+            {
+                m_LoggerRef.mLog_ERR(std::string("CANdriver ERR - initializess pthreat create error - ERR"));
+                m_eRetEr=DRIVER_ERROR;
+            }
+        }
     return m_eRetEr;
 }
 
