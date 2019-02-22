@@ -34,7 +34,7 @@ drv::Candriverserver::~Candriverserver()
 
 }
 
-eErrorCodes drv::Candriverserver::init()
+eErrorCodes drv::Candriverserver::show()
 {
     m_eRetEr=OK;
     /// @brief checking if was init before

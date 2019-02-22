@@ -28,19 +28,19 @@ namespace drv
     case '5': //coolant temp= A-40
     {
         temp=std::stoul(comingMessage.substr(4,6),nullptr,10); //stoul conver string to int
-        init();
+        show();
         break;
     }
     case 'a':
     {
         fpreasure=std::stoul(comingMessage.substr(4,6),nullptr,10);   //stoul conver string to int
-        init();
+        show();
         break;
     }
     case 'c':
     {
         rmp=std::stoul(comingMessage.substr(4,6),nullptr,10);   //stoul conver string to int
-        init();
+        show();
         break;
     }
     default:
@@ -53,19 +53,40 @@ namespace drv
     return retEr;
     }
 
-    eErrorCodes ImsgvermethodPut::init()
+    eErrorCodes ImsgvermethodPut::show()
     {
 
         std::system("clear");
+        std::cout<<"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"<<std::endl;
         std::cout<<"coolant temp=";
         std::cout<<temp<<std::endl;
         std::cout<<"fuel preasure=";
         std::cout<<fpreasure<<std::endl;
         std::cout<<"engine RPM=";
         std::cout<<rmp<<std::endl;
-        return retEr;
-    }
+        std::cout<<"pres x Enter to exit";
 
+
+std::cout<<"        _nnnn_"<<std::endl;
+std::cout<<"       dGGGGMMb"<<std::endl;
+std::cout<<"      @p~qp~~qMb"<<std::endl;
+std::cout<<"      M|@||@) M|"<<std::endl;
+std::cout<<"      @,----.JM|"<<std::endl;
+std::cout<<"     JS^ __/  qKL"<<std::endl;
+std::cout<<"    dZP        qKRb"<<std::endl;
+std::cout<<"   dZP          qKKb"<<std::endl;
+std::cout<<"  fZP            SMMb"<<std::endl;
+std::cout<<"  HZM            MMMM"<<std::endl;
+std::cout<<"  FqM            MMMM"<<std::endl;
+std::cout<<"__| .         | dSqML"<<std::endl;
+std::cout<<"|    `.       | `'  Zq"<<std::endl;
+std::cout<<"_)       .___.,|     .'"<<std::endl;
+std::cout<<" ____   )MMMMMP|   .'"<<std::endl;
+std::cout<<"    `-'       `--' hjm"<<std::endl;
+return retEr;
+
+    }
+/*
     eErrorCodes ImsgvermethodPut::deinit()
     {
         return retEr;
@@ -93,7 +114,7 @@ namespace drv
         return retEr;
     }
 
-
+*/
 
 
 }

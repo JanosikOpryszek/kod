@@ -21,12 +21,14 @@ class ImsgvermethodPut:public drv::Imsgvermethod, public pub::IMSGVerificator
     public:
     eErrorCodes putMessage(std::string comingMessage);
 
-    eErrorCodes init();
+    eErrorCodes show();
+    /*
     eErrorCodes deinit();
     eErrorCodes mRun();
     eErrorCodes mStop();
     eErrorCodes mPause();
     eErrorCodes mResume();
+    */
     };
 
 }     //namespace drv

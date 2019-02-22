@@ -37,7 +37,7 @@ namespace drv
         /// @param     [OUT] <enum errorcode>
         /// @return    <errorcode>
         //========================================
-        eErrorCodes init();
+        eErrorCodes show();
 
         //========================================
         /// @brief     <deinitialization!>

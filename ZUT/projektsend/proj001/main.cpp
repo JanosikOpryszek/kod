@@ -105,11 +105,11 @@ int main (int    argc,
 
 ImsgvermethodPut* fakemsgveryficator=new ImsgvermethodPut();
 srv::ILogger* fakeloger=new Loger();
-Candriverserver* myeth=new Candriverserver(*fakeloger,*fakemsgveryficator);
+//Candriverserver* myeth=new Candriverserver(*fakeloger,*fakemsgveryficator);
 
 //Iethernet* myethserver1=myeth;
-drv::ICandriverserver* myethserver2=myeth;
-myethserver2->init();
+drv::ICandriverserver* myethserver2=new Candriverserver(*fakeloger,*fakemsgveryficator);
+myethserver2->show();
 //pthread_t thread_id;
 //pthread_create(&thread_id,NULL,&Ethernetdriverserver::initializess,myethserver);
 
@@ -141,21 +141,21 @@ else
         tekst+=msgTmp;
         myethserver2->send(tekst);
         tekst.clear();
-        usleep(10000);
+        usleep(100000);
         //send fuler presure
         tekst="10a#";
         sprintf(msgTmp,"%d",presure);    //sprintf - converts int to decimal base char array
         tekst+=msgTmp;
         myethserver2->send(tekst);
         tekst.clear();
-        usleep(10000);
+        usleep(100000);
         //send rpm
         tekst="10c#";
         sprintf(msgTmp,"%d",rpm);    //sprintf - converts int to decimal base char array
         tekst+=msgTmp;
         myethserver2->send(tekst);
         tekst.clear();
-        usleep(10000);
+        usleep(100000);
 
 
 
