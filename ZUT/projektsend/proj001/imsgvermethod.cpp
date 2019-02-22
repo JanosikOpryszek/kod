@@ -59,18 +59,18 @@ eErrorCodes ImsgmethodPut::show()
     std::cout<<fpreasure<<std::endl;
     std::cout<<"engine RPM=";
     std::cout<<rmp<<std::endl;
-    std::cout<<"direction= "<<direction<<".  Pres x Enter to exit. "<<std::endl;
+    std::cout<<"direction= "<<ImsgmethodPut::direction<<".  Pres x Enter to exit. "<<std::endl;
     std::cout<<"---------------------------------------------------------------------------"<<std::endl;
 
     //move picture
-    if (direction )
+    if (ImsgmethodPut::direction )
     {
         if( spacee.length()<50 )
         {
             spacee.append(" ");
         }
         else
-            direction=0;
+            ImsgmethodPut::direction=0;
     }
     else
     {
@@ -79,7 +79,7 @@ eErrorCodes ImsgmethodPut::show()
             spacee.erase(0,1);
         }
         else
-            direction=1;
+            ImsgmethodPut::direction=1;
     }
 
 
