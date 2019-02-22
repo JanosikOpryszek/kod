@@ -18,11 +18,11 @@
 using namespace drv;
 
 void sendmsg(drv::ICandriverserver*);
-static char msgTmp[3];
-static int temp=23;
-static int presure=100;
-static int rpm=200;
-static std::string tekst;
+char msgTmp[3];
+int temp=23;
+int presure=100;
+int rpm=200;
+std::string tekst;
 
 
 
