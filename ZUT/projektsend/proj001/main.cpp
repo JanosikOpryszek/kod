@@ -43,6 +43,8 @@ int main ()
     std::cout<<"Receiving (tester emulation)  press 1: ";
     std::cin >> version;
 
+    ImsgmethodPut::direction=1;
+
 
     //if 1 only reading msg and show on cmd
     if(version)

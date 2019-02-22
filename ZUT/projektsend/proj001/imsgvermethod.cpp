@@ -12,7 +12,7 @@ unsigned long ImsgmethodPut::temp=0;
 unsigned long  ImsgmethodPut::fpreasure=0;
 unsigned long  ImsgmethodPut::rmp=0;
 std::string ImsgmethodPut::spacee=" ";
-bool ImsgmethodPut::direction=1;
+//bool ImsgmethodPut::direction=1;
 
 
 
