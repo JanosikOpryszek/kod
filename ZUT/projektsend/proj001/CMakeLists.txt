@@ -23,7 +23,8 @@ find_package (Threads)
 add_executable (pr 
 
     ILogger.h
-    #    Loger.hpp
+    Loger.hpp
+    Loger.cpp
     main.cpp
     IMSGVerificator.h
     Candriverserver.cpp

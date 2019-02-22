@@ -15,14 +15,14 @@
 #include"imsgvermethod.hpp"
 #include"eErrorCodes.h"
 #include"ILogger.h"
-//#include"Loger.hpp"
+#include"Loger.hpp"
 
 using namespace drv;
 
 
 
 
-
+/*
 
 class Loger:public srv::ILogger
 {
@@ -85,12 +85,12 @@ class Loger:public srv::ILogger
         errRet=OK;
         return errRet;
     }
-*/
+
 
 };
 
 
-
+*/
 
 
 
