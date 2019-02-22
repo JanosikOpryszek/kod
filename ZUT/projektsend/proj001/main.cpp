@@ -17,12 +17,13 @@
 
 using namespace drv;
 
-void sendmsg(drv::ICandriverserver*,ImsgmethodPut* );
-void change(ImsgmethodPut*);
+void sendmsg(drv::ICandriverserver* );
+void change();
 static char msgTmp[3];
 static int temp=23;
 static int presure=100;
 static int rpm=200;
+static bool direction=1;
 static std::string tekst;
 
 
@@ -53,7 +54,7 @@ int main ()
     else
     {
         std::cout<<"press Ctrl + C to exit! "<<std::endl;
-        sendmsg(mycandrv,msgmetput);
+        sendmsg(mycandrv);
     }
 
     //wait for key
@@ -71,7 +72,7 @@ int main ()
 }
 
 
-void sendmsg(drv::ICandriverserver* mycandrv,ImsgmethodPut* msgmetput)
+void sendmsg(drv::ICandriverserver* mycandrv)
 {
 
     while(1)
@@ -97,28 +98,37 @@ void sendmsg(drv::ICandriverserver* mycandrv,ImsgmethodPut* msgmetput)
         mycandrv->send(tekst);
         tekst.clear();
         usleep(100000);
-        std::cout<<"sprawdzam kierunek"<<msgmetput->checkdirection()<<std::endl;
-        change(msgmetput);
+        change();
     }
 
 }
 
-void change(ImsgmethodPut* msgmetput)
+void change()
 {
 
-    if(msgmetput->checkdirection())
+    if (direction )
     {
-        std::cout<<"if"<<msgmetput->checkdirection() <<std::endl;
-        temp+=1;
-        presure+=1;
-        rpm+=2;
+        if( temp<120 )
+        {
+            temp+=1;
+            presure+=1;
+            rpm+=2;
+        }
+        else
+            direction=0;
     }
     else
     {
-        std::cout<<"else"<< msgmetput->checkdirection()<<std::endl;
-        temp-=1;
-        presure-=1;
-        rpm-=2;
+        if(temp>23)
+        {
+            temp-=1;
+            presure-=1;
+            rpm-=2;
+        }
+        else
+            direction=1;
     }
+
+
 
 }

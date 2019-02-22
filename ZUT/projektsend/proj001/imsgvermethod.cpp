@@ -103,12 +103,6 @@ eErrorCodes ImsgmethodPut::show()
 
 }
 
-bool ImsgmethodPut::checkdirection()
-{
-
-    return direction;
-
-}
 
 }
 

@@ -13,7 +13,6 @@ class ImsgmethodPut
 public:
     eErrorCodes putMessage(std::string comingMessage);
     eErrorCodes show();
-    bool checkdirection();
 private:
     static eErrorCodes retEr;
     static unsigned long temp;
