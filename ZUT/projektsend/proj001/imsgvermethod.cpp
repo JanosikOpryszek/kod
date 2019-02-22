@@ -16,6 +16,7 @@ namespace drv
     int ImsgvermethodPut::temp=0;
     int ImsgvermethodPut::fpreasure=0;
     int ImsgvermethodPut::rmp=0;
+    std::string ImsgvermethodPut::spacee=" ";
 
 
 
@@ -57,32 +58,33 @@ namespace drv
     {
 
         std::system("clear");
-        std::cout<<"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"<<std::endl;
+        std::cout<<"**************************************************************************"<<std::endl;
         std::cout<<"coolant temp=";
         std::cout<<temp<<std::endl;
         std::cout<<"fuel preasure=";
         std::cout<<fpreasure<<std::endl;
         std::cout<<"engine RPM=";
         std::cout<<rmp<<std::endl;
-        std::cout<<"pres x Enter to exit";
+        std::cout<<"pres x Enter to exit"<<std::endl;
+        std::cout<<"---------------------------------------------------------------------------"<<std::endl;
 
-
-std::cout<<"        _nnnn_"<<std::endl;
-std::cout<<"       dGGGGMMb"<<std::endl;
-std::cout<<"      @p~qp~~qMb"<<std::endl;
-std::cout<<"      M|@||@) M|"<<std::endl;
-std::cout<<"      @,----.JM|"<<std::endl;
-std::cout<<"     JS^ __/  qKL"<<std::endl;
-std::cout<<"    dZP        qKRb"<<std::endl;
-std::cout<<"   dZP          qKKb"<<std::endl;
-std::cout<<"  fZP            SMMb"<<std::endl;
-std::cout<<"  HZM            MMMM"<<std::endl;
-std::cout<<"  FqM            MMMM"<<std::endl;
-std::cout<<"__| .         | dSqML"<<std::endl;
-std::cout<<"|    `.       | `'  Zq"<<std::endl;
-std::cout<<"_)       .___.,|     .'"<<std::endl;
-std::cout<<" ____   )MMMMMP|   .'"<<std::endl;
-std::cout<<"    `-'       `--' hjm"<<std::endl;
+spacee.append(" ");
+std::cout<<spacee<<"        _nnnn_"<<std::endl;
+std::cout<<spacee<<"       dGGGGMMb"<<std::endl;
+std::cout<<spacee<<"      @p~qp~~qMb"<<std::endl;
+std::cout<<spacee<<"      M|@||@) M|"<<std::endl;
+std::cout<<spacee<<"      @,----.JM|"<<std::endl;
+std::cout<<spacee<<"     JS^ __/  qKL"<<std::endl;
+std::cout<<spacee<<"    dZP        qKRb"<<std::endl;
+std::cout<<spacee<<"   dZP          qKKb"<<std::endl;
+std::cout<<spacee<<"  fZP            SMMb"<<std::endl;
+std::cout<<spacee<<"  HZM            MMMM"<<std::endl;
+std::cout<<spacee<<"  FqM            MMMM"<<std::endl;
+std::cout<<spacee<<"__| .         | dSqML"<<std::endl;
+std::cout<<spacee<<"|    `.       | `'  Zq"<<std::endl;
+std::cout<<spacee<<"_)       .___.,|     .'"<<std::endl;
+std::cout<<spacee<<" ____   )MMMMMP|   .'"<<std::endl;
+std::cout<<spacee<<"    `-'       `--' hjm"<<std::endl;
 return retEr;
 
     }

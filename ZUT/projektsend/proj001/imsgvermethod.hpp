@@ -7,6 +7,7 @@
 
 #include"imsgvermethod.h"
 #include"IMSGVerificator.h"
+#include<string>
 
 namespace drv
 {
@@ -18,6 +19,7 @@ class ImsgvermethodPut:public drv::Imsgvermethod, public pub::IMSGVerificator
     static int temp;
     static int fpreasure;
     static int rmp;
+    static std::string spacee;
     public:
     eErrorCodes putMessage(std::string comingMessage);
 

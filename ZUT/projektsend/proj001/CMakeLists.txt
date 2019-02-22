@@ -29,7 +29,7 @@ add_executable (pr
     Candriverserver.cpp
     Candriverserver.hpp
     eErrorCodes.h
-    IDriver.h
+    # IDriver.h
     # Iethernet.hpp
     ICandriverserver.cpp
     ICandriverserver.hpp
