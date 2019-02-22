@@ -97,6 +97,7 @@ void sendmsg(drv::ICandriverserver* mycandrv,ImsgmethodPut* msgmetput)
         mycandrv->send(tekst);
         tekst.clear();
         usleep(100000);
+        std::cout<<"sprawdzam kierunek"<<msgmetput->checkdirection()<<std::endl;
         change(msgmetput);
     }
 
@@ -104,6 +105,7 @@ void sendmsg(drv::ICandriverserver* mycandrv,ImsgmethodPut* msgmetput)
 
 void change(ImsgmethodPut* msgmetput)
 {
+
     if(msgmetput->checkdirection())
     {
         std::cout<<"if"<<msgmetput->checkdirection() <<std::endl;
