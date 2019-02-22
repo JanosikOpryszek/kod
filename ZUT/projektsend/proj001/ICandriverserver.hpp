@@ -1,8 +1,3 @@
-/// @file        <ICandriverserver.hpp>
-/// @ingroup     <drv>
-/// @brief       <interface of Can>
-
-
 #ifndef ICANDRIVERSERVER_HPP
 #define ICANDRIVERSERVER_HPP
 
@@ -22,9 +17,11 @@ namespace drv
         virtual eErrorCodes show() = 0;
         virtual eErrorCodes mRun() = 0;
         virtual eErrorCodes mStop() = 0;
+        /*
         virtual eErrorCodes mPause() = 0;
         virtual eErrorCodes mResume() = 0;
         virtual eErrorCodes deinit() = 0;
+        */
         virtual eErrorCodes send(std::string)=0;
     };
 

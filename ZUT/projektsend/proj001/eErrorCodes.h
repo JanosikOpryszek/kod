@@ -1,7 +1,3 @@
-/// @file        <eErrorCodes.h>
-/// @ingroup     <pub>
-/// @brief       <enum errorcodes>
-
 #ifndef EERRORCODES_H
 #define EERRORCODES_H
 

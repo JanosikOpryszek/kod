@@ -1,6 +1,3 @@
-/// @file        <Candriverserver.cpp>
-/// @ingroup     <drv>
-
 #include<stdlib.h>  //atoi
 #include <stdio.h>  //sprintf
 #include<pthread.h>
@@ -11,7 +8,7 @@
 #include<sys/socket.h> // AF_UNIX
 #include"Candriverserver.hpp"
 
-//uint16_t drv::Candriverserver::m_u16BuffSize=1024;
+
 char drv::Candriverserver::m_cBufferSS[ m_u16BuffSize ];      //send
 char drv::Candriverserver::m_cBufferRR[ m_u16BuffSize ];      //recieve
 char  drv::Candriverserver::m_cBufferTmp[m_u16BuffSize];
@@ -85,12 +82,6 @@ eErrorCodes drv::Candriverserver::show()
     return m_eRetEr;
 }
 
-eErrorCodes drv::Candriverserver::deinit()
-{
-    m_eRetEr=OK;
-    return m_eRetEr;
-}
-
 eErrorCodes drv::Candriverserver::mStop()
 {
     m_eRetEr=OK;
@@ -98,6 +89,15 @@ eErrorCodes drv::Candriverserver::mStop()
     m_LoggerRef.mLog_DBG(std::string("CANdriver DBG - got mStop, main loop stooped, ready to close- OK"));
     return m_eRetEr;
 }
+
+/*
+eErrorCodes drv::Candriverserver::deinit()
+{
+    m_eRetEr=OK;
+    return m_eRetEr;
+}
+
+
 
 
 eErrorCodes drv::Candriverserver::mResume()
@@ -117,7 +117,7 @@ eErrorCodes drv::Candriverserver::mPause()
     return m_eRetEr;
 }
 
-
+*/
 eErrorCodes drv::Candriverserver::mRun()
 {
 if(m_bWasRunned)
@@ -147,7 +147,7 @@ void *drv::Candriverserver::Work()
     while(m_bIsWorking)
     {
         /// @brief   mutex for pause & resume
-        pthread_mutex_unlock( &m_Mutexeth );
+                                                                 //pthread_mutex_unlock( &m_Mutexeth );
         memset( m_cBufferRR, 0, sizeof( m_cBufferRR ) );
         /// @brief recive checking if error
         if(recv( m_i32ServerSockfd, &m_soCanFrameRR, sizeof( struct can_frame ), 0)<0)
@@ -174,7 +174,7 @@ void *drv::Candriverserver::Work()
         m_cBufferRR[i+4]='\0';
         /// @brief CALL MSGVERYFICATOR INTERFACE to pass MSG
         m_MsgverRef.putMessage(std::string(m_cBufferRR));  //
-        pthread_mutex_lock( &m_Mutexeth );
+                                                                        //pthread_mutex_lock( &m_Mutexeth );
     }
     return 0;
 }

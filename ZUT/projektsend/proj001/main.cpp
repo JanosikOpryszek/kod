@@ -3,14 +3,12 @@
 #include<string>
 #include<pthread.h>
 #include<unistd.h>  // sleep
-
 #include <stdlib.h> // exit()             ??
 #include <string.h> // memset strlen
 #include <arpa/inet.h> // inet_pton inet_addr
 #include <sys/socket.h> // AF_UNIX
 #include <netinet/in.h> // sockaddr_in    ??
 #include"Candriverserver.hpp"
-//#include"Iethernet.hpp"
 #include"ICandriverserver.hpp"
 #include"imsgvermethod.hpp"
 #include"eErrorCodes.h"
@@ -20,11 +18,7 @@
 using namespace drv;
 
 
-
-
-
-int main (int    argc,
-          char **argv)
+int main ()
 {
 
 
@@ -34,8 +28,7 @@ srv::ILogger* loger=new Loger();
 
 drv::ICandriverserver* mycandrv=new Candriverserver(*loger,*msgmetput);
 mycandrv->show();
-//pthread_t thread_id;
-//pthread_create(&thread_id,NULL,&Ethernetdriverserver::initializess,myethserver);
+
 
 bool version;
 std::cout<<"Sending (car emulation)       press 0"<<std::endl;

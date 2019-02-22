@@ -1,19 +1,14 @@
-/// @file        <MSGveryficator.hpp>
-/// @ingroup     <drv>
-/// @brief       <MSGveryficator class>
+#ifndef MSGMETHODPUT_H
+#define MSGMETHODPUT_H
 
-#ifndef MSGVERYFICATOR_H
-#define MSGVERYFICATOR_H
 
-//#include"imsgvermethod.h"
-//#include"IMSGVerificator.h"
 #include"eErrorCodes.h"
 #include<string>
 
 namespace drv
 {
 
-class ImsgmethodPut//:public drv::Imsgvermethod, public pub::IMSGVerificator
+class ImsgmethodPut
     {
 
     static eErrorCodes retEr;

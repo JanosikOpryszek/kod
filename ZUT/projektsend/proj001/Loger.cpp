@@ -15,7 +15,7 @@
     {
 
     }
-
+/*
     eErrorCodes Loger::init()
     {
         errRet=OK;    
@@ -28,7 +28,7 @@
         return errRet;
     }
 
-
+*/
 
     eErrorCodes Loger::mLog_ERR(std::string a_strInput)
     {

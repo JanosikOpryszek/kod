@@ -1,8 +1,3 @@
-/// @file        <Candriverserver.hpp>
-/// @ingroup     <drv>
-/// @brief       <receive msg from Can>
-
-
 #ifndef CANDRIVERSERVER_HPP
 #define CANDRIVERSERVER_HPP
 
@@ -38,6 +33,7 @@ namespace drv
         //========================================
         eErrorCodes show();
 
+        /*
         //========================================
         /// @brief     <deinitialization!>
         /// @param     [IN]  <void>
@@ -61,7 +57,7 @@ namespace drv
         /// @return    <errorcode>
         //========================================
         eErrorCodes mPause();
-
+*/
         //========================================
         /// @brief     <deinit>
         /// @param     [IN]  <void>
