@@ -106,12 +106,14 @@ void change()
 {
     if(ImsgmethodPut::direction)
     {
+        std::cout<<"if"<<ImsgmethodPut::direction<<std::endl;
         temp+=1;
         presure+=10;
         rpm+=20;
     }
     else
     {
+        std::cout<<"else"<<ImsgmethodPut::direction<<std::endl;
         temp-=1;
         presure-=10;
         rpm-=20;
