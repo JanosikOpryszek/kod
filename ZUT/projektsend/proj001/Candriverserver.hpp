@@ -22,80 +22,26 @@ namespace drv
         /// @brief destructor
         ~Candriverserver();
         /// @brief mutex and thread variables
-        pthread_mutex_t m_Mutexeth;
+        //pthread_mutex_t m_Mutexeth;
         pthread_t m_Thread_id;
 
-        //========================================
-        /// @brief     <initialization!>
-        /// @param     [IN]  <void>
-        /// @param     [OUT] <enum errorcode>
-        /// @return    <errorcode>
-        //========================================
+
         eErrorCodes show();
 
-        /*
-        //========================================
-        /// @brief     <deinitialization!>
-        /// @param     [IN]  <void>
-        /// @param     [OUT] <enum errorcode>
-        /// @return    <errorcode>
-        //========================================
-        eErrorCodes deinit();
 
-        //========================================
-        /// @brief     <Resume after Pause, its not initialization!>
-        /// @param     [IN]  <void>
-        /// @param     [OUT] <enum errorcode>
-        /// @return    <errorcode>
-        //========================================
-        eErrorCodes mResume();
 
-        //========================================
-        /// @brief     <Pause on reset>
-        /// @param     [IN]  <void>
-        /// @param     [OUT] <enum errorcoed>
-        /// @return    <errorcode>
-        //========================================
-        eErrorCodes mPause();
-*/
-        //========================================
-        /// @brief     <deinit>
-        /// @param     [IN]  <void>
-        /// @param     [OUT] <enum-errorcode>
-        /// @return    <errorcode>
-        //========================================
         eErrorCodes mStop();
 
-        //========================================
-        /// @brief     <set conf and starts iner thread>
-        /// @param     [IN]  <void>
-        /// @param     [OUT] <enum-errorcode>
-        /// @return    <errorcode>
-        //========================================
+
         eErrorCodes mRun();
 
-        //========================================
-        /// @brief     <run from DrvMenager in pthread, its main working loop>
-        /// @param     [IN]  <void>
-        /// @param     [OUT] <enum-int>
-        /// @return    <errorcode>
-        //========================================
+
         void *Work(void);
 
-        //========================================
-        /// @brief     <initialize pthread run method>
-        /// @param     [IN]  <>
-        /// @param     [OUT] <>
-        /// @return    <>
-        //========================================
+
         static void *RunWork(void *);
 
-        //========================================
-        /// @brief     <send msg to ethernet>
-        /// @param     [IN]  <char array with msg>
-        /// @param     [OUT] <enumerrorcode>
-        /// @return    <errorcode>
-        //========================================
+
         eErrorCodes send(std::string);
 
         private:

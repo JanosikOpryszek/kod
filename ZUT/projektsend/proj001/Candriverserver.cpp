@@ -37,12 +37,13 @@ eErrorCodes drv::Candriverserver::show()
     if(!m_bWasInit)
     {
         /// @brief checking if error mutex init
+        /*
         if( (pthread_mutex_init ( &m_Mutexeth, 0))!=0)
         {
             m_LoggerRef.mLog_ERR(std::string("CANdriver ERR - init mutex init error - ERR"));
             m_eRetEr = DRIVER_ERROR;;
         }
-
+*/
         /// @brief 1 SOCKET CREATE for reciewe
         m_i32ServerSockfd = socket(PF_CAN, SOCK_RAW, CAN_RAW);
         if (m_i32ServerSockfd <0 )
@@ -90,34 +91,7 @@ eErrorCodes drv::Candriverserver::mStop()
     return m_eRetEr;
 }
 
-/*
-eErrorCodes drv::Candriverserver::deinit()
-{
-    m_eRetEr=OK;
-    return m_eRetEr;
-}
 
-
-
-
-eErrorCodes drv::Candriverserver::mResume()
-{
-    m_eRetEr=OK;
-    pthread_mutex_unlock( &m_Mutexeth );
-    m_LoggerRef.mLog_DBG(std::string("CANdriver DBG - got mResume, main loop unlocked - OK"));
-    return m_eRetEr;
-}
-
-
-eErrorCodes drv::Candriverserver::mPause()
-{
-    m_eRetEr=OK;
-    pthread_mutex_lock( &m_Mutexeth );
-    m_LoggerRef.mLog_DBG(std::string("CANdriver DBG - got mPause, main loop locked - OK"));
-    return m_eRetEr;
-}
-
-*/
 eErrorCodes drv::Candriverserver::mRun()
 {
 if(m_bWasRunned)
