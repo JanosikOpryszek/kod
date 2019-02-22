@@ -15,7 +15,7 @@
 namespace drv
 {
 
-    class ICandriverserver:public pub::IDriver
+    class ICandriverserver//:public pub::IDriver
     {
         public:
         /// @brief     <destructor>
