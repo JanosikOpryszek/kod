@@ -82,9 +82,11 @@ else
 
     char c;
     std::cout<<"press enter to exit! "<<std::endl;
-    std::cin>>c;
+    while(std::cin>>c)
+    {}
 
     std::cout<<"exited: "<<std::endl;
+    mycandrv->mStop();
 
 
 return 0;
