@@ -12,7 +12,7 @@ unsigned long ImsgmethodPut::temp=0;
 unsigned long  ImsgmethodPut::fpreasure=0;
 unsigned long  ImsgmethodPut::rmp=0;
 std::string ImsgmethodPut::spacee=" ";
-//bool ImsgmethodPut::direction=1;
+bool ImsgmethodPut::direction=1;
 
 
 
@@ -59,18 +59,18 @@ eErrorCodes ImsgmethodPut::show()
     std::cout<<fpreasure<<std::endl;
     std::cout<<"engine RPM=";
     std::cout<<rmp<<std::endl;
-    std::cout<<"direction= "<<ImsgmethodPut::direction<<".  Pres x Enter to exit. "<<std::endl;
+    std::cout<<"direction= "<<direction<<".  Pres x Enter to exit. "<<std::endl;
     std::cout<<"---------------------------------------------------------------------------"<<std::endl;
 
     //move picture
-    if (ImsgmethodPut::direction )
+    if (direction )
     {
         if( spacee.length()<50 )
         {
             spacee.append(" ");
         }
         else
-            ImsgmethodPut::direction=0;
+            direction=0;
     }
     else
     {
@@ -79,7 +79,7 @@ eErrorCodes ImsgmethodPut::show()
             spacee.erase(0,1);
         }
         else
-            ImsgmethodPut::direction=1;
+            direction=1;
     }
 
 
@@ -100,6 +100,13 @@ eErrorCodes ImsgmethodPut::show()
     std::cout<<spacee<<" ____   )MMMMMP|   .'"<<std::endl;
     std::cout<<spacee<<"    `-'       `--' hjm"<<std::endl;
     return retEr;
+
+}
+
+bool ImsgmethodPut::checkdirection()
+{
+
+    return direction;
 
 }
 

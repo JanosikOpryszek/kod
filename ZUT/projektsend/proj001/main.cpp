@@ -17,8 +17,8 @@
 
 using namespace drv;
 
-void sendmsg(drv::ICandriverserver*);
-void change();
+void sendmsg(drv::ICandriverserver*,ImsgmethodPut* );
+void change(ImsgmethodPut*);
 static char msgTmp[3];
 static int temp=23;
 static int presure=100;
@@ -43,8 +43,6 @@ int main ()
     std::cout<<"Receiving (tester emulation)  press 1: ";
     std::cin >> version;
 
-    ImsgmethodPut::direction=1;
-
 
     //if 1 only reading msg and show on cmd
     if(version)
@@ -55,7 +53,7 @@ int main ()
     else
     {
         std::cout<<"press Ctrl + C to exit! "<<std::endl;
-        sendmsg(mycandrv);
+        sendmsg(mycandrv,msgmetput);
     }
 
     //wait for key
@@ -73,7 +71,7 @@ int main ()
 }
 
 
-void sendmsg(drv::ICandriverserver* mycandrv)
+void sendmsg(drv::ICandriverserver* mycandrv,ImsgmethodPut* msgmetput)
 {
 
     while(1)
@@ -99,23 +97,23 @@ void sendmsg(drv::ICandriverserver* mycandrv)
         mycandrv->send(tekst);
         tekst.clear();
         usleep(100000);
-        change();
+        change(msgmetput);
     }
 
 }
 
-void change()
+void change(ImsgmethodPut* msgmetput)
 {
-    if(ImsgmethodPut::direction)
+    if(msgmetput->checkdirection())
     {
-        std::cout<<"if"<<ImsgmethodPut::direction<<std::endl;
+        std::cout<<"if"<<msgmetput->checkdirection() <<std::endl;
         temp+=1;
         presure+=10;
         rpm+=20;
     }
     else
     {
-        std::cout<<"else"<<ImsgmethodPut::direction<<std::endl;
+        std::cout<<"else"<< msgmetput->checkdirection()<<std::endl;
         temp-=1;
         presure-=10;
         rpm-=20;
