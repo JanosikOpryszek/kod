@@ -12,16 +12,16 @@
 namespace drv
 {
 
-    eErrorCodes ImsgvermethodPut::retEr;          //variable to return errorcode
-    int ImsgvermethodPut::temp=0;
-    int ImsgvermethodPut::fpreasure=0;
-    int ImsgvermethodPut::rmp=0;
-    std::string ImsgvermethodPut::spacee=" ";
-    bool ImsgvermethodPut::direction=1;
+    eErrorCodes ImsgmethodPut::retEr;          //variable to return errorcode
+    int ImsgmethodPut::temp=0;
+    int ImsgmethodPut::fpreasure=0;
+    int ImsgmethodPut::rmp=0;
+    std::string ImsgmethodPut::spacee=" ";
+    bool ImsgmethodPut::direction=1;
 
 
 
-    eErrorCodes ImsgvermethodPut::putMessage(std::string comingMessage)
+    eErrorCodes ImsgmethodPut::putMessage(std::string comingMessage)
     {
     retEr=OK;
 
@@ -55,7 +55,7 @@ namespace drv
     return retEr;
     }
 
-    eErrorCodes ImsgvermethodPut::show()
+    eErrorCodes ImsgmethodPut::show()
     {
 
         std::system("clear");

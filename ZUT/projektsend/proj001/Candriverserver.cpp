@@ -1,7 +1,6 @@
 /// @file        <Candriverserver.cpp>
 /// @ingroup     <drv>
-/// @brief       <receive msg from can>
-///
+
 #include<stdlib.h>  //atoi
 #include <stdio.h>  //sprintf
 #include<pthread.h>
@@ -19,7 +18,7 @@ char  drv::Candriverserver::m_cBufferTmp[m_u16BuffSize];
 char drv::Candriverserver::m_soCanName[] = "can0";
 
 
-drv::Candriverserver::Candriverserver(srv::ILogger &a_oLogger,drv::ImsgvermethodPut &a_oMSGver ):
+drv::Candriverserver::Candriverserver(srv::ILogger &a_oLogger,drv::ImsgmethodPut &a_oMSGver ):
     m_bIsWorking(true),
     m_bWasRunned(false),
     m_bWasInit(false),

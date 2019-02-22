@@ -13,7 +13,7 @@
 namespace drv
 {
 
-class ImsgvermethodPut//:public drv::Imsgvermethod, public pub::IMSGVerificator
+class ImsgmethodPut//:public drv::Imsgvermethod, public pub::IMSGVerificator
     {
 
     static eErrorCodes retEr;

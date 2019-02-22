@@ -29,11 +29,11 @@ int main (int    argc,
 
 
 
-ImsgvermethodPut* fakemsgveryficator=new ImsgvermethodPut();
-srv::ILogger* fakeloger=new Loger();
+ImsgmethodPut* msgmetput=new ImsgmethodPut();
+srv::ILogger* loger=new Loger();
 
-drv::ICandriverserver* myethserver2=new Candriverserver(*fakeloger,*fakemsgveryficator);
-myethserver2->show();
+drv::ICandriverserver* mycandrv=new Candriverserver(*loger,*msgmetput);
+mycandrv->show();
 //pthread_t thread_id;
 //pthread_create(&thread_id,NULL,&Ethernetdriverserver::initializess,myethserver);
 
@@ -47,7 +47,7 @@ sleep(1);
 
 if(version)
 {
-myethserver2->mRun();
+mycandrv->mRun();
 std::cout<<"reading messages (tester emulation)"<<std::endl;
 }
 else
@@ -63,21 +63,21 @@ else
         tekst="105#";
         sprintf(msgTmp,"%d",temp);    //sprintf - converts int to decimal base char array
         tekst+=msgTmp;
-        myethserver2->send(tekst);
+        mycandrv->send(tekst);
         tekst.clear();
         usleep(100000);
         //send fuler presure
         tekst="10a#";
         sprintf(msgTmp,"%d",presure);    //sprintf - converts int to decimal base char array
         tekst+=msgTmp;
-        myethserver2->send(tekst);
+        mycandrv->send(tekst);
         tekst.clear();
         usleep(100000);
         //send rpm
         tekst="10c#";
         sprintf(msgTmp,"%d",rpm);    //sprintf - converts int to decimal base char array
         tekst+=msgTmp;
-        myethserver2->send(tekst);
+        mycandrv->send(tekst);
         tekst.clear();
         usleep(100000);
 

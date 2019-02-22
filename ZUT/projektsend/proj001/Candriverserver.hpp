@@ -23,7 +23,7 @@ namespace drv
     class Candriverserver:public drv::ICandriverserver
     {
         public:
-        Candriverserver(srv::ILogger &a_oLogger,drv::ImsgvermethodPut &a_oMSGver);
+        Candriverserver(srv::ILogger &a_oLogger,drv::ImsgmethodPut &a_oMSGver);
         /// @brief destructor
         ~Candriverserver();
         /// @brief mutex and thread variables
@@ -133,7 +133,7 @@ namespace drv
 
         /// @brief     references to antoher objects
         srv::ILogger &m_LoggerRef;
-        drv::ImsgvermethodPut &m_MsgverRef;
+        drv::ImsgmethodPut &m_MsgverRef;
 
     };    //class prototypes
 
