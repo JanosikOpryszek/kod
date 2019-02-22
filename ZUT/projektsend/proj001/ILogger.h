@@ -17,8 +17,8 @@ public:
     virtual eErrorCodes deinit() = 0;
     virtual eErrorCodes mLog_ERR(std::string a_strInput) = 0;
     virtual eErrorCodes mLog_DBG(std::string a_strInput) = 0;
-    virtual eErrorCodes mLog_INF(std::string a_strInput) = 0;
-    virtual eErrorCodes mLog_WRN(std::string a_strInput) = 0;
+    //virtual eErrorCodes mLog_INF(std::string a_strInput) = 0;
+    //virtual eErrorCodes mLog_WRN(std::string a_strInput) = 0;
 };
 }
 #endif // ILOGGER_H

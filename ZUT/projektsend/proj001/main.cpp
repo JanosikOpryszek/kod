@@ -69,6 +69,7 @@ class Loger:public srv::ILogger
         return errRet;
     }
 
+    /*
     eErrorCodes mLog_INF(std::string a_strInput)
     {
         std::cout<<a_strInput<<std::endl;
@@ -84,7 +85,7 @@ class Loger:public srv::ILogger
         errRet=OK;
         return errRet;
     }
-
+*/
 
 };
 
@@ -113,7 +114,8 @@ myethserver2->init();
 //pthread_create(&thread_id,NULL,&Ethernetdriverserver::initializess,myethserver);
 
 bool version;
-std::cout<<"Sending (car emulation) press 0, receiving (tester emulation) press 1: ";
+std::cout<<"Sending (car emulation)       press 0"<<std::endl;
+std::cout<<"Receiving (tester emulation)  press 1: ";
 std::cin >> version;
 
 std::string tekst;
@@ -161,12 +163,11 @@ else
 }
 
 
+    char c;
+    std::cout<<"press enter to exit! "<<std::endl;
+    std::cin>>c;
 
-while(1)
-{
-
-}
-
+    std::cout<<"exited: "<<std::endl;
 
 
 return 0;
