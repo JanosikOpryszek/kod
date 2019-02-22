@@ -3,6 +3,7 @@
 #define LOGER_HPP
 
 #include"ILogger.h"
+#include"eErrorCodes.h"
 
 
 
