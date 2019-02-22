@@ -17,38 +17,56 @@
 
 using namespace drv;
 
+void sendmsg();
+static char msgTmp[3];
+static int temp=23;
+static int presure=100;
+static int rpm=200;
+static std::string tekst;
+static drv::ICandriverserver* mycandrv;
+
+
+
 
 int main ()
 {
+    ImsgmethodPut* msgmetput=new ImsgmethodPut();
+    srv::ILogger* loger=new Loger();
+
+    drv::ICandriverserver* mycandrv=new Candriverserver(*loger,*msgmetput);
+    mycandrv->init();
 
 
-
-ImsgmethodPut* msgmetput=new ImsgmethodPut();
-srv::ILogger* loger=new Loger();
-
-drv::ICandriverserver* mycandrv=new Candriverserver(*loger,*msgmetput);
-mycandrv->show();
+    bool version;
+    std::cout<<"Sending (car emulation)       press 0"<<std::endl;
+    std::cout<<"Receiving (tester emulation)  press 1: ";
+    std::cin >> version;
 
 
-bool version;
-std::cout<<"Sending (car emulation)       press 0"<<std::endl;
-std::cout<<"Receiving (tester emulation)  press 1: ";
-std::cin >> version;
+    //jesli 1 tylko odczyt msg czyli mRun
+    if(version)
+    {
+        mycandrv->mRun();
+        std::cout<<"reading messages (tester emulation)"<<std::endl;
+    }
+    //jesli 0 tylko wysylanie msg
+    else
+    {
+        sendmsg();
+    }
 
-std::string tekst;
-sleep(1);
 
-if(version)
-{
-mycandrv->mRun();
-std::cout<<"reading messages (tester emulation)"<<std::endl;
+    char c;
+    std::cout<<"press x + enter to exit! "<<std::endl;
+    std::cin>>c;
+    mycandrv->mStop();
+
+    return 0;
 }
-else
+
+
+void sendmsg()
 {
-    char msgTmp[3];
-    int temp=23;
-    int presure=100;
-    int rpm=200;
 
     while(1)
     {
@@ -73,26 +91,7 @@ else
         mycandrv->send(tekst);
         tekst.clear();
         usleep(100000);
-
-
-
     }
+
 }
-
-
-    char c;
-    std::cout<<"press x + enter to exit! "<<std::endl;
-    do
-    {}
-    while(std::cin>>c);
-
-
-    std::cout<<"exited: "<<std::endl;
-    mycandrv->mStop();
-
-
-return 0;
-}
-
-
 

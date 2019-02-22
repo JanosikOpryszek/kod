@@ -30,20 +30,13 @@ drv::Candriverserver::~Candriverserver()
 
 }
 
-eErrorCodes drv::Candriverserver::show()
+eErrorCodes drv::Candriverserver::init()
 {
     m_eRetEr=OK;
     /// @brief checking if was init before
     if(!m_bWasInit)
     {
-        /// @brief checking if error mutex init
-        /*
-        if( (pthread_mutex_init ( &m_Mutexeth, 0))!=0)
-        {
-            m_LoggerRef.mLog_ERR(std::string("CANdriver ERR - init mutex init error - ERR"));
-            m_eRetEr = DRIVER_ERROR;;
-        }
-*/
+
         /// @brief 1 SOCKET CREATE for reciewe
         m_i32ServerSockfd = socket(PF_CAN, SOCK_RAW, CAN_RAW);
         if (m_i32ServerSockfd <0 )
@@ -120,8 +113,7 @@ void *drv::Candriverserver::Work()
 
     while(m_bIsWorking)
     {
-        /// @brief   mutex for pause & resume
-                                                                 //pthread_mutex_unlock( &m_Mutexeth );
+
         memset( m_cBufferRR, 0, sizeof( m_cBufferRR ) );
         /// @brief recive checking if error
         if(recv( m_i32ServerSockfd, &m_soCanFrameRR, sizeof( struct can_frame ), 0)<0)
@@ -138,7 +130,6 @@ void *drv::Candriverserver::Work()
         m_cBufferRR[3]='#';
         /// @brief     check size of canMsg to iterate
         int size = m_soCanFrameRR.can_dlc;
-        //std::cout<<"data size ="<<size<<std::endl;
         int i=0;
         /// @brief iterate to write readed DATA to Buffer
         for (;i<size;i++)
@@ -148,7 +139,7 @@ void *drv::Candriverserver::Work()
         m_cBufferRR[i+4]='\0';
         /// @brief CALL MSGVERYFICATOR INTERFACE to pass MSG
         m_MsgverRef.putMessage(std::string(m_cBufferRR));  //
-                                                                        //pthread_mutex_lock( &m_Mutexeth );
+
     }
     return 0;
 }

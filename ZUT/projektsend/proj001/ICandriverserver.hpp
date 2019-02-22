@@ -12,15 +12,15 @@ namespace drv
     class ICandriverserver
     {
         public:
-        /// @brief     <destructor>
+        // <destructor>
         virtual ~ICandriverserver();
-        virtual eErrorCodes show() = 0;
+        virtual eErrorCodes init() = 0;
         virtual eErrorCodes mRun() = 0;
         virtual eErrorCodes mStop() = 0;
         virtual eErrorCodes send(std::string)=0;
     };
 
 
-}    //namespace drv
+}
 
 #endif

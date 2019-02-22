@@ -17,34 +17,27 @@ namespace drv
 {
     class Candriverserver:public drv::ICandriverserver
     {
-        public:
+    public:
         Candriverserver(srv::ILogger &a_oLogger,drv::ImsgmethodPut &a_oMSGver);
-        /// @brief destructor
+        // destructor
         ~Candriverserver();
-        /// @brief mutex and thread variables
-        //pthread_mutex_t m_Mutexeth;
+        // thread variables
         pthread_t m_Thread_id;
 
 
-        eErrorCodes show();
-
-
+        eErrorCodes init();
 
         eErrorCodes mStop();
 
-
         eErrorCodes mRun();
-
 
         void *Work(void);
 
-
         static void *RunWork(void *);
-
 
         eErrorCodes send(std::string);
 
-        private:
+    private:
         /// @brief  <Candriverserver copy constructor>
         Candriverserver(const Candriverserver &arg);
         /// @brief  <Candriverserver assignment constructor>
