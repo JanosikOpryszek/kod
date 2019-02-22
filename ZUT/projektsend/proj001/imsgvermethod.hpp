@@ -24,15 +24,8 @@ class ImsgvermethodPut//:public drv::Imsgvermethod, public pub::IMSGVerificator
     static bool direction;
     public:
     eErrorCodes putMessage(std::string comingMessage);
-
     eErrorCodes show();
-    /*
-    eErrorCodes deinit();
-    eErrorCodes mRun();
-    eErrorCodes mStop();
-    eErrorCodes mPause();
-    eErrorCodes mResume();
-    */
+
     };
 
 }     //namespace drv

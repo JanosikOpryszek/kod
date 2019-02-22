@@ -9,10 +9,7 @@ enum eErrorCodes
     {
     OK = 0,
     GENERAL_ERROR = 1,
-    DRIVER_ERROR = 1000,
-    SERVICE_ERROR = 1100,
-    RTE_ERROR = 1200,
-    SWC_ERROR = 1300
+    DRIVER_ERROR = 2
     };
 
 

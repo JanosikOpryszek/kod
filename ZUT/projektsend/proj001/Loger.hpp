@@ -17,9 +17,6 @@ class Loger:public srv::ILogger
     eErrorCodes deinit();
     eErrorCodes mLog_ERR(std::string a_strInput);
     eErrorCodes mLog_DBG(std::string a_strInput);
-    /*eErrorCodes mLog_INF(std::string a_strInput);
-    eErrorCodes mLog_WRN(std::string a_strInput);
-    */
     };
 
 

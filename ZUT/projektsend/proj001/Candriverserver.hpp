@@ -15,7 +15,6 @@
 #include<stdint.h>
 #include <sys/socket.h>
 #include"ICandriverserver.hpp"
-//#include"eEcuNum.h"
 #include"imsgvermethod.hpp"
 #include"ILogger.h"
 

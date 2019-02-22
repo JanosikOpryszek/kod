@@ -9,13 +9,12 @@
 
 
 #include <string>
-//#include "IDriver.h"
 #include "ILogger.h"
 #include "imsgvermethod.hpp"
 namespace drv
 {
 
-    class ICandriverserver//:public pub::IDriver
+    class ICandriverserver
     {
         public:
         /// @brief     <destructor>

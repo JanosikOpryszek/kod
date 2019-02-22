@@ -68,8 +68,26 @@ namespace drv
         std::cout<<rmp<<std::endl;
         std::cout<<"pres x Enter to exit"<<std::endl;
         std::cout<<"---------------------------------------------------------------------------"<<std::endl;
+if (direction )
+{
+    if( spacee.length()<50 )
+    {
+        spacee.append(" ");
+    }
+    else
+        direction=0;
+}
+else
+{
+    if(spacee.length()>2)
+    {
+        spacee.erase(0,1);
+    }
+    else
+        direction=1;
+}
 
-spacee.append(" ");
+
 std::cout<<spacee<<"        _nnnn_"<<std::endl;
 std::cout<<spacee<<"       dGGGGMMb"<<std::endl;
 std::cout<<spacee<<"      @p~qp~~qMb"<<std::endl;

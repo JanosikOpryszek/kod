@@ -44,24 +44,7 @@
         errRet=OK;    
         return errRet;
     }
-/*
-    eErrorCodes Loger::mLog_INF(std::string a_strInput)
-    {
-        std::cout<<a_strInput<<std::endl;
-        errRet=OK;    
-        return errRet;
-    }
 
-
-
-    eErrorCodes Loger::mLog_WRN(std::string a_strInput)
-    {
-        std::cout<<a_strInput<<std::endl;
-        errRet=OK;    
-        return errRet;
-    }
-
-*/
 
 
 

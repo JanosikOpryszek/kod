@@ -22,80 +22,6 @@ using namespace drv;
 
 
 
-/*
-
-class Loger:public srv::ILogger
-{
-
-    eErrorCodes errRet;
-
-    public:
-    Loger()
-    {
-    std::cout<<"Logger created"<<std::endl;
-    }
-
-    ~Loger()
-    {
-
-    }
-
-    eErrorCodes init()
-    {
-        errRet=OK;
-        return errRet;
-    }
-
-    eErrorCodes deinit()
-    {
-        errRet=OK;
-        return errRet;
-    }
-
-
-
-    eErrorCodes mLog_ERR(std::string a_strInput)
-    {
-        std::cout<<a_strInput<<std::endl;
-        errRet=OK;
-        return errRet;
-    }
-
-
-    eErrorCodes mLog_DBG(std::string a_strInput)
-    {
-        std::cout<<a_strInput<<std::endl;
-        errRet=OK;
-        return errRet;
-    }
-
-    /*
-    eErrorCodes mLog_INF(std::string a_strInput)
-    {
-        std::cout<<a_strInput<<std::endl;
-        errRet=OK;
-        return errRet;
-    }
-
-
-
-    eErrorCodes mLog_WRN(std::string a_strInput)
-    {
-        std::cout<<a_strInput<<std::endl;
-        errRet=OK;
-        return errRet;
-    }
-
-
-};
-
-
-*/
-
-
-
-
-
 
 int main (int    argc,
           char **argv)
@@ -105,9 +31,7 @@ int main (int    argc,
 
 ImsgvermethodPut* fakemsgveryficator=new ImsgvermethodPut();
 srv::ILogger* fakeloger=new Loger();
-//Candriverserver* myeth=new Candriverserver(*fakeloger,*fakemsgveryficator);
 
-//Iethernet* myethserver1=myeth;
 drv::ICandriverserver* myethserver2=new Candriverserver(*fakeloger,*fakemsgveryficator);
 myethserver2->show();
 //pthread_t thread_id;
