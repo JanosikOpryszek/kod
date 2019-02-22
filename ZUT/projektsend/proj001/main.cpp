@@ -108,13 +108,13 @@ void change()
     {
         temp+=1;
         presure+=10;
-        rpm+=100;
+        rpm+=20;
     }
     else
     {
         temp-=1;
         presure-=10;
-        rpm-=100;
+        rpm-=20;
     }
 
 }
