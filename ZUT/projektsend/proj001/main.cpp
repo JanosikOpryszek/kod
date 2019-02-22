@@ -17,13 +17,13 @@
 
 using namespace drv;
 
-void sendmsg();
+void sendmsg(drv::ICandriverserver*);
 static char msgTmp[3];
 static int temp=23;
 static int presure=100;
 static int rpm=200;
 static std::string tekst;
-static drv::ICandriverserver* mycandrv;
+
 
 
 
@@ -52,7 +52,7 @@ int main ()
     //jesli 0 tylko wysylanie msg
     else
     {
-        sendmsg();
+        sendmsg(mycandrv);
     }
 
 
@@ -65,7 +65,7 @@ int main ()
 }
 
 
-void sendmsg()
+void sendmsg(drv::ICandriverserver* mycandrv)
 {
 
     while(1)
