@@ -26,7 +26,7 @@ add_executable (pr
     Loger.hpp
     Loger.cpp
     main.cpp
-    IMSGVerificator.h
+    # IMSGVerificator.h
     Candriverserver.cpp
     Candriverserver.hpp
     eErrorCodes.h
@@ -36,7 +36,7 @@ add_executable (pr
     ICandriverserver.hpp
     imsgvermethod.cpp
     imsgvermethod.hpp
-    imsgvermethod.h
+    # imsgvermethod.h
     # eEcuNum.h
     # eStates.h
     )
