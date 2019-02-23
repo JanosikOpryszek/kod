@@ -20,9 +20,9 @@ using namespace drv;
 void sendmsg(drv::ICandriverserver* );
 void change();
 static char msgTmp[3];
-static int temp=23;
-static int presure=100;
-static int rpm=200;
+static int temp=0;
+static int presure=0;
+static int rpm=0;
 static bool direction=1;
 static std::string tekst;
 
@@ -53,7 +53,7 @@ int main ()
     //if 0 only sending msg (car emulation)
     else
     {
-        std::cout<<"press Ctrl + C to exit! "<<std::endl;
+
         sendmsg(mycandrv);
     }
 
@@ -77,6 +77,17 @@ void sendmsg(drv::ICandriverserver* mycandrv)
 
     while(1)
     {
+        std::system("clear");
+        std::cout<<"Engine started,sending: "<<std::endl;
+        std::cout<<"Temperature: "<<temp <<std::endl;
+        std::cout<<"Pressure: "<<presure<<std::endl;
+        std::cout<<"RMP: "<<rpm<<std::endl;
+        std::cout<<"Engine started,sending: "<<std::endl;
+        std::cout<<"Engine started,sending: "<<std::endl;
+        std::cout<<"Engine started,sending: "<<std::endl;
+        std::cout<<"----------------------- "<<std::endl;
+        std::cout<<"press Ctrl + C to exit! "<<std::endl;
+
         //send coolant temp
         tekst="105#";
         sprintf(msgTmp,"%d",temp);    //sprintf - converts int to decimal base char array
@@ -105,7 +116,6 @@ void sendmsg(drv::ICandriverserver* mycandrv)
 
 void change()
 {
-
     if (direction )
     {
         if( temp<120 )
@@ -128,7 +138,5 @@ void change()
         else
             direction=1;
     }
-
-
 
 }
