@@ -26,33 +26,33 @@ eErrorCodes ImsgmethodPut::putMessage(std::string comingMessage)
     {
     case '5': //coolant temp= A-40
     {
-        temp=std::stoul(comingMessage.substr(4,6),nullptr,10); //stoul conver string to int
+        temp=(std::stoul(comingMessage.substr(4,6),nullptr,10))-40; //stoul conver string to int
         show();
         break;
     }
-    case 'a':  //fuel presure
+    case 'a':  //fuel presure = 3*A
     {
-        fpreasure=std::stoul(comingMessage.substr(4,6),nullptr,10);   //stoul conver string to int
+        fpreasure=(std::stoul(comingMessage.substr(4,6),nullptr,10))*3;   //stoul conver string to int
         show();
         break;
     }
-    case 'c':   //engine rmp
+    case 'c':   //engine rmp = (256*A)/4
     {
-        rmp=std::stoul(comingMessage.substr(4,6),nullptr,10);   //stoul conver string to int
+        rmp=((std::stoul(comingMessage.substr(4,6),nullptr,10))*256)/4;   //stoul conver string to int
         show();
         break;
     }
 
-    case 'd':   //speed
+    case 'd':   //speed = A
     {
         speed=std::stoul(comingMessage.substr(4,6),nullptr,10);   //stoul conver string to int
         show();
         break;
     }
 
-    case 'f':   //airtemp
+    case 'f':   //airtemp = A-40
     {
-        airtemp=std::stoul(comingMessage.substr(4,6),nullptr,10);   //stoul conver string to int
+        airtemp=(std::stoul(comingMessage.substr(4,6),nullptr,10))-40;   //stoul conver string to int
         show();
         break;
     }
@@ -110,7 +110,7 @@ eErrorCodes ImsgmethodPut::show()
     std::cout<<spacee<<"    dZP        qKRb"<<std::endl;
     std::cout<<spacee<<"   dZP          qKKb"<<std::endl;
     std::cout<<spacee<<"  fZP   SPEED:   SMMb"<<std::endl;
-    std::cout<<spacee<<"  HZM  "<<speed<<"  MMMM"<<std::endl;
+    std::cout<<spacee<<"  HZM     "<<speed<<"    MMMM"<<std::endl;
     std::cout<<spacee<<"  FqM            MMMM"<<std::endl;
     std::cout<<spacee<<"__| .         | dSqML"<<std::endl;
     std::cout<<spacee<<"|    `.       | `'  Zq"<<std::endl;

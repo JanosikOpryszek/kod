@@ -92,21 +92,21 @@ void sendmsg(drv::ICandriverserver* mycandrv)
         std::cout<<"press Ctrl + C to exit! "<<std::endl;
         //send coolant temp
         tekst="105#";
-        sprintf(msgTmp,"%d",temp);    //sprintf - converts int to decimal base char array
+        sprintf(msgTmp,"%d",(temp+40));    //sprintf - converts int to decimal base char array
         tekst+=msgTmp;
         mycandrv->send(tekst);
         tekst.clear();
         usleep(100000);
         //send fuler presure
         tekst="10a#";
-        sprintf(msgTmp,"%d",presure);
+        sprintf(msgTmp,"%d",(presure/3));
         tekst+=msgTmp;
         mycandrv->send(tekst);
         tekst.clear();
         usleep(100000);
         //send rpm
         tekst="10c#";
-        sprintf(msgTmp,"%d",rpm);
+        sprintf(msgTmp,"%d",(4*(rpm/256)));
         tekst+=msgTmp;
         mycandrv->send(tekst);
         tekst.clear();
@@ -120,7 +120,7 @@ void sendmsg(drv::ICandriverserver* mycandrv)
         usleep(100000);
         //send airtemp
         tekst="10f#";
-        sprintf(msgTmp,"%d",airtemp);
+        sprintf(msgTmp,"%d",(airtemp+40));
         tekst+=msgTmp;
         mycandrv->send(tekst);
         tekst.clear();
