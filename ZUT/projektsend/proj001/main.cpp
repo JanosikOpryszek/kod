@@ -17,13 +17,15 @@
 
 using namespace drv;
 
-void sendmsg(drv::ICandriverserver* );
-void change();
+void sendmsg(drv::ICandriverserver* );  //function for emulating ECU (sending)
+void change();                          //changing values using direction
 static char msgTmp[3];
-static int temp=0;
+static int temp=0;                      //values
 static int presure=0;
 static int rpm=0;
-static bool direction=1;
+static int speed=0;
+static int airtemp=0;
+static bool direction=1;                //1=increase values 0=decrease values during change
 static std::string tekst;
 
 
@@ -32,10 +34,12 @@ static std::string tekst;
 
 int main ()
 {
-    ImsgmethodPut* msgmetput=new ImsgmethodPut();
-    ILogger* loger=new Loger();
+    //creating objects
+    ImsgmethodPut* msgmetput=new ImsgmethodPut();   //obj for display recieved messages
+    ILogger* loger=new Loger();                     //obj for logging errors etc
+    ICandriverserver* mycandrv=new Candriverserver(*loger,*msgmetput);  //obj of can drv
 
-    ICandriverserver* mycandrv=new Candriverserver(*loger,*msgmetput);
+    //init can drv
     mycandrv->init();
 
 
@@ -45,19 +49,18 @@ int main ()
     std::cin >> version;
 
 
-    //if 1 only reading msg and show on cmd
+    //if true - reading msg and display on commandline
     if(version)
     {
         mycandrv->mRun();
     }
-    //if 0 only sending msg (car emulation)
+    //if 0 - sending msg (car emulation)
     else
     {
-
         sendmsg(mycandrv);
     }
 
-    //wait for key
+    //wait for key to exit
     char c;
     std::cout<<"press x + enter to exit! "<<std::endl;
     std::cin>>c;
@@ -82,12 +85,10 @@ void sendmsg(drv::ICandriverserver* mycandrv)
         std::cout<<"Temperature: "<<temp <<std::endl;
         std::cout<<"Pressure: "<<presure<<std::endl;
         std::cout<<"RMP: "<<rpm<<std::endl;
-        std::cout<<"Engine started,sending: "<<std::endl;
-        std::cout<<"Engine started,sending: "<<std::endl;
-        std::cout<<"Engine started,sending: "<<std::endl;
+        std::cout<<"Speed: "<<speed<<std::endl;
+        std::cout<<"Airtemp: "<<airtemp<<std::endl;
         std::cout<<"----------------------- "<<std::endl;
         std::cout<<"press Ctrl + C to exit! "<<std::endl;
-
         //send coolant temp
         tekst="105#";
         sprintf(msgTmp,"%d",temp);    //sprintf - converts int to decimal base char array
@@ -97,18 +98,33 @@ void sendmsg(drv::ICandriverserver* mycandrv)
         usleep(100000);
         //send fuler presure
         tekst="10a#";
-        sprintf(msgTmp,"%d",presure);    //sprintf - converts int to decimal base char array
+        sprintf(msgTmp,"%d",presure);
         tekst+=msgTmp;
         mycandrv->send(tekst);
         tekst.clear();
         usleep(100000);
         //send rpm
         tekst="10c#";
-        sprintf(msgTmp,"%d",rpm);    //sprintf - converts int to decimal base char array
+        sprintf(msgTmp,"%d",rpm);
         tekst+=msgTmp;
         mycandrv->send(tekst);
         tekst.clear();
         usleep(100000);
+        //send speed
+        tekst="10d#";
+        sprintf(msgTmp,"%d",speed);
+        tekst+=msgTmp;
+        mycandrv->send(tekst);
+        tekst.clear();
+        usleep(100000);
+        //send airtemp
+        tekst="10f#";
+        sprintf(msgTmp,"%d",airtemp);
+        tekst+=msgTmp;
+        mycandrv->send(tekst);
+        tekst.clear();
+        usleep(100000);
+        //change values
         change();
     }
 
@@ -123,6 +139,8 @@ void change()
             temp+=1;
             presure+=1;
             rpm+=2;
+            speed+=10;
+            airtemp+=1;
         }
         else
             direction=0;
@@ -134,6 +152,8 @@ void change()
             temp-=1;
             presure-=1;
             rpm-=2;
+            speed-=10;
+            airtemp-=1;
         }
         else
             direction=1;

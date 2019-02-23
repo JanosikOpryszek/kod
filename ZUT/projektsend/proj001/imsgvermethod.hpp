@@ -16,8 +16,10 @@ public:
 private:
     static eErrorCodes retEr;
     static unsigned long temp;
-    static unsigned long  fpreasure;
-    static unsigned long  rmp;
+    static unsigned long fpreasure;
+    static unsigned long rmp;
+    static unsigned long speed;
+    static unsigned long airtemp;
     static std::string spacee;
     static bool direction;
 

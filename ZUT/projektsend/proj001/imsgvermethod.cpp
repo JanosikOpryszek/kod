@@ -9,8 +9,10 @@ namespace drv
 
 eErrorCodes ImsgmethodPut::retEr;          //variable to return errorcode
 unsigned long ImsgmethodPut::temp=0;
-unsigned long  ImsgmethodPut::fpreasure=0;
-unsigned long  ImsgmethodPut::rmp=0;
+unsigned long ImsgmethodPut::fpreasure=0;
+unsigned long ImsgmethodPut::rmp=0;
+unsigned long ImsgmethodPut::speed=0;
+unsigned long ImsgmethodPut::airtemp=0;
 std::string ImsgmethodPut::spacee=" ";
 bool ImsgmethodPut::direction=1;
 
@@ -40,6 +42,20 @@ eErrorCodes ImsgmethodPut::putMessage(std::string comingMessage)
         show();
         break;
     }
+
+    case 'd':   //speed
+    {
+        speed=std::stoul(comingMessage.substr(4,6),nullptr,10);   //stoul conver string to int
+        show();
+        break;
+    }
+
+    case 'f':   //airtemp
+    {
+        airtemp=std::stoul(comingMessage.substr(4,6),nullptr,10);   //stoul conver string to int
+        show();
+        break;
+    }
     default:
         break;
 
@@ -53,14 +69,16 @@ eErrorCodes ImsgmethodPut::show()
 
     std::system("clear");
     std::cout<<"---------------------------------------------------------------------------"<<std::endl;
-    std::cout<<"coolant temp=";
+    std::cout<<"                          coolant temp=";
     std::cout<<temp<<std::endl;
-    std::cout<<"fuel preasure=";
+    std::cout<<"                          fuel preasure=";
     std::cout<<fpreasure<<std::endl;
-    std::cout<<"engine RPM=";
+    std::cout<<"                          engine RPM=";
     std::cout<<rmp<<std::endl;
-    std::cout<<"direction= "<<direction<<".  Pres x Enter to exit. "<<std::endl;
-    std::cout<<"---------------------------------------------------------------------------"<<std::endl;
+    std::cout<<"                          air temp=";
+    std::cout<<airtemp<<std::endl;
+    std::cout<<"Pres x Enter to exit. "<<std::endl;
+
 
     //move picture
     if (direction )
@@ -91,14 +109,15 @@ eErrorCodes ImsgmethodPut::show()
     std::cout<<spacee<<"     JS^ __/  qKL"<<std::endl;
     std::cout<<spacee<<"    dZP        qKRb"<<std::endl;
     std::cout<<spacee<<"   dZP          qKKb"<<std::endl;
-    std::cout<<spacee<<"  fZP            SMMb"<<std::endl;
-    std::cout<<spacee<<"  HZM            MMMM"<<std::endl;
+    std::cout<<spacee<<"  fZP   SPEED:   SMMb"<<std::endl;
+    std::cout<<spacee<<"  HZM  "<<speed<<"  MMMM"<<std::endl;
     std::cout<<spacee<<"  FqM            MMMM"<<std::endl;
     std::cout<<spacee<<"__| .         | dSqML"<<std::endl;
     std::cout<<spacee<<"|    `.       | `'  Zq"<<std::endl;
     std::cout<<spacee<<"_)       .___.,|     .'"<<std::endl;
     std::cout<<spacee<<" ____   )MMMMMP|   .'"<<std::endl;
     std::cout<<spacee<<"    `-'       `--' hjm"<<std::endl;
+    std::cout<<"---------------------------------------------------------------------------"<<std::endl;
     return retEr;
 
 }
