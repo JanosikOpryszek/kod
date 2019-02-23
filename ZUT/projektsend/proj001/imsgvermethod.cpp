@@ -69,15 +69,15 @@ eErrorCodes ImsgmethodPut::show()
 
     std::system("clear");
     std::cout<<"---------------------------------------------------------------------------"<<std::endl;
-    std::cout<<"                          coolant temp=";
+    std::cout<<"                          Coolant temp=";
     std::cout<<temp<<std::endl;
-    std::cout<<"                          fuel preasure=";
+    std::cout<<"                          Fuel preasure=";
     std::cout<<fpreasure<<std::endl;
-    std::cout<<"                          engine RPM=";
+    std::cout<<"                          Engine RPM=";
     std::cout<<rmp<<std::endl;
-    std::cout<<"                          air temp=";
+    std::cout<<"                          Air temp=";
     std::cout<<airtemp<<std::endl;
-    std::cout<<"Pres x Enter to exit. "<<std::endl;
+    std::cout<<std::endl;
 
 
     //move picture
@@ -117,7 +117,7 @@ eErrorCodes ImsgmethodPut::show()
     std::cout<<spacee<<"_)       .___.,|     .'"<<std::endl;
     std::cout<<spacee<<" ____   )MMMMMP|   .'"<<std::endl;
     std::cout<<spacee<<"    `-'       `--' hjm"<<std::endl;
-    std::cout<<"---------------------------------------------------------------------------"<<std::endl;
+    std::cout<<"Pres x Enter to exit.------------------------------------------------------"<<std::endl;
     return retEr;
 
 }

@@ -20,11 +20,11 @@ using namespace drv;
 void sendmsg(drv::ICandriverserver* );  //function for emulating ECU (sending)
 void change();                          //changing values using direction
 static char msgTmp[3];
-static int temp=0;                      //values
+static int temp=23;                      //values
 static int presure=0;
 static int rpm=0;
 static int speed=0;
-static int airtemp=0;
+static int airtemp=23;
 static bool direction=1;                //1=increase values 0=decrease values during change
 static std::string tekst;
 
@@ -82,11 +82,12 @@ void sendmsg(drv::ICandriverserver* mycandrv)
     {
         std::system("clear");
         std::cout<<"Engine started,sending: "<<std::endl;
-        std::cout<<"Temperature: "<<temp <<std::endl;
-        std::cout<<"Pressure: "<<presure<<std::endl;
-        std::cout<<"RMP: "<<rpm<<std::endl;
+        std::cout<<"----------------------- "<<std::endl;
+        std::cout<<"Coolant temp: "<<temp <<std::endl;
+        std::cout<<"Fuel pressure: "<<presure<<std::endl;
+        std::cout<<"Engine RMP: "<<rpm<<std::endl;
         std::cout<<"Speed: "<<speed<<std::endl;
-        std::cout<<"Airtemp: "<<airtemp<<std::endl;
+        std::cout<<"Air temp: "<<airtemp<<std::endl;
         std::cout<<"----------------------- "<<std::endl;
         std::cout<<"press Ctrl + C to exit! "<<std::endl;
         //send coolant temp
@@ -140,7 +141,7 @@ void change()
             presure+=1;
             rpm+=2;
             speed+=10;
-            airtemp+=1;
+
         }
         else
             direction=0;
@@ -153,7 +154,7 @@ void change()
             presure-=1;
             rpm-=2;
             speed-=10;
-            airtemp-=1;
+
         }
         else
             direction=1;
