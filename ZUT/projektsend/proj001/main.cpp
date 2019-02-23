@@ -22,7 +22,7 @@ void change();                          //changing values using direction
 static char msgTmp[3];
 static int temp=23;                      //values
 static int presure=0;
-static int rpm=0;
+static int rpm=200;
 static int speed=0;
 static int airtemp=23;
 static bool direction=1;                //1=increase values 0=decrease values during change
@@ -139,8 +139,8 @@ void change()
         {
             temp+=1;
             presure+=1;
-            rpm+=2;
-            speed+=10;
+            rpm+=50;
+            speed+=1;
 
         }
         else
@@ -152,8 +152,8 @@ void change()
         {
             temp-=1;
             presure-=1;
-            rpm-=2;
-            speed-=10;
+            rpm-=50;
+            speed-=1;
 
         }
         else
