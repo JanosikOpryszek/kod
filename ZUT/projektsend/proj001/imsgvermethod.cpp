@@ -1,5 +1,6 @@
 #include<string>
 #include<iostream>
+#include <locale>
 #include<unistd.h>  // sleep
 #include"imsgvermethod.hpp"
 
@@ -22,38 +23,56 @@ eErrorCodes ImsgmethodPut::putMessage(std::string comingMessage)
 {
     retEr=OK;
 
+    std::locale loc;
+
     switch (comingMessage[2] )
     {
     case '5': //coolant temp= A-40
     {
+
+        if(std::isdigit(comingMessage.substr(4,6),loc))
+        {
         temp=(std::stoul(comingMessage.substr(4,6),nullptr,10))-40; //stoul conver string to int
         show();
+        }
         break;
     }
     case 'a':  //fuel presure = 3*A
     {
+        if(std::isdigit(comingMessage.substr(4,6),loc))
+        {
         fpreasure=(std::stoul(comingMessage.substr(4,6),nullptr,10))*3;   //stoul conver string to int
         show();
+        }
         break;
     }
     case 'c':   //engine rmp = (256*A)/4
     {
+        if(std::isdigit(comingMessage.substr(4,6),loc))
+        {
         rmp=((std::stoul(comingMessage.substr(4,6),nullptr,10))*256)/4;   //stoul conver string to int
         show();
+        }
         break;
     }
 
     case 'd':   //speed = A
     {
+        if(std::isdigit(comingMessage.substr(4,6),loc))
+        {
         speed=std::stoul(comingMessage.substr(4,6),nullptr,10);   //stoul conver string to int
         show();
+        }
         break;
     }
 
     case 'f':   //airtemp = A-40
     {
+        if(std::isdigit(comingMessage.substr(4,6),loc))
+        {
         airtemp=(std::stoul(comingMessage.substr(4,6),nullptr,10))-40;   //stoul conver string to int
         show();
+        }
         break;
     }
     default:
