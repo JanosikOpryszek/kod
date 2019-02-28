@@ -76,6 +76,95 @@ eErrorCodes ImsgmethodPut::putMessage(std::string comingMessage)
             break;
         }
     }
+    else if(isdigit(nr1)&&isdigit(nr2))
+    {
+
+        switch (comingMessage[2] )
+        {
+        case '5': //coolant temp= A-40
+        {
+            temp=(std::stoul(comingMessage.substr(4,5),nullptr,10))-40; //stoul conver string to int
+            show();
+            break;
+        }
+        case 'a':  //fuel presure = 3*A
+        {
+            fpreasure=(std::stoul(comingMessage.substr(4,5),nullptr,10))*3;   //stoul conver string to int            show();
+            break;
+        }
+        case 'c':   //engine rmp = (256*A)/4
+        {
+            rmp=((std::stoul(comingMessage.substr(4,5),nullptr,10))*256)/4;   //stoul conver string to int
+            show();
+            break;
+        }
+
+        case 'd':   //speed = A
+        {
+            speed=std::stoul(comingMessage.substr(4,5),nullptr,10);   //stoul conver string to int
+            show();
+            break;
+        }
+
+        case 'f':   //airtemp = A-40
+        {
+            airtemp=(std::stoul(comingMessage.substr(4,5),nullptr,10))-40;   //stoul conver string to int
+            show();
+            break;
+        }
+        default:
+            break;
+        }
+    }
+    else if(isdigit(nr1))
+    {
+
+        switch (comingMessage[2] )
+        {
+        case '5': //coolant temp= A-40
+        {
+            temp=(std::stoul(comingMessage.substr(4,4),nullptr,10))-40; //stoul conver string to int
+            show();
+            break;
+        }
+        case 'a':  //fuel presure = 3*A
+        {
+            fpreasure=(std::stoul(comingMessage.substr(4,4),nullptr,10))*3;   //stoul conver string to int            show();
+            break;
+        }
+        case 'c':   //engine rmp = (256*A)/4
+        {
+            rmp=((std::stoul(comingMessage.substr(4,4),nullptr,10))*256)/4;   //stoul conver string to int
+            show();
+            break;
+        }
+
+        case 'd':   //speed = A
+        {
+            speed=std::stoul(comingMessage.substr(4,4),nullptr,10);   //stoul conver string to int
+            show();
+            break;
+        }
+
+        case 'f':   //airtemp = A-40
+        {
+            airtemp=(std::stoul(comingMessage.substr(4,4),nullptr,10))-40;   //stoul conver string to int
+            show();
+            break;
+        }
+        default:
+            break;
+        }
+    }
+
+
+
+
+
+
+
+
+
 
 return retEr;
 }
