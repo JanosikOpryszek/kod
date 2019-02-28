@@ -29,11 +29,11 @@ eErrorCodes ImsgmethodPut::putMessage(std::string comingMessage)
     char nr1=chararray[0];
     char nr2=chararray[1];
     char nr3=chararray[2];
-
+/*
     std::cout<<"substring= "<<comingMessage.substr(4,6)<<std::endl;
     std::cout<<"chararray= "<<chararray<<std::endl;
     std::cout<<"nr1="<<nr1<<"nr2="<<nr2<<"nr3="<<nr3<<std::endl;
-
+*/
 
     if(isdigit(nr1)&&isdigit(nr2)&&isdigit(nr3))
     {
