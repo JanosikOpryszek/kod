@@ -23,14 +23,19 @@ eErrorCodes ImsgmethodPut::putMessage(std::string comingMessage)
 {
     retEr=OK;
 
-    std::locale loc;
+    //std::locale loc;
     std::string strin=comingMessage.substr(4,6);
     const char * chararray=strin.c_str();
     char nr1=chararray[0];
     char nr2=chararray[1];
     char nr3=chararray[2];
 
-    if(isdigit(nr1,loc))  //&&isdigit(nr2,loc)&&isdigit(nr3,loc)
+    std::cout<<"substring= "<<comingMessage.substr(4,6)<<std::endl;
+    std::cout<<"chararray= "<<chararray<<std::endl;
+    std::cout<<"nr1="<<nr1<<"nr2="<<nr2<<"nr3="<<nr3<<std::endl;
+
+
+    if(isdigit(nr1)&&isdigit(nr2)&&isdigit(nr3))
     {
 
         switch (comingMessage[2] )
