@@ -30,7 +30,7 @@ eErrorCodes ImsgmethodPut::putMessage(std::string comingMessage)
     char nr2=chararray[1];
     char nr3=chararray[2];
 
-    if(isdigit(nr1,loc)&&isdigit(nr2,loc)&&isdigit(nr3,loc))
+    if(isdigit(nr1,loc))  //&&isdigit(nr2,loc)&&isdigit(nr3,loc)
     {
 
         switch (comingMessage[2] )
