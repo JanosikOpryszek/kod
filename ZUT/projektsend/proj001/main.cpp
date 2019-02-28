@@ -42,7 +42,7 @@ int main ()
     //init can drv
     mycandrv->init();
 
-
+/*
     bool version;
     std::cout<<"Sending (car emulation)       press 0"<<std::endl;
     std::cout<<"Receiving (tester emulation)  press 1: ";
@@ -56,9 +56,9 @@ int main ()
     }
     //if 0 - sending msg (car emulation)
     else
-    {
+    {*/
         sendmsg(mycandrv);
-    }
+    //}
 
     //wait for key to exit
     char c;
