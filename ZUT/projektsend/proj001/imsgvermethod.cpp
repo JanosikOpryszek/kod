@@ -24,61 +24,53 @@ eErrorCodes ImsgmethodPut::putMessage(std::string comingMessage)
     retEr=OK;
 
     std::locale loc;
+    std::string strin=comingMessage.substr(4,6);
+    const char * chararray=strin.c_str();
+    char nr1=chararray[0];
+    char nr2=chararray[1];
+    char nr3=chararray[2];
 
-    switch (comingMessage[2] )
-    {
-    case '5': //coolant temp= A-40
+    if(isdigit(nr1,loc)&&isdigit(nr2,loc)&&isdigit(nr3,loc))
     {
 
-        if(std::isdigit(comingMessage.substr(4,6),loc))
+        switch (comingMessage[2] )
         {
-        temp=(std::stoul(comingMessage.substr(4,6),nullptr,10))-40; //stoul conver string to int
-        show();
-        }
-        break;
-    }
-    case 'a':  //fuel presure = 3*A
-    {
-        if(std::isdigit(comingMessage.substr(4,6),loc))
+        case '5': //coolant temp= A-40
         {
-        fpreasure=(std::stoul(comingMessage.substr(4,6),nullptr,10))*3;   //stoul conver string to int
-        show();
+            temp=(std::stoul(comingMessage.substr(4,6),nullptr,10))-40; //stoul conver string to int
+            show();
+            break;
         }
-        break;
-    }
-    case 'c':   //engine rmp = (256*A)/4
-    {
-        if(std::isdigit(comingMessage.substr(4,6),loc))
+        case 'a':  //fuel presure = 3*A
         {
-        rmp=((std::stoul(comingMessage.substr(4,6),nullptr,10))*256)/4;   //stoul conver string to int
-        show();
+            fpreasure=(std::stoul(comingMessage.substr(4,6),nullptr,10))*3;   //stoul conver string to int
+            show();
+            break;
         }
-        break;
-    }
+        case 'c':   //engine rmp = (256*A)/4
+        {
+            rmp=((std::stoul(comingMessage.substr(4,6),nullptr,10))*256)/4;   //stoul conver string to int
+            show();
+            break;
+        }
 
-    case 'd':   //speed = A
-    {
-        if(std::isdigit(comingMessage.substr(4,6),loc))
+        case 'd':   //speed = A
         {
-        speed=std::stoul(comingMessage.substr(4,6),nullptr,10);   //stoul conver string to int
-        show();
+            speed=std::stoul(comingMessage.substr(4,6),nullptr,10);   //stoul conver string to int
+            show();
+            break;
         }
-        break;
-    }
 
-    case 'f':   //airtemp = A-40
-    {
-        if(std::isdigit(comingMessage.substr(4,6),loc))
+        case 'f':   //airtemp = A-40
         {
-        airtemp=(std::stoul(comingMessage.substr(4,6),nullptr,10))-40;   //stoul conver string to int
-        show();
+            airtemp=(std::stoul(comingMessage.substr(4,6),nullptr,10))-40;   //stoul conver string to int
+            show();
+            break;
         }
-        break;
+        default:
+            break;
+        }
     }
-    default:
-        break;
-
-}
 
 return retEr;
 }
