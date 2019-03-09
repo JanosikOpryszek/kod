@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1552148035 source:c:\users\user\kod\klasy\main.cpp
+	<iostream>
+	"klasy.hpp"
+
+1552147858 c:\users\user\kod\klasy\klasy.hpp
+	<iostream>
+	<string>
+
+1552147884 source:c:\users\user\kod\klasy\klasy.cpp
+	<iostream>
+	<string>
+	<memory>
+	"klasy.hpp"
+
